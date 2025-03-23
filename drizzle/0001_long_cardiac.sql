@@ -1,0 +1,1 @@
+ALTER TABLE "course_progress" ADD CONSTRAINT "course_progress_user_id_user_progress_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user_progress"("user_id") ON DELETE cascade ON UPDATE no action;
