@@ -3,14 +3,9 @@
 import { usePathname } from "next/navigation";
 import { SidebarItem } from "./sidebar-item";
 import { ThemeToggle } from "./theme-toggle";
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
-import { Loader } from "lucide-react";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
+import { useEffect, useState, ReactNode } from "react";
 
 type Props = {
   className?: string;
@@ -19,6 +14,29 @@ type Props = {
 export const Sidebar = ({ className }: Props) => {
   const pathname = usePathname();
   const { user } = useUser();
+  const [courseTitle, setCourseTitle] = useState<string | null>(null);
+
+  // Fetch active course info
+  useEffect(() => {
+    const fetchUserProgress = async () => {
+      try {
+        const response = await fetch('/api/user-progress');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.courseTitle) {
+            setCourseTitle(data.courseTitle);
+          } else {
+            setCourseTitle(null);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch active course:", error);
+        setCourseTitle(null);
+      }
+    };
+
+    fetchUserProgress();
+  }, [pathname]); // Re-fetch when pathname changes
 
   return (
     <div className={cn(
@@ -26,12 +44,9 @@ export const Sidebar = ({ className }: Props) => {
       className
     )}>
       <div className="flex items-center justify-between py-4">
-        <ClerkLoading>
-          <Loader className="h-5 w-5 animate-spin text-muted-foreground" />
-        </ClerkLoading>
-        <ClerkLoaded>
+        <div>
           <UserButton afterSignOutUrl="/" />
-        </ClerkLoaded>
+        </div>
         <ThemeToggle />
       </div>
       <div className="flex flex-col gap-y-2 flex-1">
@@ -41,6 +56,14 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/learn.svg"
           active={pathname === "/learn"}
         />
+        {courseTitle && (
+          <SidebarItem
+            label={`${courseTitle} Alphabet`}
+            href="/alphabet"
+            iconSrc="/alphabet.svg"
+            active={pathname === "/alphabet"}
+          />
+        )}
         <SidebarItem
           label="Leaderboard"
           href="/leaderboard"
