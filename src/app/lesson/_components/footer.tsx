@@ -77,12 +77,11 @@ export const Footer = ({
             size="lg"
             disabled={disabled}
             className={cn(
-              "rounded-xl text-lg font-bold text-white shadow-md transition-all",
-              "bg-blue-800 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600",
+              "rounded-xl bg-blue-800 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-bold shadow-md",
               disabled && "opacity-50 cursor-not-allowed bg-blue-300 dark:bg-blue-900"
             )}
           >
-            Check
+            Continue
           </Button>
         )}
         {status === "completed" && showFinish && (

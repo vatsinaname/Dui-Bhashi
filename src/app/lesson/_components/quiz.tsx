@@ -11,7 +11,6 @@ import { challenges, courses, courseProgress, challengeOptions } from "../../../
 import { Footer } from "./footer";
 import { ResultCard } from "./result-card";
 import { useHeartsModal } from "../../../store/use-hearts-modal";
-import { CourseType, UserProgressType, CourseProgressType } from "../../../types";
 import { usePracticeModal } from "../../../store/use-practice-modal";
 import { upsertChallengeProgress } from "../../../actions/challenge-progress";
 import { reduceHearts } from "../../../db/user-progress";
@@ -26,6 +25,11 @@ import Link from 'next/link';
 
 type ChallengeType = typeof challenges.$inferSelect;
 type ChallengeOptionType = typeof challengeOptions.$inferSelect;
+type CourseType = typeof courses.$inferSelect;
+type UserProgressType = {
+  hearts: number;
+  activeCourse: CourseType;
+};
 
 interface QuizProps {
   challenge: ChallengeType & {
@@ -59,6 +63,7 @@ export const Quiz = ({
   const [showConfetti, setShowConfetti] = useState(false);
   const [hearts, setHearts] = useState(userProgress?.hearts ?? 5);
   const [questionNumber, setQuestionNumber] = useState(1);
+  const [hasReducedHeartForCurrentQuestion, setHasReducedHeartForCurrentQuestion] = useState(false);
   const totalQuestionsPerLesson = 10;
   const [percentage, setPercentage] = useState(() => {
     return challenge?.completed ? 100 : 0;
@@ -142,17 +147,42 @@ export const Quiz = ({
       } else {
         const audio = new Audio("/incorrect.wav");
         audio.play().catch(console.error);
-        await reduceHearts(challenge.id);
-        setHearts(prev => prev - 1);
-        toast.error("Incorrect answer! You lost a heart.", {
-          position: "top-center",
-          duration: 1500,
-        });
-        if (hearts <= 1) {
-          openHeartsModal();
-          return;
+        
+        // Only reduce hearts if this is the first wrong attempt for this question
+        if (!hasReducedHeartForCurrentQuestion) {
+          // First, update the local state immediately
+          const newHeartCount = hearts - 1;
+          setHearts(newHeartCount);
+          setHasReducedHeartForCurrentQuestion(true);
+          
+          // Then persist to database
+          await reduceHearts(challenge.id);
+          
+          toast.error("Incorrect answer! You lost a heart.", {
+            position: "top-center",
+            duration: 1500,
+          });
+          
+          // Check using the updated count
+          if (newHeartCount <= 0) {
+            openHeartsModal();
+            return;
+          }
+        } else {
+          // Still show an error toast but don't mention heart loss
+          toast.error("Incorrect answer! Try again.", {
+            position: "top-center",
+            duration: 1500,
+          });
         }
       }
+      return;
+    }
+
+    // If the answer was wrong, reset the state to allow retrying the same question
+    if (isCorrect === false) {
+      setSelectedOption(null);
+      setIsCorrect(null);
       return;
     }
 
@@ -169,13 +199,17 @@ export const Quiz = ({
           
           setSelectedOption(null);
           setIsCorrect(null);
-          setQuestionNumber(prev => prev + 1);
-          setPercentage(prev => Math.min(100, (questionNumber * 10)));
+          setQuestionNumber((prev) => prev + 1);
+          setPercentage((prev) => Math.min(100, (questionNumber * 10)));
+          
+          // Reset the heart reduction tracker for the new question
+          setHasReducedHeartForCurrentQuestion(false);
+          
           onFinish();
         })
         .catch(() => toast.error("Something went wrong"));
     });
-  }, [selectedOption, isCorrect, challenge.id, correctOption, hearts, questionNumber, openHeartsModal, onFinish]);
+  }, [selectedOption, isCorrect, challenge.id, correctOption, hearts, questionNumber, hasReducedHeartForCurrentQuestion, openHeartsModal, onFinish]);
 
   useKey("Enter", () => {
     void onContinue();

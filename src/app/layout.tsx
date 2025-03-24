@@ -20,6 +20,38 @@ export const metadata: Metadata = {
   },
 };
 
+// This function generates a script to prevent theme flash
+function ThemeScript() {
+  // Using template literals to create the script content
+  const codeToRunOnClient = `
+    (function() {
+      try {
+        const storageKey = "dui-bhashi-theme";
+        const theme = localStorage.getItem(storageKey) || "light";
+        const root = document.documentElement;
+        
+        root.classList.remove('light', 'dark');
+        
+        if (theme === "system") {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.classList.add(systemTheme);
+        } else {
+          root.classList.add(theme);
+        }
+      } catch (e) {
+        console.error("Theme initialization failed:", e);
+      }
+    })();
+  `;
+
+  return (
+    <script
+      dangerouslySetInnerHTML={{ __html: codeToRunOnClient }}
+      suppressHydrationWarning
+    />
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,6 +60,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <ThemeScript />
+        </head>
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"
