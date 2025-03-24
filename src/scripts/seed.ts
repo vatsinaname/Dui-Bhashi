@@ -556,6 +556,7 @@ const main = async () => {
       // Determine if it's Telugu or Kannada based on lesson ID
       const lessonId = challenge.lessonId;
       const isTeluguLesson = lessonId <= lessons[9].id; // First 10 lessons are Telugu
+      const isKannadaLesson = lessonId > lessons[9].id && lessonId <= lessons[19].id; // Next 10 lessons are Kannada
       
       const options = isTeluguLesson 
         ? createTeluguOptions(challenge.id, question)
@@ -684,13 +685,21 @@ const main = async () => {
       if (challengesForLesson.length === 0) {
         console.log(`Found lesson ${lesson.id} (${lesson.title}) without challenges. Adding challenges now...`);
         
-        // Determine if it's Telugu or Kannada based on the title
-        const isTeluguLesson = lesson.title.includes("Telugu") || (!lesson.title.includes("Kannada") && lesson.id < 150);
+        // Get the unit for this lesson to determine if it's Telugu or Kannada
+        const unit = await db.query.units.findFirst({
+          where: eq(schema.units.id, lesson.unitId)
+        });
+        
+        // Determine if it's Telugu or Kannada based on the unit's courseId
+        const isTeluguLesson = unit?.courseId === courses[0].id || lesson.title.includes("Telugu");
+        const isKannadaLesson = unit?.courseId === courses[1].id || lesson.title.includes("Kannada");
+        
+        console.log(`Lesson ${lesson.id} (${lesson.title}) is ${isTeluguLesson ? 'Telugu' : isKannadaLesson ? 'Kannada' : 'Unknown'}`);
         
         let newChallenges: any[] = [];
         
         // For Lesson 164 and any other problematic Telugu lessons that have Kannada content
-        if (lesson.id === 164 || (lesson.title.toLowerCase().includes("telugu") && isTeluguLesson)) {
+        if (lesson.id === 164 || (lesson.title.toLowerCase().includes("palatal") && isTeluguLesson)) {
           console.log(`Creating Telugu-specific challenges for lesson ${lesson.id}: ${lesson.title}`);
           
           if (lesson.title.includes("Palatal Consonants")) {
@@ -701,205 +710,32 @@ const main = async () => {
               { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'chha'?", order: 2 },
               { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'ja'?", order: 3 },
               { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'jha'?", order: 4 },
-              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'ña'?", order: 5 },
-              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'చ'?", order: 6 },
-              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఛ'?", order: 7 },
-              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'జ'?", order: 8 },
-              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఝ'?", order: 9 },
-              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఞ'?", order: 10 }
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'చ'?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఛ'?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'జ'?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఝ'?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which letter makes a 'ch' sound in Telugu?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which letter makes a 'j' sound in Telugu?", order: 10 }
             ]).returning();
-            
-            // Create options for each challenge
-            for (const challenge of challenges) {
-              switch (challenge.order) {
-                case 1:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "చ", correct: true },
-                    { challengeId: challenge.id, text: "ఛ", correct: false },
-                    { challengeId: challenge.id, text: "జ", correct: false },
-                    { challengeId: challenge.id, text: "ఝ", correct: false }
-                  ]);
-                  break;
-                case 2:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ఛ", correct: true },
-                    { challengeId: challenge.id, text: "చ", correct: false },
-                    { challengeId: challenge.id, text: "జ", correct: false },
-                    { challengeId: challenge.id, text: "ఝ", correct: false }
-                  ]);
-                  break;
-                case 3:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "జ", correct: true },
-                    { challengeId: challenge.id, text: "చ", correct: false },
-                    { challengeId: challenge.id, text: "ఛ", correct: false },
-                    { challengeId: challenge.id, text: "ఝ", correct: false }
-                  ]);
-                  break;
-                case 4:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ఝ", correct: true },
-                    { challengeId: challenge.id, text: "చ", correct: false },
-                    { challengeId: challenge.id, text: "ఛ", correct: false },
-                    { challengeId: challenge.id, text: "జ", correct: false }
-                  ]);
-                  break;
-                case 5:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ఞ", correct: true },
-                    { challengeId: challenge.id, text: "చ", correct: false },
-                    { challengeId: challenge.id, text: "ఛ", correct: false },
-                    { challengeId: challenge.id, text: "జ", correct: false }
-                  ]);
-                  break;
-                case 6:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "cha as in 'church'", correct: true },
-                    { challengeId: challenge.id, text: "ka as in 'karma'", correct: false },
-                    { challengeId: challenge.id, text: "ta as in 'top'", correct: false },
-                    { challengeId: challenge.id, text: "pa as in 'park'", correct: false }
-                  ]);
-                  break;
-                case 7:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "chha as in 'church house'", correct: true },
-                    { challengeId: challenge.id, text: "kha as in 'khaki'", correct: false },
-                    { challengeId: challenge.id, text: "tha as in 'thumb'", correct: false },
-                    { challengeId: challenge.id, text: "pha as in 'phone'", correct: false }
-                  ]);
-                  break;
-                case 8:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ja as in 'jar'", correct: true },
-                    { challengeId: challenge.id, text: "ga as in 'garden'", correct: false },
-                    { challengeId: challenge.id, text: "da as in 'dark'", correct: false },
-                    { challengeId: challenge.id, text: "ba as in 'bark'", correct: false }
-                  ]);
-                  break;
-                case 9:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "jha as in 'hedgehog'", correct: true },
-                    { challengeId: challenge.id, text: "gha as in 'ghost'", correct: false },
-                    { challengeId: challenge.id, text: "dha as in 'dharma'", correct: false },
-                    { challengeId: challenge.id, text: "bha as in 'bhakti'", correct: false }
-                  ]);
-                  break;
-                case 10:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "nya as in 'canyon'", correct: true },
-                    { challengeId: challenge.id, text: "nga as in 'sing'", correct: false },
-                    { challengeId: challenge.id, text: "na as in 'name'", correct: false },
-                    { challengeId: challenge.id, text: "ma as in 'mother'", correct: false }
-                  ]);
-                  break;
-              }
-            }
-          }
-          // Generic fallback for other Telugu lessons
-          else {
-            console.log(`Adding improved generic Telugu challenges for lesson ${lesson.id} (${lesson.title})`);
-            
+
+            newChallenges = challenges;
+          } else {
+            // Fallback for other Telugu lessons
             newChallenges = await db.insert(schema.challenges).values([
-              { lessonId: lesson.id, type: "SELECT", question: "Select the correct Telugu character", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu character is this?", order: 1 },
               { lessonId: lesson.id, type: "SELECT", question: "How do you write this sound in Telugu?", order: 2 },
-              { lessonId: lesson.id, type: "SELECT", question: "What is the correct Telugu pronunciation?", order: 3 },
-              { lessonId: lesson.id, type: "SELECT", question: "Choose the Telugu word for this meaning", order: 4 },
-              { lessonId: lesson.id, type: "SELECT", question: "Match this Telugu character to its sound", order: 5 },
-              { lessonId: lesson.id, type: "SELECT", question: "Identify the Telugu character in this word", order: 6 },
-              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu letter makes this sound?", order: 7 },
-              { lessonId: lesson.id, type: "SELECT", question: "Find the correct Telugu translation", order: 8 },
-              { lessonId: lesson.id, type: "SELECT", question: "What does this Telugu character represent?", order: 9 },
-              { lessonId: lesson.id, type: "SELECT", question: "Select the proper Telugu word for this context", order: 10 }
+              { lessonId: lesson.id, type: "SELECT", question: "What is the correct pronunciation of this Telugu character?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which of these is a Telugu character?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match the Telugu character to its pronunciation", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "What sound does this Telugu character make?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu character makes this sound?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Identify the correct Telugu character", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is this Telugu character called?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct Telugu character for this word", order: 10 }
             ]).returning();
-            
-            // Create meaningful Telugu options for generic challenges
-            for (const challenge of newChallenges) {
-              switch (challenge.order) {
-                case 1:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "అ", correct: true },
-                    { challengeId: challenge.id, text: "ಅ", correct: false },
-                    { challengeId: challenge.id, text: "अ", correct: false },
-                    { challengeId: challenge.id, text: "அ", correct: false }
-                  ]);
-                  break;
-                case 2:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ఇ", correct: true },
-                    { challengeId: challenge.id, text: "ಇ", correct: false },
-                    { challengeId: challenge.id, text: "इ", correct: false },
-                    { challengeId: challenge.id, text: "இ", correct: false }
-                  ]);
-                  break;
-                case 3:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ka as in 'karma'", correct: true },
-                    { challengeId: challenge.id, text: "ca as in 'cat'", correct: false },
-                    { challengeId: challenge.id, text: "fa as in 'far'", correct: false },
-                    { challengeId: challenge.id, text: "ja as in 'jar'", correct: false }
-                  ]);
-                  break;
-                case 4:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "నేను (I/me)", correct: true },
-                    { challengeId: challenge.id, text: "ನಾನು (I/me)", correct: false },
-                    { challengeId: challenge.id, text: "मैं (I/me)", correct: false },
-                    { challengeId: challenge.id, text: "நான் (I/me)", correct: false }
-                  ]);
-                  break;
-                case 5:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "క = ka", correct: true },
-                    { challengeId: challenge.id, text: "ಕ = ka", correct: false },
-                    { challengeId: challenge.id, text: "क = ka", correct: false },
-                    { challengeId: challenge.id, text: "க = ka", correct: false }
-                  ]);
-                  break;
-                case 6:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ల in పిల్లి (cat)", correct: true },
-                    { challengeId: challenge.id, text: "ప in పిల్లి (cat)", correct: false },
-                    { challengeId: challenge.id, text: "ి in పిల్లి (cat)", correct: false },
-                    { challengeId: challenge.id, text: "ి in పిల్లి (cat)", correct: false }
-                  ]);
-                  break;
-                case 7:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "ర (ra)", correct: true },
-                    { challengeId: challenge.id, text: "ಡ (da)", correct: false },
-                    { challengeId: challenge.id, text: "ल (la)", correct: false },
-                    { challengeId: challenge.id, text: "க (ka)", correct: false }
-                  ]);
-                  break;
-                case 8:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "మంచి (Good)", correct: true },
-                    { challengeId: challenge.id, text: "ಒಳ್ಳೆಯ (Good)", correct: false },
-                    { challengeId: challenge.id, text: "अच्छा (Good)", correct: false },
-                    { challengeId: challenge.id, text: "நல்ல (Good)", correct: false }
-                  ]);
-                  break;
-                case 9:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "The sound 'ma' as in 'mother'", correct: true },
-                    { challengeId: challenge.id, text: "The sound 'sa' as in 'song'", correct: false },
-                    { challengeId: challenge.id, text: "The sound 'ta' as in 'top'", correct: false },
-                    { challengeId: challenge.id, text: "The sound 'pa' as in 'park'", correct: false }
-                  ]);
-                  break;
-                case 10:
-                  await db.insert(schema.challengeOptions).values([
-                    { challengeId: challenge.id, text: "నమస్కారము", correct: true },
-                    { challengeId: challenge.id, text: "ನಮಸ್ಕಾರ", correct: false },
-                    { challengeId: challenge.id, text: "नमस्ते", correct: false },
-                    { challengeId: challenge.id, text: "வணக்கம்", correct: false }
-                  ]);
-                  break;
-              }
-            }
           }
         }
-        else if (lesson.id === 94 || (lesson.title.toLowerCase().includes("sibilant") && lesson.title.toLowerCase().includes("kannada"))) {
+        else if (lesson.id === 94 || (lesson.title.toLowerCase().includes("sibilant") && isKannadaLesson)) {
           // Special case for Lesson 94 (Kannada Sibilants & Aspirate)
           console.log(`Adding specific challenges for lesson ${lesson.id} (Kannada Sibilants & Aspirate)`);
           newChallenges = await db.insert(schema.challenges).values([
@@ -914,7 +750,7 @@ const main = async () => {
             { lessonId: lesson.id, type: "SELECT", question: "Which letter is used for the 'ha' sound in Kannada?", order: 9 },
             { lessonId: lesson.id, type: "SELECT", question: "Which of these is NOT a sibilant in Kannada?", order: 10 }
           ]).returning();
-        } else if (lesson.id === 124 || (lesson.title.toLowerCase().includes("semivowel") && lesson.title.toLowerCase().includes("telugu"))) {
+        } else if (lesson.id === 124 || (lesson.title.toLowerCase().includes("semivowel") && isTeluguLesson)) {
           // Special case for Lesson 124 (might be Telugu Semivowels)
           console.log(`Adding specific challenges for lesson ${lesson.id} (Telugu Semivowels)`);
           newChallenges = await db.insert(schema.challenges).values([
@@ -930,34 +766,236 @@ const main = async () => {
             { lessonId: lesson.id, type: "SELECT", question: "Which letter makes an 'r' sound in Telugu?", order: 10 }
           ]).returning();
         } else if (isTeluguLesson) {
-          // Generic Telugu challenges for any other Telugu lessons
-          console.log(`Adding generic Telugu challenges for lesson ${lesson.id} (${lesson.title})`);
-          newChallenges = await db.insert(schema.challenges).values([
-            { lessonId: lesson.id, type: "SELECT", question: "Which Telugu character represents this sound?", order: 1 },
-            { lessonId: lesson.id, type: "SELECT", question: "How do you write this sound in Telugu?", order: 2 },
-            { lessonId: lesson.id, type: "SELECT", question: "What is the correct pronunciation of this Telugu character?", order: 3 },
-            { lessonId: lesson.id, type: "SELECT", question: "Which of these is a Telugu character?", order: 4 },
-            { lessonId: lesson.id, type: "SELECT", question: "Match the Telugu character to its pronunciation", order: 5 },
-            { lessonId: lesson.id, type: "SELECT", question: "What sound does this Telugu character make?", order: 6 },
-            { lessonId: lesson.id, type: "SELECT", question: "Which Telugu character makes this sound?", order: 7 },
-            { lessonId: lesson.id, type: "SELECT", question: "Identify the correct Telugu character", order: 8 },
-            { lessonId: lesson.id, type: "SELECT", question: "What is this Telugu character called?", order: 9 },
-            { lessonId: lesson.id, type: "SELECT", question: "Choose the correct Telugu character for this word", order: 10 }
-          ]).returning();
+          // Instead of generic challenges, create specific meaningful Telugu challenges based on lesson title
+          console.log(`Adding specific Telugu challenges for lesson ${lesson.id} (${lesson.title})`);
+          
+          if (lesson.title.toLowerCase().includes("vowel")) {
+            // Telugu vowel-specific challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu vowel shown here?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match the Telugu vowel to its sound", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How is this Telugu vowel pronounced?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct transliteration for this Telugu vowel", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu word contains this vowel sound?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "Is this a short or long vowel in Telugu?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the name of this Telugu vowel?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which vowel comes after this in the Telugu alphabet?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the word that begins with this Telugu vowel", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which of these is NOT a Telugu vowel?", order: 10 }
+            ]).returning();
+          } 
+          else if (lesson.title.toLowerCase().includes("consonant")) {
+            // Telugu consonant-specific challenges
+            let consonantType = "";
+            if (lesson.title.toLowerCase().includes("velar")) {
+              consonantType = "velar (క-వర్గం)";
+            } else if (lesson.title.toLowerCase().includes("palatal")) {
+              consonantType = "palatal (చ-వర్గం)";
+            } else if (lesson.title.toLowerCase().includes("retroflex")) {
+              consonantType = "retroflex (ట-వర్గం)";
+            } else if (lesson.title.toLowerCase().includes("dental")) {
+              consonantType = "dental (త-వర్గం)";
+            } else if (lesson.title.toLowerCase().includes("labial")) {
+              consonantType = "labial (ప-వర్గం)";
+            } else {
+              consonantType = "consonant";
+            }
+            
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: `Which is the Telugu ${consonantType} consonant shown here?`, order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: `Match this Telugu ${consonantType} consonant to its sound`, order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: `How is this Telugu ${consonantType} consonant pronounced?`, order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: `Select the correct transliteration for this Telugu ${consonantType} consonant`, order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which Telugu word contains this ${consonantType} consonant?`, order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: `Is this consonant aspirated or unaspirated in Telugu?`, order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: `What is the name of this Telugu ${consonantType} consonant?`, order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which ${consonantType} consonant comes after this in the Telugu alphabet?`, order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: `Select the word that begins with this Telugu ${consonantType} consonant`, order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which of these is NOT a Telugu ${consonantType} consonant?`, order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("conversation") || lesson.title.toLowerCase().includes("phrase")) {
+            // Telugu conversation/phrases challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'hello' in Telugu?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'నమస్కారం' mean in English?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct Telugu phrase for 'How are you?'", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'మీరు ఎలా ఉన్నారు?' mean?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the Telugu phrase for 'My name is...'", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the meaning of 'నాకు తెలుగు నేర్చుకోవాలనుంది'?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct phrase for 'Thank you' in Telugu", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ధన్యవాదాలు' mean?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'goodbye' in Telugu?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'శుభోదయం' mean in English?", order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("script") || lesson.title.toLowerCase().includes("alphabet")) {
+            // Telugu script/alphabet challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Telugu script derived from?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "How many vowels are in the Telugu alphabet?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How many consonants are in the Telugu alphabet?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is special about Telugu script compared to other Indian scripts?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which of these is a unique feature of Telugu script?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How are vowel signs attached to consonants in Telugu?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is a 'gunintam' in Telugu script?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which direction is Telugu written in?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "In what century did the modern Telugu script develop?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What do Telugu speakers call their language and script?", order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("number") || lesson.title.toLowerCase().includes("counting")) {
+            // Telugu numbers challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Telugu word for 'one'?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct number for 'రెండు'", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'five' in Telugu?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'పది' mean?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu word for 'twenty'?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct number for 'నూరు'", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say '50' in Telugu?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Telugu word for 'hundred'?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you express 'first' (ordinal) in Telugu?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is special about the number system in Telugu?", order: 10 }
+            ]).returning();
+          }
+          else {
+            // Default meaningful Telugu challenges for any other Telugu lesson
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu letter makes this sound?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you write this Telugu character correctly?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match the Telugu letter to its sound", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the meaning of this Telugu word?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct Telugu translation", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How would you say this phrase in Telugu?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu word best completes this sentence?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the grammatical function of this Telugu suffix?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct form of this Telugu verb", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu dialect is this word from?", order: 10 }
+            ]).returning();
+          }
+        } else if (isKannadaLesson) {
+          // Instead of generic challenges, create specific meaningful Kannada challenges based on lesson title
+          console.log(`Adding specific Kannada challenges for lesson ${lesson.id} (${lesson.title})`);
+          
+          if (lesson.title.toLowerCase().includes("vowel")) {
+            // Kannada vowel-specific challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Kannada vowel shown here?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match the Kannada vowel to its sound", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How is this Kannada vowel pronounced?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct transliteration for this Kannada vowel", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Kannada word contains this vowel sound?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "Is this a short or long vowel in Kannada?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the name of this Kannada vowel?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which vowel comes after this in the Kannada alphabet?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the word that begins with this Kannada vowel", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which of these is NOT a Kannada vowel?", order: 10 }
+            ]).returning();
+          } 
+          else if (lesson.title.toLowerCase().includes("consonant")) {
+            // Kannada consonant-specific challenges
+            let consonantType = "";
+            if (lesson.title.toLowerCase().includes("velar")) {
+              consonantType = "velar (ಕವರ್ಗ)";
+            } else if (lesson.title.toLowerCase().includes("palatal")) {
+              consonantType = "palatal (ಚವರ್ಗ)";
+            } else if (lesson.title.toLowerCase().includes("retroflex")) {
+              consonantType = "retroflex (ಟವರ್ಗ)";
+            } else if (lesson.title.toLowerCase().includes("dental")) {
+              consonantType = "dental (ತವರ್ಗ)";
+            } else if (lesson.title.toLowerCase().includes("labial")) {
+              consonantType = "labial (ಪವರ್ಗ)";
+            } else {
+              consonantType = "consonant";
+            }
+            
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: `Which is the Kannada ${consonantType} consonant shown here?`, order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: `Match this Kannada ${consonantType} consonant to its sound`, order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: `How is this Kannada ${consonantType} consonant pronounced?`, order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: `Select the correct transliteration for this Kannada ${consonantType} consonant`, order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which Kannada word contains this ${consonantType} consonant?`, order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: `Is this consonant aspirated or unaspirated in Kannada?`, order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: `What is the name of this Kannada ${consonantType} consonant?`, order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which ${consonantType} consonant comes after this in the Kannada alphabet?`, order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: `Select the word that begins with this Kannada ${consonantType} consonant`, order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: `Which of these is NOT a Kannada ${consonantType} consonant?`, order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("conversation") || lesson.title.toLowerCase().includes("phrase")) {
+            // Kannada conversation/phrases challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'hello' in Kannada?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ನಮಸ್ಕಾರ' mean in English?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct Kannada phrase for 'How are you?'", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ಹೇಗಿದ್ದೀರಾ?' mean?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the Kannada phrase for 'My name is...'", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the meaning of 'ನನಗೆ ಕನ್ನಡ ಕಲಿಯಬೇಕು'?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct phrase for 'Thank you' in Kannada", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ಧನ್ಯವಾದಗಳು' mean?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'goodbye' in Kannada?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ಶುಭ ದಿನ' mean in English?", order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("script") || lesson.title.toLowerCase().includes("alphabet")) {
+            // Kannada script/alphabet challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Kannada script derived from?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "How many vowels are in the Kannada alphabet?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How many consonants are in the Kannada alphabet?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is special about Kannada script compared to other Indian scripts?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which of these is a unique feature of Kannada script?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How are vowel signs attached to consonants in Kannada?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is a 'vattakshara' in Kannada script?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which direction is Kannada written in?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "In what century did the modern Kannada script develop?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What do Kannada speakers call their language and script?", order: 10 }
+            ]).returning();
+          }
+          else if (lesson.title.toLowerCase().includes("number") || lesson.title.toLowerCase().includes("counting")) {
+            // Kannada numbers challenges
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Kannada word for 'one'?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct number for 'ಎರಡು'", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say 'five' in Kannada?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does 'ಹತ್ತು' mean?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Kannada word for 'twenty'?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct number for 'ನೂರು'", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you say '50' in Kannada?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the Kannada word for 'hundred'?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you express 'first' (ordinal) in Kannada?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is special about the number system in Kannada?", order: 10 }
+            ]).returning();
+          }
+          else {
+            // Default meaningful Kannada challenges for any other Kannada lesson
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Which Kannada letter makes this sound?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you write this Kannada character correctly?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match the Kannada letter to its sound", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the meaning of this Kannada word?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct Kannada translation", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How would you say this phrase in Kannada?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Kannada word best completes this sentence?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the grammatical function of this Kannada suffix?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the correct form of this Kannada verb", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Kannada dialect is this word from?", order: 10 }
+            ]).returning();
+          }
         } else {
-          // Generic Kannada challenges for any other Kannada lessons
-          console.log(`Adding generic Kannada challenges for lesson ${lesson.id} (${lesson.title})`);
+          console.log(`Unable to determine language for lesson ${lesson.id}, defaulting to generic challenges`);
           newChallenges = await db.insert(schema.challenges).values([
-            { lessonId: lesson.id, type: "SELECT", question: "Which Kannada character represents this sound?", order: 1 },
-            { lessonId: lesson.id, type: "SELECT", question: "How do you write this sound in Kannada?", order: 2 },
-            { lessonId: lesson.id, type: "SELECT", question: "What is the correct pronunciation of this Kannada character?", order: 3 },
-            { lessonId: lesson.id, type: "SELECT", question: "Which of these is a Kannada character?", order: 4 },
-            { lessonId: lesson.id, type: "SELECT", question: "Match the Kannada character to its pronunciation", order: 5 },
-            { lessonId: lesson.id, type: "SELECT", question: "What sound does this Kannada character make?", order: 6 },
-            { lessonId: lesson.id, type: "SELECT", question: "Which Kannada character makes this sound?", order: 7 },
-            { lessonId: lesson.id, type: "SELECT", question: "Identify the correct Kannada character", order: 8 },
-            { lessonId: lesson.id, type: "SELECT", question: "What is this Kannada character called?", order: 9 },
-            { lessonId: lesson.id, type: "SELECT", question: "Choose the correct Kannada character for this word", order: 10 }
+            { lessonId: lesson.id, type: "SELECT", question: "Select the correct character", order: 1 },
+            { lessonId: lesson.id, type: "SELECT", question: "How do you write this sound?", order: 2 },
+            { lessonId: lesson.id, type: "SELECT", question: "What is the correct pronunciation?", order: 3 },
+            { lessonId: lesson.id, type: "SELECT", question: "Which of these is the correct character?", order: 4 },
+            { lessonId: lesson.id, type: "SELECT", question: "Match the character to its pronunciation", order: 5 },
+            { lessonId: lesson.id, type: "SELECT", question: "What sound does this character make?", order: 6 },
+            { lessonId: lesson.id, type: "SELECT", question: "Which character makes this sound?", order: 7 },
+            { lessonId: lesson.id, type: "SELECT", question: "Identify the correct character", order: 8 },
+            { lessonId: lesson.id, type: "SELECT", question: "What is this character called?", order: 9 },
+            { lessonId: lesson.id, type: "SELECT", question: "Choose the correct character for this word", order: 10 }
           ]).returning();
         }
         
@@ -967,8 +1005,15 @@ const main = async () => {
           if (isTeluguLesson) {
             const options = createTeluguOptions(challenge.id, challenge.question);
             newOptions.push(...options);
-          } else {
+          } else if (isKannadaLesson) {
             const options = createKannadaOptions(challenge.id, challenge.question);
+            newOptions.push(...options);
+          } else {
+            // Use a mix of Telugu and Kannada options for unknown language lessons
+            const useTeluguOptions = Math.random() > 0.5;
+            const options = useTeluguOptions ? 
+              createTeluguOptions(challenge.id, challenge.question) : 
+              createKannadaOptions(challenge.id, challenge.question);
             newOptions.push(...options);
           }
         }
