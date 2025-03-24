@@ -35,55 +35,55 @@ export const AlphabetCard: React.FC<AlphabetCardProps> = ({
 
   return (
     <div 
-      className="aspect-square relative h-full w-full cursor-pointer"
+      className="h-44 relative w-full cursor-pointer perspective-1000"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div className={cn(
-        "relative w-full h-full transition-all duration-500",
+        "relative w-full h-full transition-all duration-500 transform-style-3d",
         isFlipped ? "rotate-y-180" : ""
       )}>
         {/* Front of card */}
         <div className={cn(
-          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-xl border-2 p-4 flex flex-col items-center justify-center",
-          "shadow-md hover:shadow-lg transition-shadow",
-          isFlipped ? "opacity-0 pointer-events-none" : "opacity-100"
+          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-lg border p-3 flex flex-col items-center justify-center",
+          "shadow-sm hover:shadow-md transition-shadow backface-hidden"
         )}>
-          <span className="text-6xl font-bold mb-4">{character}</span>
-          <span className="text-xl font-medium">{romanized}</span>
+          <span className="text-5xl font-bold mb-2">{character}</span>
+          <span className="text-sm font-medium">{romanized}</span>
           {audioSrc && (
             <button 
-              className="absolute top-3 right-3 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               onClick={playAudio}
             >
-              <Volume2 size={20} />
+              <Volume2 size={18} />
             </button>
           )}
         </div>
         
         {/* Back of card */}
         <div className={cn(
-          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-xl border-2 p-4 flex flex-col",
-          "shadow-md",
-          isFlipped ? "opacity-100" : "opacity-0 pointer-events-none"
+          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-lg border p-3 flex flex-col",
+          "shadow-sm backface-hidden rotate-y-180"
         )}>
-          <div className="flex-1 flex flex-col gap-2">
-            <h3 className="text-lg font-bold text-center mb-2">Pronunciation</h3>
-            <p className="text-center text-md text-muted-foreground">{pronunciation}</p>
+          <div className="flex-1 flex flex-col justify-between">
+            <div className="mb-2">
+              <h3 className="font-bold text-center text-sm mb-0.5">Pronunciation</h3>
+              <p className="text-center text-muted-foreground text-xs">{pronunciation}</p>
+            </div>
             
-            <div className="border-t mt-3 pt-3">
-              <h3 className="text-lg font-bold text-center mb-2">Example</h3>
-              <p className="text-center text-xl mb-1">{example.word}</p>
-              <p className="text-center text-md italic mb-1">{example.romanized}</p>
-              <p className="text-center text-md text-muted-foreground">{example.meaning}</p>
+            <div className="border-t pt-2">
+              <h3 className="font-bold text-center text-sm mb-1">Example</h3>
+              <p className="text-center font-medium text-base mb-0.5">{example.word}</p>
+              <p className="text-center italic text-xs mb-0.5">{example.romanized}</p>
+              <p className="text-center text-muted-foreground text-xs">{example.meaning}</p>
             </div>
           </div>
           
           {audioSrc && (
             <button 
-              className="absolute top-3 right-3 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               onClick={playAudio}
             >
-              <Volume2 size={20} />
+              <Volume2 size={18} />
             </button>
           )}
         </div>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     "Learn any Indian Language on Dui-Bhashi. Start learning.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/dui.ico",
   },
 };
 

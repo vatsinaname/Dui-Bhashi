@@ -115,13 +115,9 @@ export const Items = ({
         <div className="absolute top-2 right-2 bg-amber-100 dark:bg-amber-900 px-3 py-1 rounded-full text-sm">
           300 points
         </div>
-        <Image
-          src="/mascot.svg"
-          alt="character"
-          height={60}
-          width={60}
-          className="mb-4"
-        />
+        <div className="rounded-full bg-blue-100 dark:bg-blue-900 p-3 mb-4">
+          <span className="text-4xl">{isTelugu ? "👑" : "🕺"}</span>
+        </div>
         <h3 className="text-xl font-bold mb-2">
           {isTelugu
             ? "Bahubali Avatar" 

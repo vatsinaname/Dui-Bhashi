@@ -112,8 +112,15 @@ body,
 
 /* Card flip utilities */
 @layer utilities {
-  .transform-gpu {
-    transform: translate3d(0, 0, 0);
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
     backface-visibility: hidden;
   }
   

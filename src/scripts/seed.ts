@@ -64,13 +64,13 @@ const main = async () => {
       { unitId: units[0].id, title: "Semivowels (అంతస్థలు)", order: 9 },
       { unitId: units[0].id, title: "Sibilants & Aspirate (ఊష్మాలు)", order: 10 },
       { unitId: units[2].id, title: "Short Vowels (ಹ್ರಸ್ವ ಸ್ವರಗಳು)", order: 1 },
-      { unitId: units[2].id, title: "Long Vowels (ದೀರ್ಘ ಸ್ವರಗಳು)", order: 2 },
+      { unitId: units[2].id, title: "Long Vowels (ದೀರ్ಘ ಸ್ವರಗಳು)", order: 2 },
       { unitId: units[2].id, title: "Compound Vowels (ಸಂಯುಕ್ತ ಸ್ವರಗಳು)", order: 3 },
-      { unitId: units[2].id, title: "Velar Consonants (ಕವರ್ಗ)", order: 4 },
-      { unitId: units[2].id, title: "Palatal Consonants (ಚವರ್ಗ)", order: 5 },
-      { unitId: units[2].id, title: "Retroflex Consonants (ಟವರ್ಗ)", order: 6 },
-      { unitId: units[2].id, title: "Dental Consonants (ತವರ್ಗ)", order: 7 },
-      { unitId: units[2].id, title: "Labial Consonants (ಪವರ್ಗ)", order: 8 },
+      { unitId: units[2].id, title: "Velar Consonants (ಕವರ్ಗ)", order: 4 },
+      { unitId: units[2].id, title: "Palatal Consonants (ಚವರ్ಗ)", order: 5 },
+      { unitId: units[2].id, title: "Retroflex Consonants (ಟವರ్ಗ)", order: 6 },
+      { unitId: units[2].id, title: "Dental Consonants (ತವರ్ಗ)", order: 7 },
+      { unitId: units[2].id, title: "Labial Consonants (ಪವರ్ಗ)", order: 8 },
       { unitId: units[2].id, title: "Semivowels (ಅಂತಃಸ್ಥಗಳು)", order: 9 },
       { unitId: units[2].id, title: "Sibilants & Aspirate (ಊಷ್ಮಾಕ್ಷರಗಳು)", order: 10 }
     ]).returning();
@@ -687,9 +687,219 @@ const main = async () => {
         // Determine if it's Telugu or Kannada based on the title
         const isTeluguLesson = lesson.title.includes("Telugu") || (!lesson.title.includes("Kannada") && lesson.id < 150);
         
-        let newChallenges;
+        let newChallenges: any[] = [];
         
-        if (lesson.id === 94 || (lesson.title.toLowerCase().includes("sibilant") && lesson.title.toLowerCase().includes("kannada"))) {
+        // For Lesson 164 and any other problematic Telugu lessons that have Kannada content
+        if (lesson.id === 164 || (lesson.title.toLowerCase().includes("telugu") && isTeluguLesson)) {
+          console.log(`Creating Telugu-specific challenges for lesson ${lesson.id}: ${lesson.title}`);
+          
+          if (lesson.title.includes("Palatal Consonants")) {
+            console.log(`Adding Telugu palatal consonant challenges for lesson ${lesson.id}`);
+            
+            const challenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'cha'?", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'chha'?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'ja'?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'jha'?", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which is the Telugu letter for 'ña'?", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'చ'?", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఛ'?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'జ'?", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఝ'?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you pronounce 'ఞ'?", order: 10 }
+            ]).returning();
+            
+            // Create options for each challenge
+            for (const challenge of challenges) {
+              switch (challenge.order) {
+                case 1:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "చ", correct: true },
+                    { challengeId: challenge.id, text: "ఛ", correct: false },
+                    { challengeId: challenge.id, text: "జ", correct: false },
+                    { challengeId: challenge.id, text: "ఝ", correct: false }
+                  ]);
+                  break;
+                case 2:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ఛ", correct: true },
+                    { challengeId: challenge.id, text: "చ", correct: false },
+                    { challengeId: challenge.id, text: "జ", correct: false },
+                    { challengeId: challenge.id, text: "ఝ", correct: false }
+                  ]);
+                  break;
+                case 3:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "జ", correct: true },
+                    { challengeId: challenge.id, text: "చ", correct: false },
+                    { challengeId: challenge.id, text: "ఛ", correct: false },
+                    { challengeId: challenge.id, text: "ఝ", correct: false }
+                  ]);
+                  break;
+                case 4:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ఝ", correct: true },
+                    { challengeId: challenge.id, text: "చ", correct: false },
+                    { challengeId: challenge.id, text: "ఛ", correct: false },
+                    { challengeId: challenge.id, text: "జ", correct: false }
+                  ]);
+                  break;
+                case 5:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ఞ", correct: true },
+                    { challengeId: challenge.id, text: "చ", correct: false },
+                    { challengeId: challenge.id, text: "ఛ", correct: false },
+                    { challengeId: challenge.id, text: "జ", correct: false }
+                  ]);
+                  break;
+                case 6:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "cha as in 'church'", correct: true },
+                    { challengeId: challenge.id, text: "ka as in 'karma'", correct: false },
+                    { challengeId: challenge.id, text: "ta as in 'top'", correct: false },
+                    { challengeId: challenge.id, text: "pa as in 'park'", correct: false }
+                  ]);
+                  break;
+                case 7:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "chha as in 'church house'", correct: true },
+                    { challengeId: challenge.id, text: "kha as in 'khaki'", correct: false },
+                    { challengeId: challenge.id, text: "tha as in 'thumb'", correct: false },
+                    { challengeId: challenge.id, text: "pha as in 'phone'", correct: false }
+                  ]);
+                  break;
+                case 8:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ja as in 'jar'", correct: true },
+                    { challengeId: challenge.id, text: "ga as in 'garden'", correct: false },
+                    { challengeId: challenge.id, text: "da as in 'dark'", correct: false },
+                    { challengeId: challenge.id, text: "ba as in 'bark'", correct: false }
+                  ]);
+                  break;
+                case 9:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "jha as in 'hedgehog'", correct: true },
+                    { challengeId: challenge.id, text: "gha as in 'ghost'", correct: false },
+                    { challengeId: challenge.id, text: "dha as in 'dharma'", correct: false },
+                    { challengeId: challenge.id, text: "bha as in 'bhakti'", correct: false }
+                  ]);
+                  break;
+                case 10:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "nya as in 'canyon'", correct: true },
+                    { challengeId: challenge.id, text: "nga as in 'sing'", correct: false },
+                    { challengeId: challenge.id, text: "na as in 'name'", correct: false },
+                    { challengeId: challenge.id, text: "ma as in 'mother'", correct: false }
+                  ]);
+                  break;
+              }
+            }
+          }
+          // Generic fallback for other Telugu lessons
+          else {
+            console.log(`Adding improved generic Telugu challenges for lesson ${lesson.id} (${lesson.title})`);
+            
+            newChallenges = await db.insert(schema.challenges).values([
+              { lessonId: lesson.id, type: "SELECT", question: "Select the correct Telugu character", order: 1 },
+              { lessonId: lesson.id, type: "SELECT", question: "How do you write this sound in Telugu?", order: 2 },
+              { lessonId: lesson.id, type: "SELECT", question: "What is the correct Telugu pronunciation?", order: 3 },
+              { lessonId: lesson.id, type: "SELECT", question: "Choose the Telugu word for this meaning", order: 4 },
+              { lessonId: lesson.id, type: "SELECT", question: "Match this Telugu character to its sound", order: 5 },
+              { lessonId: lesson.id, type: "SELECT", question: "Identify the Telugu character in this word", order: 6 },
+              { lessonId: lesson.id, type: "SELECT", question: "Which Telugu letter makes this sound?", order: 7 },
+              { lessonId: lesson.id, type: "SELECT", question: "Find the correct Telugu translation", order: 8 },
+              { lessonId: lesson.id, type: "SELECT", question: "What does this Telugu character represent?", order: 9 },
+              { lessonId: lesson.id, type: "SELECT", question: "Select the proper Telugu word for this context", order: 10 }
+            ]).returning();
+            
+            // Create meaningful Telugu options for generic challenges
+            for (const challenge of newChallenges) {
+              switch (challenge.order) {
+                case 1:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "అ", correct: true },
+                    { challengeId: challenge.id, text: "ಅ", correct: false },
+                    { challengeId: challenge.id, text: "अ", correct: false },
+                    { challengeId: challenge.id, text: "அ", correct: false }
+                  ]);
+                  break;
+                case 2:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ఇ", correct: true },
+                    { challengeId: challenge.id, text: "ಇ", correct: false },
+                    { challengeId: challenge.id, text: "इ", correct: false },
+                    { challengeId: challenge.id, text: "இ", correct: false }
+                  ]);
+                  break;
+                case 3:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ka as in 'karma'", correct: true },
+                    { challengeId: challenge.id, text: "ca as in 'cat'", correct: false },
+                    { challengeId: challenge.id, text: "fa as in 'far'", correct: false },
+                    { challengeId: challenge.id, text: "ja as in 'jar'", correct: false }
+                  ]);
+                  break;
+                case 4:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "నేను (I/me)", correct: true },
+                    { challengeId: challenge.id, text: "ನಾನು (I/me)", correct: false },
+                    { challengeId: challenge.id, text: "मैं (I/me)", correct: false },
+                    { challengeId: challenge.id, text: "நான் (I/me)", correct: false }
+                  ]);
+                  break;
+                case 5:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "క = ka", correct: true },
+                    { challengeId: challenge.id, text: "ಕ = ka", correct: false },
+                    { challengeId: challenge.id, text: "क = ka", correct: false },
+                    { challengeId: challenge.id, text: "க = ka", correct: false }
+                  ]);
+                  break;
+                case 6:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ల in పిల్లి (cat)", correct: true },
+                    { challengeId: challenge.id, text: "ప in పిల్లి (cat)", correct: false },
+                    { challengeId: challenge.id, text: "ి in పిల్లి (cat)", correct: false },
+                    { challengeId: challenge.id, text: "ి in పిల్లి (cat)", correct: false }
+                  ]);
+                  break;
+                case 7:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "ర (ra)", correct: true },
+                    { challengeId: challenge.id, text: "ಡ (da)", correct: false },
+                    { challengeId: challenge.id, text: "ल (la)", correct: false },
+                    { challengeId: challenge.id, text: "க (ka)", correct: false }
+                  ]);
+                  break;
+                case 8:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "మంచి (Good)", correct: true },
+                    { challengeId: challenge.id, text: "ಒಳ್ಳೆಯ (Good)", correct: false },
+                    { challengeId: challenge.id, text: "अच्छा (Good)", correct: false },
+                    { challengeId: challenge.id, text: "நல்ல (Good)", correct: false }
+                  ]);
+                  break;
+                case 9:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "The sound 'ma' as in 'mother'", correct: true },
+                    { challengeId: challenge.id, text: "The sound 'sa' as in 'song'", correct: false },
+                    { challengeId: challenge.id, text: "The sound 'ta' as in 'top'", correct: false },
+                    { challengeId: challenge.id, text: "The sound 'pa' as in 'park'", correct: false }
+                  ]);
+                  break;
+                case 10:
+                  await db.insert(schema.challengeOptions).values([
+                    { challengeId: challenge.id, text: "నమస్కారము", correct: true },
+                    { challengeId: challenge.id, text: "ನಮಸ್ಕಾರ", correct: false },
+                    { challengeId: challenge.id, text: "नमस्ते", correct: false },
+                    { challengeId: challenge.id, text: "வணக்கம்", correct: false }
+                  ]);
+                  break;
+              }
+            }
+          }
+        }
+        else if (lesson.id === 94 || (lesson.title.toLowerCase().includes("sibilant") && lesson.title.toLowerCase().includes("kannada"))) {
           // Special case for Lesson 94 (Kannada Sibilants & Aspirate)
           console.log(`Adding specific challenges for lesson ${lesson.id} (Kannada Sibilants & Aspirate)`);
           newChallenges = await db.insert(schema.challenges).values([

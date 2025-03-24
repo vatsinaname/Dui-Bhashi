@@ -12,8 +12,8 @@ export const MobileHeader = () => {
       <MobileSideBar />
       <div className="flex items-center gap-x-2">
         <Image
-          src="/mascot.svg"
-          alt="Mascot"
+          src="/Dui.svg"
+          alt="Logo"
           height={40}
           width={40}
           className="rounded-full dark:brightness-95"

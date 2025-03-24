@@ -20,7 +20,7 @@ export const Header = () => {
        justify-between h-full "
       >
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-          <Image src="/muggulu.svg" alt="Mascot" height={40} width={40} className="mr-4 rounded-md" />
+          <Image src="/Dui.svg" alt="Logo" height={40} width={40} className="mr-4 rounded-md" />
           <h1 className="text-2xl text-blue-900 tracking-wide font-extrabold">
             Dui-Bhashi
           </h1>

@@ -1,13 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { FeedWrapper } from "../../../components/feed-wrapper";
-import { StickyWrapper } from "../../../components/sticky-wrapper";
 import { UserProgress } from "../../../components/user-progress";
-import {
-  getUserProgress,
-  getUserActiveCoursePoints
-} from "../../../db/queries";
-import { Quests } from "../../../components/quests";
+import { getUserProgress, getUserActiveCoursePoints } from "../../../db/queries";
 import { AlphabetCards } from "./_components/alphabet-cards";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -34,34 +28,38 @@ const AlphabetPage = async () => {
   const activeCourse = userProgress.activeCourse;
   
   return (
-    <div className="flex flex-row-reverse gap-[48px] px-6">
-      <StickyWrapper>
-        <UserProgress
-          activeCourse={activeCourse}
-          hearts={userProgress.hearts ?? 0}
-          points={activePoints}
-        />
-        <Quests points={activePoints} activeCourse={activeCourse} />
-      </StickyWrapper>
-      <FeedWrapper>
-        <div className="flex w-full flex-col items-center">
-          <Image
-            src="/alphabet.svg"
-            alt="alphabet"
-            height={90}
-            width={90}
-            className="mb-4"
-          />
-          <h1 className="my-6 text-center text-2xl font-bold text-neutral-800 dark:text-blue-400">
-            {activeCourse.title} Alphabet
-          </h1>
-          <p className="mb-8 text-center text-lg text-muted-foreground">
+    <div className="flex flex-col w-full">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full px-4 mb-8">
+        <div className="mb-6 md:mb-0 flex flex-col items-center md:items-start">
+          <div className="flex items-center mb-2">
+            <Image
+              src="/alphabet.svg"
+              alt="alphabet"
+              height={60}
+              width={60}
+              className="mr-4"
+            />
+            <h1 className="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-blue-400">
+              {activeCourse.title} Alphabet
+            </h1>
+          </div>
+          <p className="text-center md:text-left text-lg text-muted-foreground">
             Learn the characters and sounds of the {activeCourse.title} alphabet.
           </p>
-          
-          <AlphabetCards courseTitle={activeCourse.title} />
         </div>
-      </FeedWrapper>
+        
+        <div className="shrink-0">
+          <UserProgress
+            activeCourse={activeCourse}
+            hearts={userProgress.hearts ?? 0}
+            points={activePoints}
+          />
+        </div>
+      </div>
+      
+      <div className="w-full bg-white dark:bg-slate-950 px-2 md:px-4">
+        <AlphabetCards courseTitle={activeCourse.title} />
+      </div>
     </div>
   );
 };
