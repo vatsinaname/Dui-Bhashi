@@ -1,23 +1,14 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
+import { authMiddleware } from '@clerk/nextjs';
 
-// Define which routes are public and don't require authentication
-const isPublicRoute = createRouteMatcher([
+// Public routes that don't require authentication
+const publicRoutes = [
   '/',  // Home page
   '/sign-in(.*)',
   '/sign-up(.*)'
-]);
+];
 
-export default clerkMiddleware(async (auth, request) => {
-  // For all non-public routes, require authentication
-  if (!isPublicRoute(request)) {
-    const { userId } = await auth();
-    
-    // If no user is authenticated, redirect to home page
-    if (!userId) {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
-  }
+export default authMiddleware({
+  publicRoutes,
 });
 
 export const config = {

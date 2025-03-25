@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "../db/drizzle";
+import { db } from "../db";
 import { getCourseById, getUserProgress } from "../db/queries";
 import { challengeProgress, challenges, userProgress, courseProgress } from "../db/schema";
 import { auth } from "@clerk/nextjs/server";

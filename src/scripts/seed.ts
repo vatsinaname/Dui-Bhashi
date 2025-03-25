@@ -1,10 +1,12 @@
 import "dotenv/config";
+import { neon, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
+import type { NeonQueryFunction } from "@neondatabase/serverless";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 
-const sql = neon(process.env.DATABASE_URL!);
+neonConfig.fetchConnectionCache = true;
+const sql = neon(process.env.DATABASE_URL!) as NeonQueryFunction<boolean, boolean>;
 const db = drizzle(sql, { schema });
 
 const main = async () => {

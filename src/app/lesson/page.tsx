@@ -1,51 +1,92 @@
 import React from "react";
-import { getLesson, getUserProgress, getCourseProgress } from "../../db/queries";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { QuizWrapper } from "./_components/quiz-wrapper";
+import { getLesson, getUserProgress } from "@/db/queries";
+
+// Define the correct challenge type
+type ChallengeType = {
+  id: number;
+  order: number;
+  lessonId: number;
+  type: "SELECT" | "ASSIST" | "FILL_IN";
+  question: string;
+  completed: boolean;
+  challengeOptions: {
+    id: number;
+    imageSrc: string | null;
+    challengeId: number;
+    text: string;
+    correct: boolean;
+    audioSrc: string | null;
+  }[];
+};
+
+type UserProgressType = {
+  hearts: number;
+  points: number;
+  activeCourse: {
+    id: number;
+    title: string;
+    imageSrc: string;
+  };
+  activeCourseId: number | undefined;
+  courses: {
+    id: number;
+    title: string;
+    imageSrc: string;
+    completed: boolean;
+  }[];
+};
 
 const LessonPage = async () => {
-  const [userProgress, courseProgress] = await Promise.all([
-    getUserProgress(),
-    getCourseProgress(),
-  ]);
+  const { userId } = await auth();
 
-  if (!userProgress || !courseProgress?.activeLessonId || !userProgress.activeCourse) {
-    redirect("/learn");
+  if (!userId) {
+    redirect("/");
   }
 
-  const lesson = await getLesson(courseProgress.activeLessonId);
+  const userProgress = await getUserProgress();
+
+  if (!userProgress || !userProgress.activeCourse) {
+    redirect("/courses");
+  }
+
+  const lesson = await getLesson(userProgress.activeCourse.id);
 
   if (!lesson) {
-    redirect("/learn");
+    redirect("/courses");
   }
 
-  // Find the first uncompleted challenge or use the first one
-  const nextChallenge = lesson.challenges.find(challenge => !challenge.completed);
-  const challenge = nextChallenge || lesson.challenges[0];
+  const nextChallenge = lesson.challenges.find(challenge => 
+    !challenge.completed && 
+    (challenge.type === "SELECT" || challenge.type === "ASSIST" || challenge.type === "FILL_IN")
+  );
+  
+  const challenge = (nextChallenge || lesson.challenges[0]) as ChallengeType;
 
-  if (!challenge) {
-    redirect("/learn");
-  }
+  const isLastChallenge = lesson.challenges.filter(c => !c.completed).length === 1;
 
-  // Check if this is the last challenge in the lesson
-  const isLastChallenge = challenge.order === lesson.challenges.length;
-  const isLessonComplete = lesson.challenges.every(c => c.completed);
-
-  console.log("Lesson state:", {
-    lessonId: lesson.id,
-    totalChallenges: lesson.challenges.length,
-    currentChallengeOrder: challenge.order,
-    isLastChallenge,
-    isLessonComplete
-  });
+  const formattedUserProgress: UserProgressType = {
+    hearts: userProgress.hearts ?? 5,
+    points: 0,
+    activeCourse: userProgress.activeCourse,
+    activeCourseId: userProgress.activeCourseId ?? undefined,
+    courses: [{
+      id: userProgress.activeCourse.id,
+      title: userProgress.activeCourse.title,
+      imageSrc: userProgress.activeCourse.imageSrc,
+      completed: false
+    }]
+  };
 
   return (
     <QuizWrapper
       challenge={challenge}
       activeCourse={userProgress.activeCourse}
-      userProgress={userProgress}
+      userProgress={formattedUserProgress}
       isLastChallenge={isLastChallenge}
-      isLessonComplete={isLessonComplete}
+      isLessonComplete={false}
     />
   );
 };

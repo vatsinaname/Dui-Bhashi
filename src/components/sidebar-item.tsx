@@ -3,10 +3,12 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { LucideIcon } from "lucide-react";
 
 type Props = {
   label: string;
-  iconSrc: string;
+  iconSrc?: string;
+  icon?: LucideIcon;
   href: string;
   active?: boolean;
 };
@@ -14,6 +16,7 @@ type Props = {
 export const SidebarItem = ({
   label,
   iconSrc,
+  icon: Icon,
   href,
   active,
 }: Props) => {
@@ -25,16 +28,23 @@ export const SidebarItem = ({
           active && "bg-slate-100 text-darkblue-900 dark:bg-slate-800 dark:text-white"
         )}
       >
-        <Image
-          src={iconSrc}
-          alt={label}
-          height={32}
-          width={32}
-          className={cn(
-            "transition-all",
-            active && "filter-none dark:brightness-200"
-          )}
-        />
+        {iconSrc ? (
+          <Image
+            src={iconSrc}
+            alt={label}
+            height={32}
+            width={32}
+            className={cn(
+              "transition-all",
+              active && "filter-none dark:brightness-200"
+            )}
+          />
+        ) : Icon ? (
+          <Icon className={cn(
+            "h-8 w-8",
+            active ? "text-blue-800 dark:text-blue-500" : "text-slate-600 dark:text-slate-400"
+          )} />
+        ) : null}
         <span className="flex-1 text-base font-bold">{label}</span>
       </div>
     </Link>

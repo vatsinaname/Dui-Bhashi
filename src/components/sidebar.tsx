@@ -6,15 +6,25 @@ import { ThemeToggle } from "./theme-toggle";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, ReactNode } from "react";
+import { ShoppingCart, Settings, LucideIcon } from "lucide-react";
 
 type Props = {
   className?: string;
+  children?: ReactNode;
+};
+
+type SidebarItemProps = {
+  label: string;
+  href: string;
+  active: boolean;
+  icon: LucideIcon;
 };
 
 export const Sidebar = ({ className }: Props) => {
   const pathname = usePathname();
   const { user } = useUser();
   const [courseTitle, setCourseTitle] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   // Fetch active course info
   useEffect(() => {
@@ -37,6 +47,14 @@ export const Sidebar = ({ className }: Props) => {
 
     fetchUserProgress();
   }, [pathname]); // Re-fetch when pathname changes
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className={cn(
@@ -77,16 +95,16 @@ export const Sidebar = ({ className }: Props) => {
           active={pathname === "/quests"}
         />
         <SidebarItem
+          icon={ShoppingCart}
           label="Shop"
           href="/shop"
-          iconSrc="/shop.svg"
           active={pathname === "/shop"}
         />
-        {user?.publicMetadata?.admin && (
+        {(user?.publicMetadata as { admin?: boolean })?.admin && (
           <SidebarItem
             label="Admin"
             href="/admin"
-            iconSrc="/admin.svg"
+            icon={Settings}
             active={pathname === "/admin"}
           />
         )}

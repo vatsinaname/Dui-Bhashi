@@ -1,4 +1,4 @@
-import db from "@/db/drizzle";
+import { db } from "@/db";
 import { getIsAdmin } from "@/db/queries";
 import { courses } from "@/db/schema";
 import { eq } from "drizzle-orm";

@@ -81,6 +81,27 @@ body,
   }
 }
 
+/* Custom course header styling */
+.course-header {
+  @apply text-center py-3 px-4 font-bold text-white text-xl mb-5 shadow-sm;
+}
+
+.course-header-telugu {
+  background-color: rgba(59, 130, 246, 0.85); /* Blue color with transparency */
+}
+
+.course-header-telugu.dark {
+  background-color: rgba(30, 64, 175, 0.75); /* Dark blue with transparency */
+}
+
+.course-header-kannada {
+  background-color: rgba(16, 185, 129, 0.85); /* Green color with transparency */
+}
+
+.course-header-kannada.dark {
+  background-color: rgba(5, 150, 105, 0.75); /* Dark green with transparency */
+}
+
 @keyframes success {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }

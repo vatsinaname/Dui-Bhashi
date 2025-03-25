@@ -1,6 +1,7 @@
 import React from "react";
-import { lessons, units } from "../../../../db/schema";
-import { UnitBanner } from "./unit-banner";
+import { lessons } from "@/db/schema";
+import { units } from "@/db/schema";
+import UnitBanner from "./unit-banner";
 import { LessonButton } from "./lesson-button";
 
 type Props = {

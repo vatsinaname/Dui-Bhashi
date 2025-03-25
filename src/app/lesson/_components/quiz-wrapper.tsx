@@ -4,11 +4,25 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Quiz } from "./quiz";
 import { challenges, challengeOptions, courses } from "../../../db/schema";
-import { UserProgressType } from "../../../types";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from "@/lib/utils";
+
+// Define UserProgressType here to fix the missing import
+type UserProgressType = {
+  hearts: number;
+  activeCourse: typeof courses.$inferSelect;
+  activeCourseId?: number;
+  points?: number;
+  courses?: Array<{
+    id: number;
+    title: string;
+    imageSrc: string | null;
+    completed?: boolean;
+  }>;
+};
 
 interface QuizWrapperProps {
   challenge: typeof challenges.$inferSelect & {
@@ -32,7 +46,41 @@ export const QuizWrapper = ({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentChallengeIndex, setCurrentChallengeIndex] = useState(0);
+  const [challenges, setChallenges] = useState<any[]>([]);
   const totalQuestions = 10;
+
+  // Fetch all challenges for this lesson when component mounts
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        // Get the lesson ID from the current challenge
+        const lessonId = challenge.lessonId;
+        
+        // Fetch challenges for this lesson from API
+        const response = await fetch(`/api/lessons/${lessonId}/challenges`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch challenges');
+        }
+        
+        const data = await response.json();
+        if (data.challenges && data.challenges.length > 0) {
+          console.log(`Loaded ${data.challenges.length} challenges for lesson ${lessonId}`);
+          setChallenges(data.challenges);
+        } else {
+          // If no challenges returned, use the current challenge as fallback
+          console.log(`No challenges returned from API, using current challenge as fallback`);
+          setChallenges([challenge]);
+        }
+      } catch (error) {
+        console.error('Error fetching challenges:', error);
+        // Use current challenge as fallback
+        setChallenges([challenge]);
+      }
+    };
+
+    fetchChallenges();
+  }, [challenge.lessonId]);
 
   useEffect(() => {
     // Skip redirection for challenge 221 which is handled with dummy options
@@ -54,25 +102,49 @@ export const QuizWrapper = ({
   }, [challenge.id, challenge.challengeOptions, router]);
 
   const handleOptionSelect = (optionId: number) => {
-    if (!challenge.challengeOptions || challenge.challengeOptions.length === 0) {
-      console.error(`Cannot select option: no options available for challenge ${challenge.id}`);
+    // We need to use the current display challenge, not the initial challenge
+    const currentChallenge = getCurrentChallenge();
+    
+    if (!currentChallenge.challengeOptions || currentChallenge.challengeOptions.length === 0) {
+      console.error(`Cannot select option: no options available for challenge ${currentChallenge.id}`);
       return;
     }
     
     setSelectedOption(optionId);
-    const option = challenge.challengeOptions.find(opt => opt.id === optionId);
+    const option = currentChallenge.challengeOptions.find((opt: any) => opt.id === optionId);
     
     if (!option) {
-      console.error(`Option with ID ${optionId} not found in challenge ${challenge.id}`);
+      console.error(`Option with ID ${optionId} not found in challenge ${currentChallenge.id}`);
+      console.log('Available options:', currentChallenge.challengeOptions.map((opt: any) => opt.id));
+      
+      // Fallback: if we can't find the option, assume it's wrong
+      // This prevents errors when option IDs don't match
+      setIsCorrect(false);
       return;
     }
     
     setIsCorrect(option.correct || false);
   };
 
+  // Get the current challenge to display
+  const getCurrentChallenge = () => {
+    // If we have fetched challenges, use them, otherwise use the prop
+    if (challenges.length > 0) {
+      // Use modulo to cycle through challenges if we have fewer than 10
+      const index = currentChallengeIndex % challenges.length;
+      return challenges[index];
+    }
+    return challenge;
+  };
+
+  const currentDisplayChallenge = getCurrentChallenge();
+
   console.log("QuizWrapper rendered with:", {
     hasChallenge: !!challenge,
     challengeId: challenge?.id,
+    currentChallengeIndex,
+    totalChallenges: challenges.length,
+    currentDisplayChallengeId: currentDisplayChallenge?.id,
     hasOptions: !!challenge?.challengeOptions,
     optionsCount: challenge?.challengeOptions?.length,
     activeCourseId: activeCourse?.id,
@@ -135,26 +207,34 @@ export const QuizWrapper = ({
   }
 
   return (
-    <Quiz
-      challenge={challenge}
-      activeCourse={activeCourse}
-      userProgress={userProgress}
-      selectedOption={selectedOption}
-      isCorrect={isCorrect}
-      onOptionSelect={handleOptionSelect}
-      onFinish={() => {
-        setSelectedOption(null);
-        setIsCorrect(null);
-        
-        if (currentQuestion >= totalQuestions) {
-          console.log("All questions completed, navigating to learn page");
-          router.push("/learn");
-        } else {
-          console.log(`Moving to question ${currentQuestion + 1}`);
-          setCurrentQuestion(prev => prev + 1);
-          // Stay on the same page but update the state to show next question
-        }
-      }}
-    />
+    <>
+      <Quiz
+        challenge={currentDisplayChallenge}
+        activeCourse={activeCourse}
+        userProgress={userProgress}
+        selectedOption={selectedOption}
+        isCorrect={isCorrect}
+        onOptionSelect={handleOptionSelect}
+        onFinish={() => {
+          setSelectedOption(null);
+          setIsCorrect(null);
+          
+          // Move to the next challenge by incrementing the index
+          setCurrentChallengeIndex(prev => prev + 1);
+          
+          // Also increment the question counter for the progress bar
+          setCurrentQuestion(prev => {
+            const nextQuestion = prev + 1;
+            if (nextQuestion > totalQuestions) {
+              console.log("All questions completed, navigating to learn page");
+              router.push("/learn");
+            } else {
+              console.log(`Moving to question ${nextQuestion}, challenge index: ${currentChallengeIndex + 1}`);
+            }
+            return nextQuestion;
+          });
+        }}
+      />
+    </>
   );
 }

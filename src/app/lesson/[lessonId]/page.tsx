@@ -3,33 +3,9 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { QuizWrapper } from "../_components/quiz-wrapper";
 import { getLesson, getUserProgress, getCourseProgress, getUnits } from "../../../db/queries";
-import { ChallengeType, UserProgressType } from "../../../types";
 import Link from "next/link";
-
-interface PageProps {
-  params: Promise<{
-    lessonId: string;
-  }>;
-}
-
-// Create a safe version of the challenge type that allows setting challengeOptions
-interface SafeChallengeType {
-  id: number;
-  lessonId: number;
-  type: "SELECT" | "ASSIST" | "FILL_IN";
-  order: number;
-  question: string;
-  completed: boolean;
-  challengeOptions: {
-    id: number;
-    imageSrc: string | null;
-    challengeId: number;
-    text: string;
-    correct: boolean;
-    audioSrc: string | null;
-  }[];
-  challengeProgress: any[];
-}
+import { cn } from "@/lib/utils";
+import { LessonHeader } from "./header";
 
 // Add a component to show errors
 const LessonError = ({ message, debugInfo }: { message: string, debugInfo?: any }) => {
@@ -57,6 +33,31 @@ const LessonError = ({ message, debugInfo }: { message: string, debugInfo?: any 
     </div>
   );
 };
+
+interface PageProps {
+  params: Promise<{
+    lessonId: string;
+  }>;
+}
+
+// Create a safe version of the challenge type that allows setting challengeOptions
+interface SafeChallengeType {
+  id: number;
+  lessonId: number;
+  type: "SELECT" | "ASSIST" | "FILL_IN";
+  order: number;
+  question: string;
+  completed: boolean;
+  challengeOptions: {
+    id: number;
+    imageSrc: string | null;
+    challengeId: number;
+    text: string;
+    correct: boolean;
+    audioSrc: string | null;
+  }[];
+  challengeProgress: any[];
+}
 
 const LessonIdPage = async ({ params }: PageProps) => {
   const { userId } = await auth();
@@ -248,19 +249,23 @@ const LessonIdPage = async ({ params }: PageProps) => {
       challengesAvailable: lesson.challenges.length
     });
 
-    // Cast the userProgress object to match the expected UserProgressType
+    // Format user progress for the quiz component
     const userProgressForQuiz = {
-      ...userProgress,
-      courseProgresses: userProgress.courseProgresses.map((cp) => ({
-        courseId: cp.courseId,
-        points: cp.points,
-        completed: cp.courseId === userProgress.activeCourseId && isLessonComplete
-      }))
-    } as UserProgressType;
+      hearts: userProgress.hearts ?? 5,
+      points: courseProgress?.points ?? 0,
+      activeCourse: userProgress.activeCourse,
+      activeCourseId: userProgress.activeCourseId ?? undefined,
+      courses: [{
+        id: userProgress.activeCourse.id,
+        title: userProgress.activeCourse.title,
+        imageSrc: userProgress.activeCourse.imageSrc,
+        completed: courseProgress?.activeLesson?.unit?.courseId === userProgress.activeCourseId && isLessonComplete
+      }]
+    };
 
     return (
       <QuizWrapper
-        challenge={challenge as unknown as ChallengeType}
+        challenge={challenge as unknown as SafeChallengeType}
         activeCourse={userProgress.activeCourse}
         userProgress={userProgressForQuiz}
         isLastChallenge={isLastChallenge}

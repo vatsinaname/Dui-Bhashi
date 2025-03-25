@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "@/db/drizzle";
+import { db } from "@/db";
 import { getIsAdmin } from "@/db/queries";
 import { units } from "@/db/schema";
 

@@ -1,5 +1,5 @@
 import { useKey, useMedia } from "react-use";
-import { CheckCircle, CircleCheck, XCircle, X } from "lucide-react";
+import { CheckCircle, XCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -31,6 +31,33 @@ export const Footer = ({
   useKey("Enter", onCheck, {}, [onCheck]);
   const isMobile = useMedia("(max-width:1024px)");
 
+  // Special layout just for completed lessons
+  if (status === "completed") {
+    return (
+      <footer 
+        className="fixed bottom-0 left-0 right-0 p-3 sm:p-4 flex items-center justify-end border-t shadow-lg bg-white dark:bg-slate-950 transition-all duration-300"
+      >
+        <Button
+          onClick={onCheck}
+          size="lg"
+          className="rounded-xl bg-blue-800 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-bold shadow-md"
+        >
+          Return to courses
+        </Button>
+        {showFinish && (
+          <Button
+            onClick={onFinish}
+            size="lg"
+            className="rounded-xl bg-blue-800 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-bold shadow-md ml-3"
+          >
+            Finish
+          </Button>
+        )}
+      </footer>
+    );
+  }
+
+  // Original footer for all other states
   return (
     <footer 
       className={cn(
@@ -82,15 +109,6 @@ export const Footer = ({
             )}
           >
             Continue
-          </Button>
-        )}
-        {status === "completed" && showFinish && (
-          <Button
-            onClick={onFinish}
-            size="lg"
-            className="rounded-xl bg-blue-800 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-bold shadow-md"
-          >
-            Finish
           </Button>
         )}
       </div>

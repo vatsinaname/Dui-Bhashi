@@ -1,5 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { NotebookText } from "lucide-react";
+import { BookText } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -25,10 +27,12 @@ export const UnitBanner = ({ title, description }: Props) => {
           variant="secondary"
           className="hidden border-2 border-b-4 active:border-b-2 xl:flex"
         >
-          <NotebookText className="mr-2" />
+          <BookText className="mr-2" />
           Continue
         </Button>
       </Link>
     </div>
   );
 };
+
+export default UnitBanner;

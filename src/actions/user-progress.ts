@@ -1,12 +1,13 @@
 "use server";
 
-import { db } from "../db/drizzle";
+import { auth } from "@clerk/nextjs";
+import { db } from "../db";
 import {
   getCourseById,
   getUserProgress,
 } from "../db/queries";
 import { challengeProgress, challenges, userProgress, courseProgress } from "../db/schema";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
