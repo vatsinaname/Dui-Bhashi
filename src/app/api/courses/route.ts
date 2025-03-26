@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { getIsAdmin } from "@/db/queries";
 import { courses } from "@/db/schema";
+import { NextRequest } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const isAdmin = await getIsAdmin();
     if (!isAdmin) {
@@ -23,7 +24,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const isAdmin = await getIsAdmin();
     if (!isAdmin) {

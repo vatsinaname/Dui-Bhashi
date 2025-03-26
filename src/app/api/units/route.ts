@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { getIsAdmin } from "@/db/queries";
 import { units } from "@/db/schema";
+import { NextRequest } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   const isAdmin = await getIsAdmin();
   if (!isAdmin) {
     return new NextResponse("unAuthorized", { status: 401 });
@@ -13,7 +14,7 @@ export async function GET(req: Request) {
   return NextResponse.json(data);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const isAdmin = await getIsAdmin();
   if (!isAdmin) {
     return new NextResponse("unAuthorized", { status: 401 });

@@ -1,15 +1,6 @@
-import { authMiddleware } from '@clerk/nextjs';
+import { clerkMiddleware } from '@clerk/nextjs/server';
 
-// Public routes that don't require authentication
-const publicRoutes = [
-  '/',  // Home page
-  '/sign-in(.*)',
-  '/sign-up(.*)'
-];
-
-export default authMiddleware({
-  publicRoutes,
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [

@@ -3,27 +3,27 @@ import { db } from "../../../../../db";
 import { challenges, challengeOptions } from "../../../../../db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { lessonId: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ lessonId: string }> }
 ) {
   try {
     const { userId } = await auth();
+    const { lessonId } = await params;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const lessonId = parseInt(params.lessonId, 10);
-
-    if (isNaN(lessonId)) {
+    if (isNaN(parseInt(lessonId, 10))) {
       return new NextResponse("Invalid lesson ID", { status: 400 });
     }
 
     // Get all challenges for this lesson
     const lessonChallenges = await db.query.challenges.findMany({
-      where: eq(challenges.lessonId, lessonId),
+      where: eq(challenges.lessonId, parseInt(lessonId, 10)),
       with: {
         challengeOptions: true,
         challengeProgress: {
