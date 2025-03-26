@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
         <Button size="lg" variant="ghost" className="w-full dark:text-white dark:hover:bg-gray-900">
           <Image
-            src="/tenugu.svg"
+            src="/dzanutenugu.svg"
             alt="Dzanu Tenugu"
             height={32}
             width={40}
