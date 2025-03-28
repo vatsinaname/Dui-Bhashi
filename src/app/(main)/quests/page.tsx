@@ -1,6 +1,6 @@
 import React from "react";
 import { FeedWrapper } from "../../../components/feed-wrapper";
-import { Quests } from "../../../components/quests";
+import { Challenges } from "../../../components/quests";
 import { StickyWrapper } from "../../../components/sticky-wrapper";
 import { Progress } from "../../../components/ui/progress";
 import { UserProgress } from "../../../components/user-progress";
@@ -14,8 +14,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dui-Bhashi | Quests",
-  description: "Complete quests and earn points to unlock new levels and courses.",
+  title: "BhashaBird | Challenges",
+  description: "Complete challenges to earn XP and unlock new features",
 };
 
 const QuestsPage = async () => {
@@ -36,54 +36,89 @@ const QuestsPage = async () => {
   
   if (userProgress.activeCourse.title.toLowerCase().includes("telugu")) {
     quests = teluguQuests;
-    console.log("Using Telugu quests based on title");
   } else if (userProgress.activeCourse.title.toLowerCase().includes("kannada")) {
     quests = kannadaQuests;
-    console.log("Using Kannada quests based on title");
   } else {
     // Fallback to using course ID
     quests = userProgress.activeCourse.id === 1 ? teluguQuests : kannadaQuests;
-    console.log(`Using quests based on ID: ${userProgress.activeCourse.id}`);
   }
 
   return (
-    <div className="flex flex-row-reverse gap-[48px] px-6">
-      <StickyWrapper>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="flex w-full justify-center mb-6">
         <UserProgress
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={activePoints}
         />
-        <Quests points={activePoints} activeCourse={userProgress.activeCourse} />
-      </StickyWrapper>
-      <FeedWrapper>
-        <div className="flex w-full flex-col items-center">
-          <Image src="/quests.svg" alt="quests" height={90} width={90} />
-          <h1 className="my-6 text-center text-2xl font-bold text-neutral-800 dark:text-amber-600">
-            Quests
-          </h1>
-          <p className="mb-6 text-center text-lg text-muted-foreground">
-            Complete quests to earn points and unlock new features.
-          </p>
+      </div>
+      <div className="flex w-full flex-col items-center">
+        <div className="py-4">
+          <Image src="/quests.svg" alt="quests" height={80} width={80} className="transition-transform hover:scale-105" />
+        </div>
+        <h1 className="my-4 text-center text-2xl font-bold text-[#6d4b73] dark:text-blue-400 font-outfit">
+          Challenges
+        </h1>
+        <p className="mb-8 text-center text-base text-[#8d6493] dark:text-blue-300 max-w-xl mx-auto font-outfit">
+          Complete challenges to earn XP and unlock new features.
+        </p>
+        <div className="w-full space-y-5 max-w-3xl mx-auto">
           {quests.map((quest) => {
-            const progress = (activePoints / quest.value) * 100;
+            const progress = Math.min((activePoints / quest.value) * 100, 100);
+            const isCompleted = activePoints >= quest.value;
+            
             return (
               <div
                 key={quest.value}
-                className="flex w-full items-center gap-x-4 border-t-2 p-4"
+                className={`flex w-full items-center gap-x-5 p-6 rounded-xl border-2 transition-all ${
+                  isCompleted 
+                    ? "border-green-200 bg-green-50 dark:bg-green-900/10 dark:border-green-800/30" 
+                    : "border-[#e1dbd0] bg-[#f9f7f1] hover:bg-[#f5f2e9] dark:bg-gray-900/50 dark:border-gray-800 dark:hover:bg-gray-900"
+                }`}
               >
-                <Image src="/points.svg" alt="point" height={60} width={60} />
-                <div className="flex w-full flex-col gap-y-2">
-                  <p className="text-base font-bold text-neutral-700 dark:text-amber-600">
-                    {quest.title}
-                  </p>
-                  <Progress value={progress} className="h-3" />
+                <div className="relative flex-shrink-0">
+                  <Image 
+                    src={isCompleted ? "/checkmark.svg" : "/points.svg"} 
+                    alt={isCompleted ? "Completed" : "XP"} 
+                    height={48} 
+                    width={48} 
+                    className={`transition-transform ${isCompleted ? "scale-110" : "hover:scale-105"}`} 
+                  />
+                </div>
+                <div className="flex w-full flex-col gap-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-2">
+                      <p className={`text-lg font-bold font-outfit ${
+                        isCompleted ? "text-green-600 dark:text-green-400" : "text-[#6d4b73] dark:text-blue-300"
+                      }`}>
+                        {quest.title}
+                      </p>
+                      {isCompleted && (
+                        <span className="bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 text-xs font-medium px-2 py-1 rounded-full">
+                          Completed
+                        </span>
+                      )}
+                    </div>
+                    <span className={`text-sm font-bold font-outfit mt-1 sm:mt-0 ${
+                      isCompleted ? "text-green-600 dark:text-green-400" : "text-[#9b6a9b] dark:text-blue-400"
+                    }`}>
+                      {Math.min(activePoints, quest.value)}/{quest.value} XP
+                    </span>
+                  </div>
+                  <Progress 
+                    value={progress} 
+                    className={`h-2.5 bg-[#f0ece3] dark:bg-gray-800 ${
+                      isCompleted 
+                        ? "[&>div]:bg-gradient-to-r [&>div]:from-green-500 [&>div]:to-teal-500" 
+                        : "[&>div]:bg-gradient-to-r [&>div]:from-[#9b6a9b] [&>div]:to-[#b993bc] dark:[&>div]:from-blue-500 dark:[&>div]:to-indigo-500"
+                    }`}
+                  />
                 </div>
               </div>
             );
           })}
         </div>
-      </FeedWrapper>
+      </div>
     </div>
   );
 };

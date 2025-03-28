@@ -35,7 +35,7 @@ export const HeartsModal = () => {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="mx-auto mb-5">
-            <Image src="/mascot_bad.svg" alt="Mascot" height={80} width={80} />
+            <Image src="/mascot_bad.png" alt="Mascot" height={80} width={80} />
           </div>
           <DialogTitle className="text-center text-2xl font-bold">
             You ran out of hearts!

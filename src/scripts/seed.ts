@@ -41,6 +41,18 @@ const main = async () => {
         order: 2,
       },
       {
+        courseId: courses[0].id,
+        title: "Telugu Vocabulary",
+        description: "Learn essential Telugu words and their meanings",
+        order: 3,
+      },
+      {
+        courseId: courses[0].id,
+        title: "Telugu Basic Grammar",
+        description: "Learn fundamental Telugu grammar rules and sentence structure",
+        order: 4,
+      },
+      {
         courseId: courses[1].id,
         title: "Kannada Script",
         description: "Learn Kannada alphabet and writing system",
@@ -51,10 +63,23 @@ const main = async () => {
         title: "Basic Conversations",
         description: "Learn everyday Kannada phrases",
         order: 2,
+      },
+      {
+        courseId: courses[1].id,
+        title: "Kannada Vocabulary",
+        description: "Learn essential Kannada words and their meanings",
+        order: 3,
+      },
+      {
+        courseId: courses[1].id,
+        title: "Kannada Basic Grammar",
+        description: "Learn fundamental Kannada grammar rules and sentence structure",
+        order: 4,
       }
     ]).returning();
 
     const lessons = await db.insert(schema.lessons).values([
+      // Telugu Script Unit (units[0])
       { unitId: units[0].id, title: "Short Vowels (హ్రస్వాలు)", order: 1 },
       { unitId: units[0].id, title: "Long Vowels (దీర్ఘాలు)", order: 2 },
       { unitId: units[0].id, title: "Compound Vowels (ద్విత్వాలు)", order: 3 },
@@ -65,16 +90,46 @@ const main = async () => {
       { unitId: units[0].id, title: "Labial Consonants (పవర్గము)", order: 8 },
       { unitId: units[0].id, title: "Semivowels (అంతస్థలు)", order: 9 },
       { unitId: units[0].id, title: "Sibilants & Aspirate (ఊష్మాలు)", order: 10 },
-      { unitId: units[2].id, title: "Short Vowels (ಹ್ರಸ್ವ ಸ್ವರಗಳು)", order: 1 },
-      { unitId: units[2].id, title: "Long Vowels (ದೀರ్ಘ ಸ್ವರಗಳು)", order: 2 },
-      { unitId: units[2].id, title: "Compound Vowels (ಸಂಯುಕ್ತ ಸ್ವರಗಳು)", order: 3 },
-      { unitId: units[2].id, title: "Velar Consonants (ಕವರ్ಗ)", order: 4 },
-      { unitId: units[2].id, title: "Palatal Consonants (ಚವರ్ಗ)", order: 5 },
-      { unitId: units[2].id, title: "Retroflex Consonants (ಟವರ్ಗ)", order: 6 },
-      { unitId: units[2].id, title: "Dental Consonants (ತವರ్ಗ)", order: 7 },
-      { unitId: units[2].id, title: "Labial Consonants (ಪವರ్ಗ)", order: 8 },
-      { unitId: units[2].id, title: "Semivowels (ಅಂತಃಸ್ಥಗಳು)", order: 9 },
-      { unitId: units[2].id, title: "Sibilants & Aspirate (ಊಷ್ಮಾಕ್ಷರಗಳು)", order: 10 }
+      
+      // Telugu Vocabulary Unit (units[2])
+      { unitId: units[2].id, title: "Common Nouns", order: 1 },
+      { unitId: units[2].id, title: "Essential Verbs", order: 2 },
+      { unitId: units[2].id, title: "Colors and Numbers", order: 3 },
+      { unitId: units[2].id, title: "Family and Relationships", order: 4 },
+      { unitId: units[2].id, title: "Food and Dining", order: 5 },
+      
+      // Telugu Grammar Unit (units[3])
+      { unitId: units[3].id, title: "Basic Sentence Structure", order: 1 },
+      { unitId: units[3].id, title: "Pronouns", order: 2 },
+      { unitId: units[3].id, title: "Present Tense", order: 3 },
+      { unitId: units[3].id, title: "Past Tense", order: 4 },
+      { unitId: units[3].id, title: "Future Tense", order: 5 },
+      
+      // Kannada Script Unit (units[4])
+      { unitId: units[4].id, title: "Short Vowels (ಹ್ರಸ್ವ ಸ್ವರಗಳು)", order: 1 },
+      { unitId: units[4].id, title: "Long Vowels (ದೀರ్ಘ ಸ್ವರಗಳು)", order: 2 },
+      { unitId: units[4].id, title: "Compound Vowels (ಸಂಯುಕ್ತ ಸ್ವರಗಳು)", order: 3 },
+      { unitId: units[4].id, title: "Velar Consonants (ಕವರ್ಗ)", order: 4 },
+      { unitId: units[4].id, title: "Palatal Consonants (ಚವರ್ಗ)", order: 5 },
+      { unitId: units[4].id, title: "Retroflex Consonants (ಟವರ್ಗ)", order: 6 },
+      { unitId: units[4].id, title: "Dental Consonants (ತವರ್ಗ)", order: 7 },
+      { unitId: units[4].id, title: "Labial Consonants (ಪವರ್ಗ)", order: 8 },
+      { unitId: units[4].id, title: "Semivowels (ಅಂತಃಸ್ಥಗಳು)", order: 9 },
+      { unitId: units[4].id, title: "Sibilants & Aspirate (ಊಷ್ಮಾಕ್ಷರಗಳು)", order: 10 },
+      
+      // Kannada Vocabulary Unit (units[6])
+      { unitId: units[6].id, title: "Common Nouns", order: 1 },
+      { unitId: units[6].id, title: "Essential Verbs", order: 2 },
+      { unitId: units[6].id, title: "Colors and Numbers", order: 3 },
+      { unitId: units[6].id, title: "Family and Relationships", order: 4 },
+      { unitId: units[6].id, title: "Food and Dining", order: 5 },
+      
+      // Kannada Grammar Unit (units[7])
+      { unitId: units[7].id, title: "Basic Sentence Structure", order: 1 },
+      { unitId: units[7].id, title: "Pronouns", order: 2 },
+      { unitId: units[7].id, title: "Present Tense", order: 3 },
+      { unitId: units[7].id, title: "Past Tense", order: 4 },
+      { unitId: units[7].id, title: "Future Tense", order: 5 }
     ]).returning();
 
     const challenges = await db.insert(schema.challenges).values([
@@ -177,7 +232,151 @@ const main = async () => {
       { lessonId: lessons[18].id, type: "SELECT", question: "How do you pronounce 'ಲ'?", order: 7 },
       { lessonId: lessons[18].id, type: "SELECT", question: "How do you pronounce 'ವ'?", order: 8 },
       { lessonId: lessons[18].id, type: "SELECT", question: "Which letter makes a 'v' sound in Kannada?", order: 9 },
-      { lessonId: lessons[18].id, type: "SELECT", question: "Which letter makes an 'r' sound in Kannada?", order: 10 }
+      { lessonId: lessons[18].id, type: "SELECT", question: "Which letter makes an 'r' sound in Kannada?", order: 10 },
+      
+      // Telugu Vocabulary Unit - Common Nouns Lesson
+      { lessonId: lessons[10].id, type: "SELECT", question: "What is the Telugu word for 'water'?", order: 1 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What is the Telugu word for 'food'?", order: 2 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What is the Telugu word for 'house'?", order: 3 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What is the Telugu word for 'book'?", order: 4 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What is the Telugu word for 'tree'?", order: 5 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What does 'నీరు' mean in English?", order: 6 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What does 'ఆహారం' mean in English?", order: 7 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What does 'ఇల్లు' mean in English?", order: 8 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What does 'పుస్తకం' mean in English?", order: 9 },
+      { lessonId: lessons[10].id, type: "SELECT", question: "What does 'చెట్టు' mean in English?", order: 10 },
+      
+      // Telugu Vocabulary Unit - Essential Verbs Lesson
+      { lessonId: lessons[11].id, type: "SELECT", question: "What is the Telugu word for 'to go'?", order: 1 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What is the Telugu word for 'to come'?", order: 2 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What is the Telugu word for 'to eat'?", order: 3 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What is the Telugu word for 'to drink'?", order: 4 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What is the Telugu word for 'to sleep'?", order: 5 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What does 'వెళ్ళు' mean in English?", order: 6 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What does 'రా' mean in English?", order: 7 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What does 'తిను' mean in English?", order: 8 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What does 'తాగు' mean in English?", order: 9 },
+      { lessonId: lessons[11].id, type: "SELECT", question: "What does 'నిద్రపోవు' mean in English?", order: 10 },
+      
+      // Telugu Vocabulary Unit - Colors and Numbers Lesson
+      { lessonId: lessons[12].id, type: "SELECT", question: "What is the Telugu word for 'red'?", order: 1 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What is the Telugu word for 'blue'?", order: 2 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What is the Telugu word for 'green'?", order: 3 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What is the Telugu word for 'yellow'?", order: 4 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What is the Telugu word for 'black'?", order: 5 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What does 'ఎరుపు' mean in English?", order: 6 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What does 'నీలం' mean in English?", order: 7 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What does 'ఆకుపచ్చ' mean in English?", order: 8 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What does 'పసుపు' mean in English?", order: 9 },
+      { lessonId: lessons[12].id, type: "SELECT", question: "What does 'నలుపు' mean in English?", order: 10 },
+      
+      // Telugu Vocabulary Unit - Family and Relationships Lesson
+      { lessonId: lessons[13].id, type: "SELECT", question: "What is the Telugu word for 'mother'?", order: 1 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What is the Telugu word for 'father'?", order: 2 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What is the Telugu word for 'sister'?", order: 3 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What is the Telugu word for 'brother'?", order: 4 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What is the Telugu word for 'grandfather'?", order: 5 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What does 'అమ్మ' mean in English?", order: 6 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What does 'నాన్న' mean in English?", order: 7 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What does 'అక్క/చెల్లి' mean in English?", order: 8 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What does 'అన్న/తమ్ముడు' mean in English?", order: 9 },
+      { lessonId: lessons[13].id, type: "SELECT", question: "What does 'తాత' mean in English?", order: 10 },
+      
+      // Telugu Vocabulary Unit - Food and Dining Lesson
+      { lessonId: lessons[14].id, type: "SELECT", question: "What is the Telugu word for 'rice'?", order: 1 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What is the Telugu word for 'curry'?", order: 2 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What is the Telugu word for 'vegetable'?", order: 3 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What is the Telugu word for 'fruit'?", order: 4 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What is the Telugu word for 'sweets'?", order: 5 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What does 'అన్నం' mean in English?", order: 6 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What does 'కూర' mean in English?", order: 7 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What does 'కూరగాయలు' mean in English?", order: 8 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What does 'పండు' mean in English?", order: 9 },
+      { lessonId: lessons[14].id, type: "SELECT", question: "What does 'మిఠాయి' mean in English?", order: 10 },
+      
+      // Telugu Grammar Unit - Basic Sentence Structure
+      { lessonId: lessons[15].id, type: "SELECT", question: "What is the typical word order in a Telugu sentence?", order: 1 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "In Telugu, where does the verb usually come in a sentence?", order: 2 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Choose the correct sentence structure for 'I am eating food' in Telugu", order: 3 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Choose the correct sentence structure for 'She went to school' in Telugu", order: 4 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Which of these is a correctly structured Telugu sentence?", order: 5 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "How would you say 'I am going home' in Telugu?", order: 6 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "How would you say 'He is reading a book' in Telugu?", order: 7 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Translate 'నేను పుస్తకం చదువుతున్నాను' to English", order: 8 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Translate 'ఆమె పాఠశాలకు వెళ్తోంది' to English", order: 9 },
+      { lessonId: lessons[15].id, type: "SELECT", question: "Identify the subject in 'రాము అన్నం తింటున్నాడు'", order: 10 },
+      
+      // Telugu Grammar Unit - Pronouns
+      { lessonId: lessons[16].id, type: "SELECT", question: "What is the Telugu pronoun for 'I'?", order: 1 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What is the Telugu pronoun for 'you' (singular)?", order: 2 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What is the Telugu pronoun for 'he'?", order: 3 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What is the Telugu pronoun for 'she'?", order: 4 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What is the Telugu pronoun for 'we'?", order: 5 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What does 'నేను' mean in English?", order: 6 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What does 'నువ్వు' mean in English?", order: 7 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What does 'అతను' mean in English?", order: 8 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What does 'ఆమె' mean in English?", order: 9 },
+      { lessonId: lessons[16].id, type: "SELECT", question: "What does 'మేము' mean in English?", order: 10 },
+      
+      // Telugu Grammar Unit - Present Tense
+      { lessonId: lessons[17].id, type: "SELECT", question: "How do you form the present tense in Telugu?", order: 1 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "What suffix is added to verbs to show present continuous action?", order: 2 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "Choose the correct present tense form of 'తిను' (to eat) for 'I'", order: 3 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "Choose the correct present tense form of 'చదువు' (to read) for 'she'", order: 4 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "Which sentence is in the present tense?", order: 5 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "How would you say 'I am speaking Telugu' in Telugu?", order: 6 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "How would you say 'They are playing' in Telugu?", order: 7 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "Translate 'నేను నడుస్తున్నాను' to English", order: 8 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "Translate 'మేము పాడుతున్నాము' to English", order: 9 },
+      { lessonId: lessons[17].id, type: "SELECT", question: "What is the present tense marker in 'వాళ్ళు ఆడుతున్నారు'?", order: 10 },
+      
+      // Telugu Grammar Unit - Past Tense
+      { lessonId: lessons[18].id, type: "SELECT", question: "How do you form the past tense in Telugu?", order: 1 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "What suffix is added to verbs to show past action?", order: 2 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "Choose the correct past tense form of 'తిను' (to eat) for 'I'", order: 3 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "Choose the correct past tense form of 'చూడు' (to see) for 'she'", order: 4 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "Which sentence is in the past tense?", order: 5 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "How would you say 'I went home' in Telugu?", order: 6 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "How would you say 'She read a book' in Telugu?", order: 7 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "Translate 'నేను తిన్నాను' to English", order: 8 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "Translate 'అతను పాఠశాలకు వెళ్ళాడు' to English", order: 9 },
+      { lessonId: lessons[18].id, type: "SELECT", question: "What is the past tense marker in 'మేము ఆడాము'?", order: 10 },
+      
+      // Telugu Grammar Unit - Future Tense
+      { lessonId: lessons[19].id, type: "SELECT", question: "How do you form the future tense in Telugu?", order: 1 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "What suffix is added to verbs to show future action?", order: 2 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "Choose the correct future tense form of 'చేయు' (to do) for 'I'", order: 3 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "Choose the correct future tense form of 'రాయు' (to write) for 'he'", order: 4 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "Which sentence is in the future tense?", order: 5 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "How would you say 'I will go tomorrow' in Telugu?", order: 6 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "How would you say 'She will sing a song' in Telugu?", order: 7 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "Translate 'నేను చేస్తాను' to English", order: 8 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "Translate 'వాళ్ళు రేపు వస్తారు' to English", order: 9 },
+      { lessonId: lessons[19].id, type: "SELECT", question: "What is the future tense marker in 'ఆమె పాడుతుంది'?", order: 10 },
+      
+      // Kannada Vocabulary Unit - Common Nouns Lesson
+      { lessonId: lessons[30].id, type: "SELECT", question: "What is the Kannada word for 'water'?", order: 1 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What is the Kannada word for 'food'?", order: 2 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What is the Kannada word for 'house'?", order: 3 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What is the Kannada word for 'book'?", order: 4 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What is the Kannada word for 'tree'?", order: 5 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What does 'ನೀರು' mean in English?", order: 6 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What does 'ಆಹಾರ' mean in English?", order: 7 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What does 'ಮನೆ' mean in English?", order: 8 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What does 'ಪುಸ್ತಕ' mean in English?", order: 9 },
+      { lessonId: lessons[30].id, type: "SELECT", question: "What does 'ಮರ' mean in English?", order: 10 },
+      
+      // Kannada Grammar Unit - Basic Sentence Structure
+      { lessonId: lessons[35].id, type: "SELECT", question: "What is the typical word order in a Kannada sentence?", order: 1 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "In Kannada, where does the verb usually come in a sentence?", order: 2 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Choose the correct sentence structure for 'I am eating food' in Kannada", order: 3 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Choose the correct sentence structure for 'She went to school' in Kannada", order: 4 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Which of these is a correctly structured Kannada sentence?", order: 5 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "How would you say 'I am going home' in Kannada?", order: 6 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "How would you say 'He is reading a book' in Kannada?", order: 7 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Translate 'ನಾನು ಪುಸ್ತಕ ಓದುತ್ತಿದ್ದೇನೆ' to English", order: 8 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Translate 'ಅವಳು ಶಾಲೆಗೆ ಹೋಗುತ್ತಿದ್ದಾಳೆ' to English", order: 9 },
+      { lessonId: lessons[35].id, type: "SELECT", question: "Identify the subject in 'ರಾಮು ಅನ್ನ ತಿನ್ನುತ್ತಿದ್ದಾನೆ'", order: 10 }
     ]).returning();
 
     // Helper function to generate options for Telugu challenges
@@ -187,6 +386,15 @@ const main = async () => {
       const isAboutLetter = question.toLowerCase().includes("letter");
       const isAboutVowels = question.toLowerCase().includes("vowel");
       const isAboutConsonants = question.toLowerCase().includes("consonant");
+      const isTeluguVocabularyQuestion = question.toLowerCase().includes("telugu word for") || 
+                                          (question.toLowerCase().includes("mean") && question.match(/[^\u0000-\u007F]/));
+      const isTeluguGrammarQuestion = question.toLowerCase().includes("telugu sentence") || 
+                                      question.toLowerCase().includes("telugu pronoun") ||
+                                      question.toLowerCase().includes("tense") || 
+                                      question.toLowerCase().includes("suffix") ||
+                                      question.toLowerCase().includes("translate") ||
+                                      question.toLowerCase().includes("form of") ||
+                                      question.toLowerCase().includes("marker in");
       
       // Telugu characters for options
       const teluguVowels = ["అ", "ఆ", "ఇ", "ఈ", "ఉ", "ఊ", "ఋ", "ౠ", "ఎ", "ఏ", "ఐ", "ఒ", "ఓ", "ఔ"];
@@ -195,8 +403,251 @@ const main = async () => {
       let correctOption = "";
       let incorrectOptions = [];
       
+      // For Telugu vocabulary questions
+      if (isTeluguVocabularyQuestion) {
+        // Common Nouns
+        if (question.includes("water") || question.includes("నీరు")) {
+          correctOption = question.includes("water") ? "నీరు" : "Water";
+          incorrectOptions = question.includes("water") ? 
+            ["పుస్తకం", "ఆహారం", "చెట్టు"] : 
+            ["Book", "Food", "Tree"];
+        } 
+        else if (question.includes("food") || question.includes("ఆహారం")) {
+          correctOption = question.includes("food") ? "ఆహారం" : "Food";
+          incorrectOptions = question.includes("food") ? 
+            ["ఇల్లు", "నీరు", "పుస్తకం"] : 
+            ["House", "Water", "Book"];
+        }
+        else if (question.includes("house") || question.includes("ఇల్లు")) {
+          correctOption = question.includes("house") ? "ఇల్లు" : "House";
+          incorrectOptions = question.includes("house") ? 
+            ["చెట్టు", "ఆహారం", "నీరు"] : 
+            ["Tree", "Food", "Water"];
+        }
+        else if (question.includes("book") || question.includes("పుస్తకం")) {
+          correctOption = question.includes("book") ? "పుస్తకం" : "Book";
+          incorrectOptions = question.includes("book") ? 
+            ["చెట్టు", "ఇల్లు", "ఆహారం"] : 
+            ["Tree", "House", "Food"];
+        }
+        else if (question.includes("tree") || question.includes("చెట్టు")) {
+          correctOption = question.includes("tree") ? "చెట్టు" : "Tree";
+          incorrectOptions = question.includes("tree") ? 
+            ["పుస్తకం", "నీరు", "ఇల్లు"] : 
+            ["Book", "Water", "House"];
+        }
+        // Essential Verbs
+        else if (question.includes("to go") || question.includes("వెళ్ళు")) {
+          correctOption = question.includes("to go") ? "వెళ్ళు" : "To go";
+          incorrectOptions = question.includes("to go") ? 
+            ["రా", "తిను", "తాగు"] : 
+            ["To come", "To eat", "To drink"];
+        }
+        else if (question.includes("to come") || question.includes("రా")) {
+          correctOption = question.includes("to come") ? "రా" : "To come";
+          incorrectOptions = question.includes("to come") ? 
+            ["వెళ్ళు", "నిద్రపోవు", "తిను"] : 
+            ["To go", "To sleep", "To eat"];
+        }
+        else if (question.includes("to eat") || question.includes("తిను")) {
+          correctOption = question.includes("to eat") ? "తిను" : "To eat";
+          incorrectOptions = question.includes("to eat") ? 
+            ["తాగు", "రా", "నిద్రపోవు"] : 
+            ["To drink", "To come", "To sleep"];
+        }
+        else if (question.includes("to drink") || question.includes("తాగు")) {
+          correctOption = question.includes("to drink") ? "తాగు" : "To drink";
+          incorrectOptions = question.includes("to drink") ? 
+            ["తిను", "వెళ్ళు", "రా"] : 
+            ["To eat", "To go", "To come"];
+        }
+        else if (question.includes("to sleep") || question.includes("నిద్రపోవు")) {
+          correctOption = question.includes("to sleep") ? "నిద్రపోవు" : "To sleep";
+          incorrectOptions = question.includes("to sleep") ? 
+            ["వెళ్ళు", "తాగు", "తిను"] : 
+            ["To go", "To drink", "To eat"];
+        }
+        // Colors
+        else if (question.includes("red") || question.includes("ఎరుపు")) {
+          correctOption = question.includes("red") ? "ఎరుపు" : "Red";
+          incorrectOptions = question.includes("red") ? 
+            ["నీలం", "ఆకుపచ్చ", "పసుపు"] : 
+            ["Blue", "Green", "Yellow"];
+        }
+        else if (question.includes("blue") || question.includes("నీలం")) {
+          correctOption = question.includes("blue") ? "నీలం" : "Blue";
+          incorrectOptions = question.includes("blue") ? 
+            ["ఎరుపు", "నలుపు", "ఆకుపచ్చ"] : 
+            ["Red", "Black", "Green"];
+        }
+        else if (question.includes("green") || question.includes("ఆకుపచ్చ")) {
+          correctOption = question.includes("green") ? "ఆకుపచ్చ" : "Green";
+          incorrectOptions = question.includes("green") ? 
+            ["పసుపు", "నీలం", "నలుపు"] : 
+            ["Yellow", "Blue", "Black"];
+        }
+        else if (question.includes("yellow") || question.includes("పసుపు")) {
+          correctOption = question.includes("yellow") ? "పసుపు" : "Yellow";
+          incorrectOptions = question.includes("yellow") ? 
+            ["ఎరుపు", "నలుపు", "నీలం"] : 
+            ["Red", "Black", "Blue"];
+        }
+        else if (question.includes("black") || question.includes("నలుపు")) {
+          correctOption = question.includes("black") ? "నలుపు" : "Black";
+          incorrectOptions = question.includes("black") ? 
+            ["ఆకుపచ్చ", "పసుపు", "ఎరుపు"] : 
+            ["Green", "Yellow", "Red"];
+        }
+        // Family
+        else if (question.includes("mother") || question.includes("అమ్మ")) {
+          correctOption = question.includes("mother") ? "అమ్మ" : "Mother";
+          incorrectOptions = question.includes("mother") ? 
+            ["నాన్న", "అక్క", "తాత"] : 
+            ["Father", "Sister", "Grandfather"];
+        }
+        else if (question.includes("father") || question.includes("నాన్న")) {
+          correctOption = question.includes("father") ? "నాన్న" : "Father";
+          incorrectOptions = question.includes("father") ? 
+            ["అమ్మ", "అన్న", "తాత"] : 
+            ["Mother", "Brother", "Grandfather"];
+        }
+        else if (question.includes("sister") || (question.includes("అక్క") || question.includes("చెల్లి"))) {
+          correctOption = question.includes("sister") ? "అక్క/చెల్లి" : "Sister";
+          incorrectOptions = question.includes("sister") ? 
+            ["అన్న/తమ్ముడు", "అమ్మ", "నాన్న"] : 
+            ["Brother", "Mother", "Father"];
+        }
+        else if (question.includes("brother") || (question.includes("అన్న") || question.includes("తమ్ముడు"))) {
+          correctOption = question.includes("brother") ? "అన్న/తమ్ముడు" : "Brother";
+          incorrectOptions = question.includes("brother") ? 
+            ["అక్క/చెల్లి", "తాత", "నాన్న"] : 
+            ["Sister", "Grandfather", "Father"];
+        }
+        else if (question.includes("grandfather") || question.includes("తాత")) {
+          correctOption = question.includes("grandfather") ? "తాత" : "Grandfather";
+          incorrectOptions = question.includes("grandfather") ? 
+            ["నాన్న", "అమ్మ", "అక్క/చెల్లి"] : 
+            ["Father", "Mother", "Sister"];
+        }
+        // Food and Dining
+        else if (question.includes("rice") || question.includes("అన్నం")) {
+          correctOption = question.includes("rice") ? "అన్నం" : "Rice";
+          incorrectOptions = question.includes("rice") ? 
+            ["కూర", "పండు", "మిఠాయి"] : 
+            ["Curry", "Fruit", "Sweets"];
+        }
+        else if (question.includes("curry") || question.includes("కూర")) {
+          correctOption = question.includes("curry") ? "కూర" : "Curry";
+          incorrectOptions = question.includes("curry") ? 
+            ["అన్నం", "కూరగాయలు", "మిఠాయి"] : 
+            ["Rice", "Vegetable", "Sweets"];
+        }
+        else if (question.includes("vegetable") || question.includes("కూరగాయలు")) {
+          correctOption = question.includes("vegetable") ? "కూరగాయలు" : "Vegetable";
+          incorrectOptions = question.includes("vegetable") ? 
+            ["పండు", "అన్నం", "కూర"] : 
+            ["Fruit", "Rice", "Curry"];
+        }
+        else if (question.includes("fruit") || question.includes("పండు")) {
+          correctOption = question.includes("fruit") ? "పండు" : "Fruit";
+          incorrectOptions = question.includes("fruit") ? 
+            ["కూరగాయలు", "మిఠాయి", "అన్నం"] : 
+            ["Vegetable", "Sweets", "Rice"];
+        }
+        else if (question.includes("sweets") || question.includes("మిఠాయి")) {
+          correctOption = question.includes("sweets") ? "మిఠాయి" : "Sweets";
+          incorrectOptions = question.includes("sweets") ? 
+            ["చపాతి", "అన్నం", "కూర"] : 
+            ["Chapati", "Rice", "Curry"];
+        }
+        else {
+          // For any other vocabulary questions not specifically handled
+          correctOption = "General Telugu Term";
+          incorrectOptions = ["Wrong Option 1", "Wrong Option 2", "Wrong Option 3"];
+        }
+      }
+      // Grammar questions for Telugu
+      else if (question.toLowerCase().includes("telugu sentence") || 
+              question.toLowerCase().includes("telugu pronoun") ||
+              question.toLowerCase().includes("tense") || 
+              question.toLowerCase().includes("suffix") ||
+              question.toLowerCase().includes("translate") ||
+              question.toLowerCase().includes("form of") ||
+              question.toLowerCase().includes("marker in")) {
+        
+        // Basic Sentence Structure
+        if (question.includes("typical word order")) {
+          correctOption = "Subject-Object-Verb (SOV)";
+          incorrectOptions = ["Subject-Verb-Object (SVO)", "Verb-Subject-Object (VSO)", "Object-Subject-Verb (OSV)"];
+        }
+        else if (question.includes("verb placement")) {
+          correctOption = "At the end of the sentence";
+          incorrectOptions = ["At the beginning of the sentence", "After the subject", "Before the object"];
+        }
+        // Pronouns
+        else if (question.includes("I") && question.includes("pronoun")) {
+          correctOption = "నేను (nēnu)";
+          incorrectOptions = ["నువ్వు (nuvvu)", "అతను (atanu)", "ఆమె (āme)"];
+        }
+        else if (question.includes("you") && question.includes("pronoun")) {
+          correctOption = "నువ్వు (nuvvu)";
+          incorrectOptions = ["నేను (nēnu)", "మీరు (mīru)", "వారు (vāru)"];
+        }
+        else if (question.includes("he") && question.includes("pronoun")) {
+          correctOption = "అతను (atanu)";
+          incorrectOptions = ["ఆమె (āme)", "నేను (nēnu)", "వారు (vāru)"];
+        }
+        else if (question.includes("she") && question.includes("pronoun")) {
+          correctOption = "ఆమె (āme)";
+          incorrectOptions = ["అతను (atanu)", "నీవు (nīvu)", "మేము (mēmu)"];
+        }
+        // Present Tense
+        else if (question.includes("present tense") && question.includes("marker")) {
+          correctOption = "-తున్నా (-tunnā)";
+          incorrectOptions = ["-తా (-tā)", "-ను (-nu)", "-ము (-mu)"];
+        }
+        else if (question.includes("present tense") && question.includes("example")) {
+          correctOption = "నేను తింటున్నాను (nēnu tiṇṭunnānu) - I am eating";
+          incorrectOptions = [
+            "నేను తిన్నాను (nēnu tinnānu) - I ate", 
+            "నేను తింటాను (nēnu tiṇṭānu) - I will eat", 
+            "నేను తినలేదు (nēnu tinalēdu) - I did not eat"
+          ];
+        }
+        // Past Tense
+        else if (question.includes("past tense") && question.includes("marker")) {
+          correctOption = "-ఆను (-ānu)";
+          incorrectOptions = ["-తున్నా (-tunnā)", "-తా (-tā)", "-తారు (-tāru)"];
+        }
+        else if (question.includes("past tense") && question.includes("example")) {
+          correctOption = "నేను తిన్నాను (nēnu tinnānu) - I ate";
+          incorrectOptions = [
+            "నేను తింటున్నాను (nēnu tiṇṭunnānu) - I am eating", 
+            "నేను తింటాను (nēnu tiṇṭānu) - I will eat", 
+            "నేను తినలేదు (nēnu tinalēdu) - I did not eat"
+          ];
+        }
+        // Future Tense
+        else if (question.includes("future tense") && question.includes("marker")) {
+          correctOption = "-తా (-tā)";
+          incorrectOptions = ["-ఆను (-ānu)", "-తున్నా (-tunnā)", "-ను (-nu)"];
+        }
+        else if (question.includes("future tense") && question.includes("example")) {
+          correctOption = "నేను తింటాను (nēnu tiṇṭānu) - I will eat";
+          incorrectOptions = [
+            "నేను తిన్నాను (nēnu tinnānu) - I ate", 
+            "నేను తింటున్నాను (nēnu tiṇṭunnānu) - I am eating", 
+            "నేను తినలేదు (nēnu tinalēdu) - I did not eat"
+          ];
+        }
+        else {
+          // Default for other grammar questions
+          correctOption = "Telugu grammar rule";
+          incorrectOptions = ["Incorrect rule 1", "Incorrect rule 2", "Incorrect rule 3"];
+        }
+      }
       // For letter questions, use actual Telugu letters as options
-      if (isAboutLetter && question.includes("'a'")) {
+      else if (isAboutLetter && question.includes("'a'")) {
         correctOption = "అ";
         // Select 3 random different Telugu vowels that are not the correct option
         incorrectOptions = getRandomItems(teluguVowels.filter(v => v !== "అ"), 3);

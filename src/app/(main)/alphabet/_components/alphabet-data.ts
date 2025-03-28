@@ -89,9 +89,9 @@ export const teluguAlphabet: AlphabetCharacter[] = [
     pronunciation: "Rolled 'r' with short 'i'",
     category: "vowel",
     example: {
-      word: "ఋషి",
-      meaning: "Sage",
-      romanized: "ṛṣi",
+      word: "ఋషభ",
+      meaning: "Rishabh\n(Moral, Musical note)",
+      romanized: "ṛṣabha",
     }
   },
   {
@@ -520,9 +520,9 @@ export const teluguAlphabet: AlphabetCharacter[] = [
     pronunciation: "'v' closer to 'w'",
     category: "semivowel",
     example: {
-      word: "వాన",
-      meaning: "Rain",
-      romanized: "vāna",
+      word: "వర్షిత",
+      meaning: "Varshitha \n(Blessed by the rain)",
+      romanized: "varṣita",
     }
   },
   {

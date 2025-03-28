@@ -10,10 +10,10 @@ export const MobileSideBar = () => {
     <Sheet>
       <SheetTrigger className="pr-4 hover:opacity-75 transition">
         <Menu className={cn(
-          "text-white dark:text-white"
+          "text-[#3a3630] dark:text-white"
         )} />
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 dark:bg-slate-950">
+      <SheetContent side="left" className="p-0 bg-[#ede9df] dark:bg-slate-950">
         <Sidebar />
       </SheetContent>
     </Sheet>

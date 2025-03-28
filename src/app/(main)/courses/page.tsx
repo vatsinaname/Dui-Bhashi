@@ -5,9 +5,9 @@ import { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
-  title: "Dui-Bhashi | Courses",
+  title: "BhashaBird | Courses",
   description:
-    "Learn a new language with Dui-Bhashi. Choose from a variety of Indian languages and start learning today.",
+    "Learn a new language with BhashaBird. Choose from a variety of Indian languages.",
 };
 
 const CoursesPage = async () => {

@@ -14,15 +14,15 @@ import Image from "next/image";
 
 export const Header = () => {
   return (
-    <header className="h-20 w-full border-b-2 border-slate-200 px-4">
+    <header className="h-20 w-full border-b border-[#e1dbd0] px-4 bg-[#f9f7f1] dark:bg-slate-900 dark:border-slate-800 shadow-sm">
       <div
         className="lg:max-w-screen-lg mx-auto flex items-center
        justify-between h-full "
       >
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-          <Image src="/Dui.svg" alt="Logo" height={40} width={40} className="mr-4 rounded-md" />
-          <h1 className="text-2xl text-blue-900 tracking-wide font-extrabold">
-            Dui-Bhashi
+          <Image src="/favicon.ico" alt="Logo" height={40} width={40} className="mr-4 rounded-md" />
+          <h1 className="text-2xl text-blue-900 dark:text-blue-500 tracking-wide font-extrabold">
+            BhashaBird
           </h1>
         </div>
         <ClerkLoading>
@@ -34,7 +34,7 @@ export const Header = () => {
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal">
-              <Button size="lg" variant="ghost">
+              <Button size="lg" variant="ghost" className="text-blue-900 hover:text-blue-700 hover:bg-[#e8e4d9] dark:text-blue-400 dark:hover:bg-slate-800">
                 Login
               </Button>
             </SignInButton>

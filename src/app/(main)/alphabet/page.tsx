@@ -7,7 +7,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dui-Bhashi | Alphabet",
+  title: "BhashaBird | Alphabet",
   description: "Learn the alphabet of your chosen language.",
 };
 
@@ -28,8 +28,8 @@ const AlphabetPage = async () => {
   const activeCourse = userProgress.activeCourse;
   
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full px-4 mb-8">
+    <div className="flex flex-col w-full bg-[#ede9df] dark:bg-slate-950">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full px-4 pt-4 pb-8">
         <div className="mb-6 md:mb-0 flex flex-col items-center md:items-start">
           <div className="flex items-center mb-2">
             <Image
@@ -39,12 +39,12 @@ const AlphabetPage = async () => {
               width={60}
               className="mr-4"
             />
-            <h1 className="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-blue-400">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#6d4b73] dark:text-blue-400">
               {activeCourse.title} Alphabet
             </h1>
           </div>
-          <p className="text-center md:text-left text-lg text-muted-foreground">
-            Learn the characters and sounds of the {activeCourse.title} alphabet.
+          <p className="text-center md:text-left text-lg text-[#8d6493] dark:text-slate-300">
+            Learn the characters, sounds, and writing system of {activeCourse.title}.
           </p>
         </div>
         
@@ -57,7 +57,7 @@ const AlphabetPage = async () => {
         </div>
       </div>
       
-      <div className="w-full bg-white dark:bg-slate-950 px-2 md:px-4">
+      <div className="w-full bg-[#f9f7f1] dark:bg-slate-950 px-2 md:px-4 rounded-lg border border-[#d5c0d6] shadow-sm mx-auto max-w-[98%] mb-8">
         <AlphabetCards courseTitle={activeCourse.title} />
       </div>
     </div>

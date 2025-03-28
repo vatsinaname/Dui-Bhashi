@@ -30,7 +30,7 @@ export const ExitModal = () => {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="mx-auto mb-5">
-            <Image src="/mascot_sad.svg" alt="Mascot" height={80} width={80} />
+            <Image src="/mascot_sad.png" alt="Mascot" height={80} width={80} />
           </div>
           <DialogTitle className="text-center text-2xl font-bold">
             Wait don&apos;t go!

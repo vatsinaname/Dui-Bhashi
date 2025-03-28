@@ -35,9 +35,9 @@ const LessonError = ({ message, debugInfo }: { message: string, debugInfo?: any 
 };
 
 interface PageProps {
-  params: Promise<{
+  params: {
     lessonId: string;
-  }>;
+  };
 }
 
 // Create a safe version of the challenge type that allows setting challengeOptions
@@ -66,10 +66,9 @@ const LessonIdPage = async ({ params }: PageProps) => {
     redirect("/");
   }
 
-  const [userProgress, courseProgress, resolvedParams, units] = await Promise.all([
+  const [userProgress, courseProgress, units] = await Promise.all([
     getUserProgress(),
     getCourseProgress(),
-    params,
     getUnits()
   ]);
 
@@ -79,7 +78,7 @@ const LessonIdPage = async ({ params }: PageProps) => {
   }
 
   try {
-    const lessonId = parseInt(resolvedParams.lessonId, 10);
+    const lessonId = parseInt(params.lessonId, 10);
 
     if (isNaN(lessonId)) {
       console.error("Invalid lesson ID format");
@@ -107,6 +106,19 @@ const LessonIdPage = async ({ params }: PageProps) => {
     
     // Find the specific lesson from the units data to check lock status
     const lessonFromUnits = allLessons.find(lesson => lesson.id === lessonId);
+    
+    // Verify lesson belongs to active course
+    const activeUnits = units.filter(unit => unit.courseId === userProgress.activeCourseId);
+    const activeLessons = activeUnits.flatMap(unit => unit.lessons);
+    const isInActiveCourse = activeLessons.some(lesson => lesson.id === lessonId);
+    
+    if (!isInActiveCourse) {
+      console.error(`Lesson ${lessonId} is not part of the active course ${userProgress.activeCourseId}`);
+      return <LessonError 
+        message="This lesson belongs to a different course than the one you're currently taking."
+        debugInfo={{ lessonId, activeCourseId: userProgress.activeCourseId }}
+      />;
+    }
     
     // Debug: Log lesson lock status 
     console.log(`Lesson ${lessonId} status:`, {
@@ -220,11 +232,9 @@ const LessonIdPage = async ({ params }: PageProps) => {
     const isTelugu = userProgress.activeCourse.title.toLowerCase().includes("telugu");
     const isKannada = userProgress.activeCourse.title.toLowerCase().includes("kannada");
     
-    const challengeId = isTelugu ? 
-      (lesson.id * 100) + challenge.order : 
-      isKannada ? 
-        (lesson.id * 100) + challenge.order : 
-        challenge.id;
+    // Use the actual challenge ID rather than calculating it based on lesson ID
+    // This prevents cross-course mapping issues
+    const challengeId = challenge.id;
         
     const progress = Math.min(
       Math.round((completedChallenges / fixedChallengesPerLesson) * 100), 

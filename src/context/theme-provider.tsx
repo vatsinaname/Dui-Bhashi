@@ -38,8 +38,15 @@ export function ThemeProvider({
     const savedTheme = typeof window !== 'undefined' ? localStorage?.getItem(storageKey) as Theme : null;
     if (savedTheme) {
       setTheme(savedTheme);
+    } else if (defaultTheme !== "system") {
+      // If no saved theme but we have a non-system default, use it
+      setTheme(defaultTheme);
+      // Also save it to localStorage to persist the default
+      if (typeof window !== 'undefined') {
+        localStorage?.setItem(storageKey, defaultTheme);
+      }
     }
-  }, [storageKey]);
+  }, [storageKey, defaultTheme]);
 
   React.useEffect(() => {
     const root = window.document.documentElement;

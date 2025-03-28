@@ -24,7 +24,7 @@ export const Header = ({
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white px-4 py-3 shadow-sm dark:border-gray-800 dark:bg-gray-950">
       <nav className="mx-auto flex max-w-[988px] items-center justify-between">
         <Link href="/learn" className="flex items-center gap-x-3">
-          <Image src="/mascot.svg" alt="Mascot" height={32} width={32} className="dark:invert" />
+          <Image src="/mascot.png" alt="Mascot" height={32} width={32} />
           <span className="text-xl font-bold tracking-wide dark:text-white">Dui Bhashi</span>
         </Link>
         <div className="flex items-center gap-x-4">

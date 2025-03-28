@@ -29,8 +29,8 @@ export const teluguQuotes: CulturalQuote[] = [
     type: "poem"
   },
   {
-    text: "పల్లెటూరి పిల్లగాలి పాటపాడే వేళ",
-    transliteration: "Palletoori pillagaali paataapaade vela",
+    text: "పల్లెటూరి పిల్లగాలి పాట పాడే వేళ",
+    transliteration: "Palletoori pillagaali paata paade vela",
     translation: "When the village breeze sings its song",
     source: "Classical Telugu Literature",
     type: "literature"

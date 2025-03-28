@@ -7,10 +7,11 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ challengeId: string }> }
+  { params }: { params: { challengeId: string } }
 ) {
   const isAdmin = await getIsAdmin();
-  const { challengeId } = await params;
+  const resolvedParams = await params;
+  const { challengeId } = resolvedParams;
 
   if (!isAdmin) {
     return new NextResponse("unAuthorized", { status: 401 });
@@ -24,10 +25,11 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ challengeId: string }> }
+  { params }: { params: { challengeId: string } }
 ) {
   const isAdmin = await getIsAdmin();
-  const { challengeId } = await params;
+  const resolvedParams = await params;
+  const { challengeId } = resolvedParams;
 
   if (!isAdmin) {
     return new NextResponse("unAuthorized", { status: 401 });
@@ -48,10 +50,11 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ challengeId: string }> }
+  { params }: { params: { challengeId: string } }
 ) {
   const isAdmin = await getIsAdmin();
-  const { challengeId } = await params;
+  const resolvedParams = await params;
+  const { challengeId } = resolvedParams;
 
   if (!isAdmin) {
     return new NextResponse("unAuthorized", { status: 401 });

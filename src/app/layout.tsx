@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme-provider";
 import { Toaster } from "../components/ui/sonner";
@@ -9,14 +9,18 @@ import { ExitModal } from "../components/modal/exit-modal";
 import { HeartsModal } from "../components/modal/hearts-modal";
 import { PracticeModal } from "../components/modal/practice-modal";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-outfit'
+});
 
 export const metadata: Metadata = {
-  title: "Dui-Bhashi",
+  title: "Bhashabird",
   description:
-    "Learn any Indian Language on Dui-Bhashi. Start learning.",
+    "Discover Indias's linguistic diversity with BhashaBird.",
   icons: {
-    icon: "/dui.ico",
+    icon: "/favicon.ico",
   },
 };
 
@@ -27,6 +31,7 @@ function ThemeScript() {
     (function() {
       try {
         const storageKey = "dui-bhashi-theme";
+        // Default explicitly to light instead of system when no theme is saved
         const theme = localStorage.getItem(storageKey) || "light";
         const root = document.documentElement;
         
@@ -37,6 +42,11 @@ function ThemeScript() {
           root.classList.add(systemTheme);
         } else {
           root.classList.add(theme);
+          
+          // Ensure the theme is saved in localStorage for consistency
+          if (!localStorage.getItem(storageKey)) {
+            localStorage.setItem(storageKey, "light");
+          }
         }
       } catch (e) {
         console.error("Theme initialization failed:", e);
@@ -63,7 +73,7 @@ export default function RootLayout({
         <head>
           <ThemeScript />
         </head>
-        <body className={inter.className}>
+        <body className={`${outfit.className} ${outfit.variable}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

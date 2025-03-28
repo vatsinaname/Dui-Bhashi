@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export const Footer = () => {
   return (
-    <footer className="hidden h-20 w-full border-t-2 border-slate-200 dark:border-slate-800 p-2 lg:block dark:bg-gray-950">
+    <footer className="hidden h-20 w-full border-t border-[#e1dbd0] dark:border-slate-800 p-2 lg:block bg-[#ede9df] dark:bg-slate-900 shadow-inner">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
-        <Button size="lg" variant="ghost" className="w-full dark:text-white dark:hover:bg-gray-900">
+        <Button size="lg" variant="ghost" className="w-full text-[#3a3630] hover:bg-[#e8e4d9] dark:text-white dark:hover:bg-slate-800">
           <Image
             src="/dzanutenugu.svg"
             alt="Dzanu Tenugu"
@@ -17,7 +17,7 @@ export const Footer = () => {
           />
           Telugu/తెలుగు
         </Button>
-        <Button size="lg" variant="ghost" className="w-full dark:text-white dark:hover:bg-gray-900">
+        <Button size="lg" variant="ghost" className="w-full text-[#3a3630] hover:bg-[#e8e4d9] dark:text-white dark:hover:bg-slate-800">
           <Image
             src="/kan.svg"
             alt="Jai Basavanna"

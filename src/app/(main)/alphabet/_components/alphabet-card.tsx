@@ -44,14 +44,15 @@ export const AlphabetCard: React.FC<AlphabetCardProps> = ({
       )}>
         {/* Front of card */}
         <div className={cn(
-          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-lg border p-3 flex flex-col items-center justify-center",
-          "shadow-sm hover:shadow-md transition-shadow backface-hidden"
+          "absolute inset-0 w-full h-full rounded-lg border border-[#d5c0d6] p-3 flex flex-col items-center justify-center",
+          "shadow-sm hover:shadow-md transition-shadow backface-hidden",
+          "bg-[#f9f7f1] dark:bg-slate-800 text-[#3a3630] dark:text-slate-100"
         )}>
           <span className="text-5xl font-bold mb-2">{character}</span>
           <span className="text-sm font-medium">{romanized}</span>
           {audioSrc && (
             <button 
-              className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="absolute top-2 right-2 text-[#9b6a9b] hover:text-[#7d557d] dark:text-blue-400 dark:hover:text-blue-300"
               onClick={playAudio}
             >
               <Volume2 size={18} />
@@ -61,26 +62,27 @@ export const AlphabetCard: React.FC<AlphabetCardProps> = ({
         
         {/* Back of card */}
         <div className={cn(
-          "absolute inset-0 w-full h-full bg-white dark:bg-slate-800 rounded-lg border p-3 flex flex-col",
-          "shadow-sm backface-hidden rotate-y-180"
+          "absolute inset-0 w-full h-full rounded-lg border border-[#d5c0d6] p-3 flex flex-col",
+          "shadow-sm backface-hidden rotate-y-180",
+          "bg-[#f0ece3] dark:bg-slate-800 text-[#3a3630] dark:text-slate-100"
         )}>
           <div className="flex-1 flex flex-col justify-between">
             <div className="mb-2">
-              <h3 className="font-bold text-center text-sm mb-0.5">Pronunciation</h3>
-              <p className="text-center text-muted-foreground text-xs">{pronunciation}</p>
+              <h3 className="font-bold text-center text-sm mb-0.5 text-[#6d4b73] dark:text-blue-400">Pronunciation</h3>
+              <p className="text-center text-[#8d6493] dark:text-slate-300 text-xs">{pronunciation}</p>
             </div>
             
-            <div className="border-t pt-2">
-              <h3 className="font-bold text-center text-sm mb-1">Example</h3>
+            <div className="border-t border-[#d7c3d9] pt-2">
+              <h3 className="font-bold text-center text-sm mb-1 text-[#6d4b73] dark:text-blue-400">Example</h3>
               <p className="text-center font-medium text-base mb-0.5">{example.word}</p>
-              <p className="text-center italic text-xs mb-0.5">{example.romanized}</p>
-              <p className="text-center text-muted-foreground text-xs">{example.meaning}</p>
+              <p className="text-center italic text-xs mb-0.5 text-[#8d6493] dark:text-slate-300">{example.romanized}</p>
+              <p className="text-center text-[#8d6493] dark:text-slate-400 text-xs whitespace-pre-line">{example.meaning}</p>
             </div>
           </div>
           
           {audioSrc && (
             <button 
-              className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="absolute top-2 right-2 text-[#9b6a9b] hover:text-[#7d557d] dark:text-blue-400 dark:hover:text-blue-300"
               onClick={playAudio}
             >
               <Volume2 size={18} />

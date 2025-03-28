@@ -7,7 +7,7 @@ export const MobileHeader = () => {
   return (
     <nav className={cn(
       "fixed top-0 z-50 flex h-[50px] w-full items-center border-b px-6 lg:hidden",
-      "bg-darkblue-500 dark:bg-slate-900 dark:border-slate-800"
+      "bg-[#f9f7f1] border-[#e1dbd0] dark:bg-slate-900 dark:border-slate-800"
     )}>
       <MobileSideBar />
       <div className="flex items-center gap-x-2">
