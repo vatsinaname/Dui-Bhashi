@@ -24,6 +24,7 @@ export const Sidebar = ({ className }: Props) => {
   const pathname = usePathname();
   const { user } = useUser();
   const [courseTitle, setCourseTitle] = useState<string | null>(null);
+  const [achievementTitle, setAchievementTitle] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   // Fetch active course info with improvement - start loading faster
@@ -31,8 +32,12 @@ export const Sidebar = ({ className }: Props) => {
     // Immediately check sessionStorage first for cached course title
     if (typeof window !== 'undefined') {
       const cachedTitle = sessionStorage.getItem('activeCourseTitleCache');
+      const cachedAchievement = sessionStorage.getItem('achievementTitleCache');
       if (cachedTitle) {
         setCourseTitle(cachedTitle);
+      }
+      if (cachedAchievement) {
+        setAchievementTitle(cachedAchievement);
       }
     }
 
@@ -55,6 +60,19 @@ export const Sidebar = ({ className }: Props) => {
             // Clear cache if no title
             if (typeof window !== 'undefined') {
               sessionStorage.removeItem('activeCourseTitleCache');
+            }
+          }
+          
+          if (data.achievementTitle) {
+            setAchievementTitle(data.achievementTitle);
+            // Cache the achievement title
+            if (typeof window !== 'undefined') {
+              sessionStorage.setItem('achievementTitleCache', data.achievementTitle);
+            }
+          } else {
+            setAchievementTitle(null);
+            if (typeof window !== 'undefined') {
+              sessionStorage.removeItem('achievementTitleCache');
             }
           }
         }
@@ -80,10 +98,19 @@ export const Sidebar = ({ className }: Props) => {
       className
     )}>
       <div className="flex items-center justify-between py-4">
-        <div>
+        <div className="flex items-center gap-x-2">
           <UserButton afterSignOutUrl="/" />
+          {achievementTitle && (
+            <span className="text-sm font-semibold text-[#9b6a9b] dark:text-blue-400 ml-2">
+              {achievementTitle.includes('(') 
+                ? achievementTitle.match(/\(([^)]+)\)/)?.[1] || achievementTitle 
+                : achievementTitle}
+            </span>
+          )}
         </div>
-        <ThemeToggle />
+        <div className="mr-6">
+          <ThemeToggle />
+        </div>
       </div>
       <div className="flex flex-col gap-y-2 flex-1">
         <SidebarItem
@@ -113,6 +140,7 @@ export const Sidebar = ({ className }: Props) => {
             <div className="w-full h-4 bg-muted rounded animate-pulse"></div>
           </div>
         ) : null}
+        
         <SidebarItem
           label="Leaderboard"
           href="/leaderboard"
@@ -131,7 +159,7 @@ export const Sidebar = ({ className }: Props) => {
           href="/shop"
           active={pathname === "/shop"}
         />
-        {(user?.publicMetadata as { admin?: boolean })?.admin && (
+        {user?.publicMetadata && (user?.publicMetadata as { admin?: boolean })?.admin && (
           <SidebarItem
             label="Admin"
             href="/admin"

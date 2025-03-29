@@ -13,6 +13,7 @@ import {
   getLessonPercentage,
   getUnits,
   getUserProgress,
+  getUserActiveCoursePoints,
 } from "../../../db/queries";
 import { Unit } from "./_components/units";
 import { Challenges } from "../../../components/quests";
@@ -23,6 +24,7 @@ import { Suspense } from "react";
 import { UnitBanner } from "./_components/unit-banner";
 import { auth } from "@clerk/nextjs/server";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../components/ui/card";
+import { teluguQuests, kannadaQuests } from "../../../constants";
 
 export const metadata: Metadata = {
   title: "BhashaBird | Learn",
@@ -43,6 +45,21 @@ interface UnitData {
   }[];
 }
 
+// Helper function to get current achievement title
+function getCurrentAchievementTitle(points: number, isTeluguCourse: boolean) {
+  const quests = isTeluguCourse ? teluguQuests : kannadaQuests;
+  
+  // Find the highest achievement level the user has reached
+  for (let i = quests.length - 1; i >= 0; i--) {
+    if (points >= quests[i].value) {
+      return quests[i].title;
+    }
+  }
+  
+  // Default to first level if no points yet
+  return quests[0].title;
+}
+
 const LearnPage = async () => {
   const authData = await auth();
   const userId = authData.userId;
@@ -53,10 +70,15 @@ const LearnPage = async () => {
 
   // Fetch units and handle type conversions as needed
   const unitsData = await getUnits();
+  const userProgress = await getUserProgress();
+  const activePoints = await getUserActiveCoursePoints();
 
   if (!unitsData.length) {
     return redirect("/learn/0");
   }
+
+  const isTeluguCourse = userProgress?.activeCourse?.title?.toLowerCase().includes("telugu") || false;
+  const achievementTitle = getCurrentAchievementTitle(activePoints, isTeluguCourse);
 
   // Convert and normalize the data to match our interface
   const units: UnitData[] = unitsData.map(unit => ({
@@ -151,6 +173,17 @@ const LearnPage = async () => {
                 </span>
                 <span>
                   ({Math.round((unitInProgress.progress || 0) * 100)}% completed)
+                </span>
+              </div>
+            )}
+
+            {userProgress?.activeCourse && (
+              <div className="flex items-center mt-3 gap-x-2 text-sm text-[#8d6493] dark:text-blue-300">
+                <span>
+                  Current Level: {" "}
+                  <span className="font-semibold text-[#6d4b73] dark:text-blue-400">
+                    {achievementTitle}
+                  </span>
                 </span>
               </div>
             )}

@@ -6,6 +6,7 @@ import { Check, Crown, Star } from "lucide-react";
 import Link from "next/link";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useTheme } from "@/context/theme-provider";
 
 type Props = {
   id: number;
@@ -26,6 +27,10 @@ export const LessonButton = ({
 }: Props) => {
   const cycleLength = 8;
   const cycleIndex = index % cycleLength;
+  
+  // Use the theme hook from the application's theme provider
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   // Create a more interesting zigzag pattern with slight variation
   let indentationLevel;
@@ -52,6 +57,10 @@ export const LessonButton = ({
 
   // Remove the hash href for completed lessons - allow navigation to all non-locked lessons
   const href = locked ? "#" : `/lesson/${id}`;
+
+  // Define theme-specific colors
+  const pathColor = isDarkMode ? "#3B82F6" : "#9b6a9b"; // blue-500 in dark mode, original color in light mode
+  const trailColor = isDarkMode ? "#1E293B" : "#e5e7eb"; // slate-800 in dark mode, original color in light mode
 
   return (
     <Link
@@ -81,14 +90,10 @@ export const LessonButton = ({
               value={Number.isNaN(percentage) ? 0 : percentage}
               styles={{
                 path: {
-                  stroke: getComputedStyle(document.documentElement).getPropertyValue('--dark-mode') === 'true' 
-                    ? "#3B82F6" // blue-500 in dark mode
-                    : "#9b6a9b", // original color in light mode
+                  stroke: pathColor,
                 },
                 trail: {
-                  stroke: getComputedStyle(document.documentElement).getPropertyValue('--dark-mode') === 'true'
-                    ? "#1E293B" // slate-800 in dark mode
-                    : "#e5e7eb", // original color in light mode
+                  stroke: trailColor,
                 },
               }}
             >

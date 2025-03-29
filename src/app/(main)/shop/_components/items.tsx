@@ -94,13 +94,18 @@ export const Items = ({
           className="mb-4"
         />
         <h3 className="text-xl font-bold mb-2">5 Hearts</h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "ప్రయత్నించడానికి మరింత సమయం పొందండి" 
             : isKannada
             ? "ಪ್ರಯತ್ನಿಸಲು ಹೆಚ್ಚಿನ ಸಮಯ ಪಡೆಯಿರಿ"
             : "Get more time to practice"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            Get more time to practice
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"
@@ -123,13 +128,18 @@ export const Items = ({
             ? "Bahubali Avatar" 
             : "Puneeth Rajkumar Avatar"}
         </h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "ప్రభాస్ లాగా కనిపించండి" 
             : isKannada
             ? "ಅಪ್ಪು ಅವರಂತೆ ಕಾಣಿಸಿಕೊಳ್ಳಿ"
             : "Look like your favorite actor"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            {isTelugu ? "Look like Prabhas" : "Look like Appu"}
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"
@@ -152,13 +162,18 @@ export const Items = ({
             ? "Charminar Theme" 
             : "Mysore Palace Theme"}
         </h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "హైదరాబాద్ చార్మినార్ థీమ్" 
             : isKannada
             ? "ಮೈಸೂರು ಅರಮನೆ ಥೀಮ್"
             : "Beautiful palace theme"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            {isTelugu ? "Hyderabad Charminar Theme" : "Mysore Palace Theme"}
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"
@@ -181,13 +196,18 @@ export const Items = ({
             ? "Biryani Power-up" 
             : "Bisi Bele Bath Power-up"}
         </h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "ధుమ్ ధుమ్ బిర్యాని శక్తి పెంపు" 
             : isKannada
             ? "ಬಿಸಿ ಬೇಳೆ ಬಾತ್ ಪವರ್ ಅಪ್"
             : "Traditional food power-up"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            {isTelugu ? "Dum Dum Biryani Power-up" : "Bisi Bele Bath Power-up"}
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"
@@ -212,13 +232,18 @@ export const Items = ({
             ? "Sandalwood Badge"
             : "Cinema Badge"}
         </h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "సినిమా ఇండస్ట్రీ బ్యాడ్జ్" 
             : isKannada
             ? "ಚಲನಚಿತ್ರ ಉದ್ಯಮ ಬ್ಯಾಡ್ಜ್"
             : "Film Industry Badge"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            {isTelugu ? "Cinema Industry Badge" : "Film Industry Badge"}
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"
@@ -238,13 +263,18 @@ export const Items = ({
           <span className="absolute -top-2 -right-2 text-xl">∞</span>
         </div>
         <h3 className="text-xl font-bold mb-2">Unlimited Hearts</h3>
-        <p className="text-muted-foreground text-center mb-4">
+        <p className="text-muted-foreground text-center mb-1">
           {isTelugu
             ? "అన్ని పాఠాలకు అపరిమిత ప్రయత్నాలు" 
             : isKannada
             ? "ಎಲ್ಲಾ ಪಾಠಗಳಿಗೆ ಅನಿಯಮಿತ ಪ್ರಯತ್ನಗಳು"
             : "Unlimited attempts for all lessons"}
         </p>
+        {(isTelugu || isKannada) && (
+          <p className="text-muted-foreground text-center text-xs italic mb-4">
+            Unlimited attempts for all lessons
+          </p>
+        )}
         <Button
           onClick={onClickHandler}
           variant="default"

@@ -268,7 +268,15 @@ export const Quiz = ({
         <Footer
           lessonId={challenge.lessonId}
           status="completed"
-          onCheck={() => router.push("/learn")}
+          onCheck={() => {
+            // Try to get the previous unit URL from browser history
+            if (window.history.length > 1) {
+              window.history.back();
+            } else {
+              // Fallback to learn page
+              router.push("/learn");
+            }
+          }}
         />
       </div>
     );
@@ -328,7 +336,7 @@ export const Quiz = ({
       {/* Main content area with question and options */}
       <div className="pt-16 pb-32 h-full flex flex-col items-center justify-center">
         <div className="w-full max-w-[640px] mx-auto px-4 flex flex-col gap-y-6">
-          <h1 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight py-4 mt-3">
+          <h1 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight py-4 mt-8">
             {title}
           </h1>
           

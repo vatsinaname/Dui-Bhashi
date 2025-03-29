@@ -35,9 +35,9 @@ const LessonError = ({ message, debugInfo }: { message: string, debugInfo?: any 
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     lessonId: string;
-  };
+  }>;
 }
 
 // Create a safe version of the challenge type that allows setting challengeOptions
@@ -60,10 +60,26 @@ interface SafeChallengeType {
 }
 
 const LessonIdPage = async ({ params }: PageProps) => {
+  // First await and extract params before using them
+  const resolvedParams = await params;
+  const lessonIdParam = resolvedParams?.lessonId;
+  
+  if (!lessonIdParam) {
+    console.error("Missing lessonId parameter");
+    return redirect("/learn");
+  }
+  
+  const lessonId = parseInt(lessonIdParam, 10);
+  
+  if (isNaN(lessonId)) {
+    console.error("Invalid lesson ID format");
+    return redirect("/learn");
+  }
+  
   const { userId } = await auth();
 
   if (!userId) {
-    redirect("/");
+    return redirect("/");
   }
 
   const [userProgress, courseProgress, units] = await Promise.all([
@@ -74,17 +90,10 @@ const LessonIdPage = async ({ params }: PageProps) => {
 
   if (!userProgress || !userProgress.activeCourse) {
     console.error("User progress or active course not found");
-    redirect("/learn");
+    return redirect("/learn");
   }
 
   try {
-    const lessonId = parseInt(params.lessonId, 10);
-
-    if (isNaN(lessonId)) {
-      console.error("Invalid lesson ID format");
-      redirect("/learn");
-    }
-
     console.log(`Attempting to load lesson ID: ${lessonId}`);
     
     // Check if this lesson exists in the units/lessons structure
@@ -226,12 +235,42 @@ const LessonIdPage = async ({ params }: PageProps) => {
     // Calculate lesson progress
     const completedChallenges = lesson.challenges.filter((c) => c.completed).length;
     
-    // Determine if this is the last challenge
-    // For Telugu course, lessons should be numbered simply from 1, 2, 3...
-    // For Kannada course, same structure
-    const isTelugu = userProgress.activeCourse.title.toLowerCase().includes("telugu");
-    const isKannada = userProgress.activeCourse.title.toLowerCase().includes("kannada");
+    // Determine the language of the course
+    const courseName = userProgress.activeCourse.title.toLowerCase();
+    const isTelugu = courseName.includes("telugu");
+    const isKannada = courseName.includes("kannada");
     
+    // Double-check using the unit and challenge data
+    let detectedLanguage = "Unknown";
+    
+    // 1. Check from active course
+    if (isTelugu) detectedLanguage = "Telugu";
+    else if (isKannada) detectedLanguage = "Kannada";
+    
+    // 2. Verify from lesson unit course
+    if (lesson.unit && lesson.unit.course) {
+      const unitCourseName = lesson.unit.course.title.toLowerCase();
+      const unitLanguage = unitCourseName.includes("telugu") ? "Telugu" : 
+                            unitCourseName.includes("kannada") ? "Kannada" : 
+                            "Unknown";
+      
+      // Log if there's a language mismatch
+      if (detectedLanguage !== "Unknown" && unitLanguage !== "Unknown" && detectedLanguage !== unitLanguage) {
+        console.error(`Language mismatch detected: Active course says ${detectedLanguage} but unit course says ${unitLanguage}`);
+      }
+    }
+    
+    // 3. Check challenge question text as a last resort
+    const questionText = challenge.question.toLowerCase();
+    if (questionText.includes("telugu") && detectedLanguage !== "Telugu") {
+      console.warn(`Question mentions Telugu but detected language is ${detectedLanguage}`);
+    }
+    else if (questionText.includes("kannada") && detectedLanguage !== "Kannada") {
+      console.warn(`Question mentions Kannada but detected language is ${detectedLanguage}`);
+    }
+    
+    console.log(`Lesson ${lessonId} language detection: ${detectedLanguage}`);
+
     // Use the actual challenge ID rather than calculating it based on lesson ID
     // This prevents cross-course mapping issues
     const challengeId = challenge.id;

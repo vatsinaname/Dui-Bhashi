@@ -101,7 +101,7 @@ export const Card = ({
       onClick={handleClick}
       disabled={disabled}
       className={cn(
-        "relative bg-white dark:bg-gray-800 text-black dark:text-white p-5 rounded-xl border-2 h-[120px] w-full flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md hover:scale-[1.02] hover:bg-slate-50 dark:hover:bg-gray-700/80",
+        "relative bg-white dark:bg-gray-800 text-black dark:text-white p-2 sm:p-4 rounded-xl border-2 min-h-[120px] w-full flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md hover:scale-[1.02] hover:bg-slate-50 dark:hover:bg-gray-700/80",
         disabled && "cursor-not-allowed opacity-50 hover:scale-100 hover:shadow-sm",
         selected && status === "none" && "border-blue-800 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/40 shadow-md",
         status === "correct" && selected && "border-emerald-600 dark:border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 shadow-md",
@@ -109,20 +109,25 @@ export const Card = ({
         !selected && "border-slate-200 dark:border-slate-700"
       )}
     >
-      <div className="text-4xl font-medium">{text}</div>
+      <div className={cn(
+        "text-base sm:text-lg md:text-xl font-medium leading-tight font-sans",
+        "whitespace-pre-wrap break-words text-center max-h-full overflow-y-auto px-1"
+      )}>
+        {text || "Option"}
+      </div>
       {selected && status === "correct" && (
-        <div className="absolute -top-3 -right-3 flex items-center justify-center bg-emerald-600 dark:bg-emerald-500 rounded-full h-8 w-8 shadow-lg animate-in fade-in zoom-in duration-300">
-          <Check className="text-white h-5 w-5" />
+        <div className="absolute -top-2 -right-2 flex items-center justify-center bg-emerald-600 dark:bg-emerald-500 rounded-full h-6 w-6 shadow-md">
+          <Check className="text-white h-4 w-4" />
         </div>
       )}
       {selected && status === "wrong" && (
-        <div className="absolute -top-3 -right-3 flex items-center justify-center bg-rose-600 dark:bg-rose-500 rounded-full h-8 w-8 shadow-lg animate-in fade-in zoom-in duration-300">
-          <X className="text-white h-5 w-5" />
+        <div className="absolute -top-2 -right-2 flex items-center justify-center bg-rose-600 dark:bg-rose-500 rounded-full h-6 w-6 shadow-md">
+          <X className="text-white h-4 w-4" />
         </div>
       )}
       {selected && status === "none" && (
-        <div className="absolute -top-3 -right-3 flex items-center justify-center bg-blue-800 dark:bg-blue-700 rounded-full h-8 w-8 shadow-lg animate-in fade-in zoom-in duration-300">
-          <Check className="text-white h-5 w-5 opacity-0" />
+        <div className="absolute -top-2 -right-2 flex items-center justify-center bg-blue-800 dark:bg-blue-700 rounded-full h-6 w-6 shadow-md">
+          <Check className="text-white h-4 w-4 opacity-0" />
         </div>
       )}
       {audio}

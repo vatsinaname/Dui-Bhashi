@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 import { getUnits } from "@/db/queries";
 import { UnitBanner } from "../_components/unit-banner";
@@ -10,14 +12,17 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function UnitPage({ params }: PageProps) {
+  // Await the params before using
+  const resolvedParams = await params;
+  
   // Get the unit ID from params
-  const unitId = parseInt(params.id, 10);
+  const unitId = parseInt(resolvedParams.id, 10);
   
   if (isNaN(unitId)) {
     return redirect("/learn");
@@ -44,13 +49,29 @@ export default async function UnitPage({ params }: PageProps) {
   return (
     <div className="mx-auto flex max-w-[988px] flex-col px-3">
       <div className="flex-1">
-        <UnitBanner title={unit.title} description={unit.description} />
+        <UnitBanner 
+          title={unit.title} 
+          description={unit.description} 
+          showBackButton={false} 
+        />
         <Separator className="my-6 bg-[#d7c3d9]" />
         
         <div className="mb-6 rounded-xl border-2 border-[#d7c3d9] dark:border-blue-800/30 bg-[#faf5fb] dark:bg-slate-900 p-5 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold text-[#6d4b73] dark:text-blue-400">
-            Unit Lessons
-          </h2>
+          <div className="flex items-center mb-4">
+            <Link href="/learn">
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="mr-2 flex items-center gap-x-1 text-[#6d4b73] dark:text-blue-300 hover:bg-[#e2c6e4]/20"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Back
+              </Button>
+            </Link>
+            <h2 className="text-xl font-bold text-[#6d4b73] dark:text-blue-400">
+              Unit Lessons
+            </h2>
+          </div>
           <div className="relative flex flex-col items-center">
             {unit.lessons.map((lesson, index) => {
               // Calculate lesson completion percentage
