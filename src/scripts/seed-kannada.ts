@@ -717,6 +717,1020 @@ export function createKannadaOptions(challengeId: number, question: string) {
     correctOption = "Long 'aa'";
     incorrectOptions = ["Short 'a'", "Short 'i'", "Long 'ee'"];
   }
+  else if (question.toLowerCase().includes("how do you say 'where are you going?' in kannada")) {
+    correctOption = "ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ? (neevu ellige hoguttiddiri?)";
+    incorrectOptions = [
+      "ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿರಿ? (neevu ellinda bandiri?) - Where did you come from?",
+      "ನೀವು ಏನು ಮಾಡುತ್ತಿದ್ದೀರಿ? (neevu enu maaduttiddiri?) - What are you doing?",
+      "ನೀವು ಯಾವಾಗ ಬರುತ್ತೀರಿ? (neevu yaavaaga baruttiri?) - When will you come?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'when will you come?' in kannada")) {
+    correctOption = "ನೀವು ಯಾವಾಗ ಬರುತ್ತೀರಿ? (neevu yaavaaga baruttiri?)";
+    incorrectOptions = [
+      "ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ? (neevu ellige hoguttiddiri?) - Where are you going?",
+      "ನೀವು ಬರುತ್ತೀರಾ? (neevu baruttiraa?) - Will you come?",
+      "ನೀವು ಎಲ್ಲಿದ್ದೀರಿ? (neevu elliddiri?) - Where are you?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'whose is this?' in kannada")) {
+    correctOption = "ಇದು ಯಾರದು? (idu yaaradu?)";
+    incorrectOptions = [
+      "ಇದು ಏನು? (idu enu?) - What is this?",
+      "ಇದು ನಿಮ್ಮದೇ? (idu nimmade?) - Is this yours?",
+      "ಇದು ಎಲ್ಲಿದೆ? (idu ellide?) - Where is this?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'what are you doing?' in kannada")) {
+    correctOption = "ನೀವು ಏನು ಮಾಡುತ್ತಿದ್ದೀರಿ? (neevu enu maaduttiddiri?)";
+    incorrectOptions = [
+      "ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ? (neevu ellige hoguttiddiri?) - Where are you going?",
+      "ನೀವು ಯಾರು? (neevu yaaru?) - Who are you?",
+      "ನೀವು ಏನು ತಿನ್ನುತ್ತಿದ್ದೀರಿ? (neevu enu tinnuttiddiri?) - What are you eating?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'how much is this?' in kannada")) {
+    correctOption = "ಇದು ಎಷ್ಟು? (idu eshtu?)";
+    incorrectOptions = [
+      "ಇದು ಏನು? (idu enu?) - What is this?",
+      "ಇದು ಎಲ್ಲಿದೆ? (idu ellide?) - Where is this?",
+      "ಇದು ಯಾರದು? (idu yaaradu?) - Whose is this?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'what happened today?' in kannada")) {
+    correctOption = "ಇಂದು ಏನಾಯಿತು? (indu enaayitu?)";
+    incorrectOptions = [
+      "ನಿನ್ನೆ ಏನಾಯಿತು? (ninne enaayitu?) - What happened yesterday?",
+      "ನಾಳೆ ಏನು ಮಾಡುತ್ತೀರಿ? (nale enu maaduttiri?) - What will you do tomorrow?",
+      "ಇಂದು ಏನು ಮಾಡುತ್ತಿದ್ದೀರಿ? (indu enu maaduttiddiri?) - What are you doing today?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'how do you know?' in kannada")) {
+    correctOption = "ನಿಮಗೆ ಹೇಗೆ ಗೊತ್ತು? (nimage hege gottu?)";
+    incorrectOptions = [
+      "ನಿಮಗೆ ಗೊತ್ತಾ? (nimage gottaa?) - Do you know?",
+      "ನಿಮಗೆ ಅರ್ಥವಾಯಿತಾ? (nimage arthavaayitaa?) - Did you understand?",
+      "ನಿಮಗೆ ಹೇಳಿದರು? (nimage helidaru?) - Did they tell you?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'do you like it?' in kannada")) {
+    correctOption = "ನಿಮಗೆ ಇದು ಇಷ್ಟವಾಗಿದೆಯಾ? (nimage idu ishtavaagideyaa?)";
+    incorrectOptions = [
+      "ನಿಮಗೆ ಇದು ಬೇಕಾ? (nimage idu bekaa?) - Do you want this?",
+      "ನಿಮಗೆ ಇದು ಅರ್ಥವಾಗಿದೆಯಾ? (nimage idu arthavaagideyaa?) - Do you understand this?",
+      "ನಿಮಗೆ ಇದು ಗೊತ್ತಾ? (nimage idu gottaa?) - Do you know this?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'whom should i tell?' in kannada")) {
+    correctOption = "ನಾನು ಯಾರಿಗೆ ಹೇಳಬೇಕು? (naanu yaarige helabeku?)";
+    incorrectOptions = [
+      "ನಾನು ಏನು ಹೇಳಬೇಕು? (naanu enu helabeku?) - What should I tell?",
+      "ನಾನು ಹೇಗೆ ಹೇಳಬೇಕು? (naanu hege helabeku?) - How should I tell?",
+      "ನಾನು ಯಾವಾಗ ಹೇಳಬೇಕು? (naanu yaavaaga helabeku?) - When should I tell?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'can i do it?' in kannada")) {
+    correctOption = "ನಾನು ಇದನ್ನು ಮಾಡಬಹುದೇ? (naanu idannu maadabahude?)";
+    incorrectOptions = [
+      "ನೀನು ಇದನ್ನು ಮಾಡಬಹುದೇ? (neenu idannu maadabahude?) - Can you do it?",
+      "ನಾನು ಇದನ್ನು ನೋಡಬಹುದೇ? (naanu idannu nodabahude?) - Can I see it?",
+      "ನಾನು ಇದನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದೇ? (naanu idannu tegedukollabaahude?) - Can I take it?"
+    ];
+  }
+  // Daily routine expressions
+  else if (question.toLowerCase().includes("how do you say 'did you eat?' in kannada")) {
+    correctOption = "ನೀವು ಊಟ ಮಾಡಿದ್ದೀರಾ? (neevu oota maadiddiraa?)";
+    incorrectOptions = [
+      "ನೀವು ಏನು ತಿಂದಿರಿ? (neevu enu tindiri?) - What did you eat?",
+      "ನೀವು ಊಟ ಮಾಡುತ್ತಿದ್ದೀರಾ? (neevu oota maaduttiddiraa?) - Are you eating?",
+      "ನೀವು ಹಸಿವಾಗಿದೆಯಾ? (neevu hasivaagideyaa?) - Are you hungry?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'did you wake up?' in kannada")) {
+    correctOption = "ನೀವು ಎದ್ದಿದ್ದೀರಾ? (neevu eddiddiraa?)";
+    incorrectOptions = [
+      "ನೀವು ಮಲಗಿದ್ದೀರಾ? (neevu malagiddiraa?) - Are you sleeping?",
+      "ನೀವು ನಿದ್ರೆ ಮಾಡುತ್ತಿದ್ದೀರಾ? (neevu nidre maaduttiddiraa?) - Are you sleeping?",
+      "ನೀವು ಎಷ್ಟು ಹೊತ್ತು ನಿದ್ರೆ ಮಾಡಿದಿರಿ? (neevu eshtu hottu nidre maadidiri?) - How long did you sleep?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'is the work finished?' in kannada")) {
+    correctOption = "ಕೆಲಸ ಮುಗಿದಿದೆಯಾ? (kelasa mugidideyaa?)";
+    incorrectOptions = [
+      "ಕೆಲಸ ಪ್ರಾರಂಭವಾಗಿದೆಯಾ? (kelasa praarambhavaagideyaa?) - Has the work started?",
+      "ಕೆಲಸ ಮಾಡುತ್ತಿದ್ದೀರಾ? (kelasa maaduttiddiraa?) - Are you working?",
+      "ಕೆಲಸ ಹೇಗಿದೆ? (kelasa hegide?) - How is the work?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'did you take a bath?' in kannada")) {
+    correctOption = "ನೀವು ಸ್ನಾನ ಮಾಡಿದ್ದೀರಾ? (neevu snaana maadiddiraa?)";
+    incorrectOptions = [
+      "ನೀವು ಬಟ್ಟೆ ತೊಳೆದಿದ್ದೀರಾ? (neevu batte tolediddiraa?) - Did you wash clothes?",
+      "ನೀವು ಮುಖ ತೊಳೆದಿದ್ದೀರಾ? (neevu mukha tolediddiraa?) - Did you wash your face?",
+      "ನೀವು ಸ್ನಾನ ಮಾಡುತ್ತೀರಾ? (neevu snaana maaduttiraa?) - Will you take a bath?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'what time is it?' in kannada")) {
+    correctOption = "ಈಗ ಎಷ್ಟು ಗಂಟೆ? (iga eshtu gante?)";
+    incorrectOptions = [
+      "ಸಮಯ ಏನು? (samaya enu?) - What is the time?",
+      "ಎಷ್ಟು ಸಮಯವಾಯಿತು? (eshtu samayavaayitu?) - How much time has passed?",
+      "ಗಡಿಯಾರ ನೋಡಿ (gadiyaara nodi) - Look at the clock"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'when will you go?' in kannada")) {
+    correctOption = "ನೀವು ಯಾವಾಗ ಹೋಗುತ್ತೀರಿ? (neevu yaavaaga hoguttiri?)";
+    incorrectOptions = [
+      "ನೀವು ಯಾವಾಗ ಬರುತ್ತೀರಿ? (neevu yaavaaga baruttiri?) - When will you come?",
+      "ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀರಿ? (neevu ellige hoguttiri?) - Where will you go?",
+      "ನೀವು ಹೋಗುತ್ತೀರಾ? (neevu hoguttiraa?) - Will you go?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i like it.' in kannada")) {
+    correctOption = "ನನಗೆ ಇದು ಇಷ್ಟವಾಗಿದೆ (nanage idu ishtavaagide)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಬೇಕು (nanage idu beku) - I want this",
+      "ನನಗೆ ಇದು ಅರ್ಥವಾಗಿದೆ (nanage idu arthavaagide) - I understand this",
+      "ನನಗೆ ಇದು ಇಷ್ಟವಿಲ್ಲ (nanage idu ishtavilla) - I don't like this"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i am angry.' in kannada")) {
+    correctOption = "ನನಗೆ ಕೋಪ ಬಂದಿದೆ (nanage kopa bandide)";
+    incorrectOptions = [
+      "ನನಗೆ ಸಂತೋಷವಾಗಿದೆ (nanage santoshavaagide) - I am happy",
+      "ನನಗೆ ದುಃಖವಾಗಿದೆ (nanage dukhavaagide) - I am sad",
+      "ನನಗೆ ಭಯವಾಗಿದೆ (nanage bhayavaagide) - I am afraid"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'that is very nice.' in kannada")) {
+    correctOption = "ಅದು ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ (adu tumbaa chennaagide)";
+    incorrectOptions = [
+      "ಅದು ತುಂಬಾ ಕೆಟ್ಟದಾಗಿದೆ (adu tumbaa kettadaagide) - That is very bad",
+      "ಅದು ಸ್ವಲ್ಪ ಚೆನ್ನಾಗಿದೆ (adu svalpa chennaagide) - That is a little nice",
+      "ಅದು ಚೆನ್ನಾಗಿಲ್ಲ (adu chennaagilla) - That is not nice"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i feel sad.' in kannada")) {
+    correctOption = "ನನಗೆ ದುಃಖವಾಗಿದೆ (nanage dukhavaagide)";
+    incorrectOptions = [
+      "ನನಗೆ ಸಂತೋಷವಾಗಿದೆ (nanage santoshavaagide) - I am happy",
+      "ನನಗೆ ಕೋಪ ಬಂದಿದೆ (nanage kopa bandide) - I am angry",
+      "ನನಗೆ ಹಸಿವಾಗಿದೆ (nanage hasivaagide) - I am hungry"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'you are very good.' in kannada")) {
+    correctOption = "ನೀವು ತುಂಬಾ ಒಳ್ಳೆಯವರು (neevu tumbaa olleyavaru)";
+    incorrectOptions = [
+      "ನೀವು ತುಂಬಾ ಕೆಟ್ಟವರು (neevu tumbaa kettavaru) - You are very bad",
+      "ನೀವು ಒಳ್ಳೆಯವರಲ್ಲ (neevu olleyavaralla) - You are not good",
+      "ನೀವು ಸ್ವಲ್ಪ ಒಳ್ಳೆಯವರು (neevu svalpa olleyavaru) - You are a little good"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i like you.' in kannada")) {
+    correctOption = "ನನಗೆ ನೀವು ಇಷ್ಟ (nanage neevu ishta)";
+    incorrectOptions = [
+      "ನನಗೆ ನೀವು ಇಷ್ಟವಿಲ್ಲ (nanage neevu ishtavilla) - I don't like you",
+      "ನನಗೆ ನಿಮ್ಮನ್ನು ನೋಡಲು ಇಷ್ಟ (nanage nimmannu nodalu ishta) - I like to see you",
+      "ನಾನು ನಿಮ್ಮನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ (naanu nimmannu preetisuttene) - I love you"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'be happy.' in kannada")) {
+    correctOption = "ಸಂತೋಷವಾಗಿರಿ (santoshavaagiri)";
+    incorrectOptions = [
+      "ದುಃಖಿಸಬೇಡಿ (dukhisabedi) - Don't be sad",
+      "ನಗುತ್ತಿರಿ (naguttiri) - Keep smiling",
+      "ಚಿಂತಿಸಬೇಡಿ (chintisabedi) - Don't worry"
+    ];
+  }
+  // Shopping-related phrases
+  else if (question.toLowerCase().includes("how do you say 'i want to buy this.' in kannada")) {
+    correctOption = "ನಾನು ಇದನ್ನು ಕೊಳ್ಳಲು ಬಯಸುತ್ತೇನೆ (naanu idannu kollalu bayasuttene)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಬೇಡ (nanage idu beda) - I don't want this",
+      "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?) - How much does this cost?",
+      "ಇದನ್ನು ತೋರಿಸಿ (idannu torisi) - Show me this"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'how much does this cost?' in kannada")) {
+    correctOption = "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?)";
+    incorrectOptions = [
+      "ಇದು ದುಬಾರಿ (idu dubaari) - This is expensive",
+      "ಇದು ಅಗ್ಗವಾಗಿದೆ (idu aggavaagide) - This is cheap",
+      "ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಿ (bele kadime maadi) - Reduce the price"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'do you have any discounts?' in kannada")) {
+    correctOption = "ಯಾವುದಾದರೂ ರಿಯಾಯಿತಿ ಇದೆಯಾ? (yaavudaadaru riyaayiti ideyaa?)";
+    incorrectOptions = [
+      "ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಬಹುದಾ? (bele kadime maadabahudaa?) - Can you reduce the price?",
+      "ಇದು ಅಗ್ಗವಿದೆಯಾ? (idu aggavideyaa?) - Is this cheap?",
+      "ನಾನು ಚಿಲ್ಲರೆ ಕೊಡಬೇಕಾ? (naanu chillare kodabekaa?) - Should I give change?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'where is the bus station?' in kannada")) {
+    correctOption = "ಬಸ್ ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (bas nildaana ellide?)";
+    incorrectOptions = [
+      "ರೈಲು ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (railu nildaana ellide?) - Where is the train station?",
+      "ಬಸ್ ಯಾವಾಗ ಬರುತ್ತದೆ? (bas yaavaaga baruttade?) - When will the bus come?",
+      "ಬಸ್ ನಿಲ್ಲುತ್ತದೆಯಾ? (bas nilluttadeyaa?) - Will the bus stop?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'go straight ahead.' in kannada")) {
+    correctOption = "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi)";
+    incorrectOptions = [
+      "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi) - Turn right",
+      "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi) - Turn left",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'turn right.' in kannada")) {
+    correctOption = "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi)";
+    incorrectOptions = [
+      "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi) - Turn left",
+      "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi) - Go straight",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'turn left.' in kannada")) {
+    correctOption = "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi)";
+    incorrectOptions = [
+      "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi) - Turn right",
+      "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi) - Go straight",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'it's far from here.' in kannada")) {
+    correctOption = "ಇಲ್ಲಿಂದ ದೂರವಿದೆ (illinda dooravide)";
+    incorrectOptions = [
+      "ಇಲ್ಲಿಗೆ ಹತ್ತಿರವಿದೆ (illige hattiravide) - It's near here",
+      "ಇಲ್ಲಿಯೇ ಇದೆ (illiye ide) - It's right here",
+      "ಎಷ್ಟು ದೂರವಿದೆ? (eshtu dooravide?) - How far is it?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'it's near.' in kannada")) {
+    correctOption = "ಹತ್ತಿರವಿದೆ (hattiravide)";
+    incorrectOptions = [
+      "ದೂರವಿದೆ (dooravide) - It's far",
+      "ಬಹಳ ದೂರವಿದೆ (bahala dooravide) - It's very far",
+      "ಎಷ್ಟು ಹತ್ತಿರವಿದೆ? (eshtu hattiravide?) - How near is it?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'how much time will it take?' in kannada")) {
+    correctOption = "ಅದಕ್ಕೆ ಎಷ್ಟು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ? (adakke eshtu samaya tegedukoluttade?)";
+    incorrectOptions = [
+      "ಎಷ್ಟು ದೂರವಿದೆ? (eshtu dooravide?) - How far is it?",
+      "ಅದು ಯಾವಾಗ ಮುಗಿಯುತ್ತದೆ? (adu yaavaaga mugiyuttade?) - When will it end?",
+      "ಸಮಯ ಎಷ್ಟಾಗಿದೆ? (samaya eshtaagide?) - What time is it now?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'what time is it now?' in kannada")) {
+    correctOption = "ಈಗ ಎಷ್ಟು ಗಂಟೆ? (iga eshtu gante?)";
+    incorrectOptions = [
+      "ಎಷ್ಟು ಸಮಯವಾಯಿತು? (eshtu samayavaayitu?) - How much time has passed?",
+      "ಗಡಿಯಾರವನ್ನು ನೋಡಿ (gadiyaaravannu nodi) - Look at the clock",
+      "ಎಷ್ಟು ಹೊತ್ತಾಯಿತು? (eshtu hottaayitu?) - How late is it?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'it's 2 o'clock.' in kannada")) {
+    correctOption = "ಎರಡು ಗಂಟೆ (eradu gante)";
+    incorrectOptions = [
+      "ಒಂದು ಗಂಟೆ (ondu gante) - It's 1 o'clock",
+      "ಮೂರು ಗಂಟೆ (mooru gante) - It's 3 o'clock",
+      "ನಾಲ್ಕು ಗಂಟೆ (naalku gante) - It's 4 o'clock"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'what is the date today?' in kannada")) {
+    correctOption = "ಇಂದು ಏನು ದಿನಾಂಕ? (indu enu dinaanka?)";
+    incorrectOptions = [
+      "ಇಂದು ಏನು ದಿನ? (indu enu dina?) - What day is today?",
+      "ಇಂದು ಏನು ತಿಂಗಳು? (indu enu tingalu?) - What month is it today?",
+      "ಈ ವರ್ಷ ಎಷ್ಟು? (ee varsha eshtu?) - What year is this?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i'll meet you tomorrow.' in kannada")) {
+    correctOption = "ನಾನು ನಿಮ್ಮನ್ನು ನಾಳೆ ಭೇಟಿಯಾಗುತ್ತೇನೆ (naanu nimmannu naale bhetiyaaguttene)";
+    incorrectOptions = [
+      "ನಾನು ನಿಮ್ಮನ್ನು ಇಂದು ಭೇಟಿಯಾಗುತ್ತೇನೆ (naanu nimmannu indu bhetiyaaguttene) - I'll meet you today",
+      "ನಾನು ನಿಮ್ಮನ್ನು ನಾಳೆ ಭೇಟಿಯಾಗುವುದಿಲ್ಲ (naanu nimmannu naale bhetiyaaguvudilla) - I won't meet you tomorrow",
+      "ನಾನು ನಾಳೆ ಬರುವುದಿಲ್ಲ (naanu naale baruvudilla) - I won't come tomorrow"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'let's meet next week.' in kannada")) {
+    correctOption = "ನಾವು ಮುಂದಿನ ವಾರ ಭೇಟಿಯಾಗೋಣ (naavu mundina vaara bhetiyaagona)";
+    incorrectOptions = [
+      "ನಾವು ಈ ವಾರ ಭೇಟಿಯಾಗೋಣ (naavu ee vaara bhetiyaagona) - Let's meet this week",
+      "ನಾವು ಮುಂದಿನ ತಿಂಗಳು ಭೇಟಿಯಾಗೋಣ (naavu mundina tingalu bhetiyaagona) - Let's meet next month",
+      "ನಾವು ಮುಂದಿನ ವಾರ ಭೇಟಿಯಾಗುವುದಿಲ್ಲ (naavu mundina vaara bhetiyaaguvudilla) - We won't meet next week"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'are you free now?' in kannada")) {
+    correctOption = "ನಿಮಗೆ ಈಗ ಖಾಲಿ ಇದೆಯಾ? (nimage iga khaali ideyaa?)";
+    incorrectOptions = [
+      "ನಿಮಗೆ ಸಮಯವಿದೆಯಾ? (nimage samayavideyaa?) - Do you have time?",
+      "ನೀವು ಬಿಡುವಾಗಿದ್ದೀರಾ? (neevu biduvaagiddiraa?) - Are you free?",
+      "ನೀವು ಕೆಲಸದಲ್ಲಿ ಇದ್ದೀರಾ? (neevu kelasadalli iddiraa?) - Are you at work?"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i'm running late.' in kannada")) {
+    correctOption = "ನನಗೆ ತಡವಾಗುತ್ತಿದೆ (nanage tadavaaguttide)";
+    incorrectOptions = [
+      "ನಾನು ಬೇಗ ಬರುತ್ತೇನೆ (naanu bega baruttene) - I'll come quickly",
+      "ನನಗೆ ಸಮಯವಿಲ್ಲ (nanage samayavilla) - I don't have time",
+      "ನಾನು ಸರಿಯಾದ ಸಮಯಕ್ಕೆ ಬರುತ್ತೇನೆ (naanu sariyaada samayakke baruttene) - I'll come on time"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'wait for five minutes.' in kannada")) {
+    correctOption = "ಐದು ನಿಮಿಷ ಕಾಯಿರಿ (aidu nimisha kaayiri)";
+    incorrectOptions = [
+      "ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ (ondu nimisha kaayiri) - Wait for one minute",
+      "ಕಾಯಬೇಡಿ (kaayabedi) - Don't wait",
+      "ನಾನು ಬೇಗ ಬರುತ್ತೇನೆ (naanu bega baruttene) - I'm coming quickly"
+    ];
+  }
+  else if (question.toLowerCase().includes("how do you say 'i'll be back soon.' in kannada")) {
+    correctOption = "ನಾನು ಬೇಗನೆ ಹಿಂತಿರುಗಿ ಬರುತ್ತೇನೆ (naanu begane hintirugi baruttene)";
+    incorrectOptions = [
+      "ನಾನು ವಾಪಸ್ ಬರುವುದಿಲ್ಲ (naanu vaapas baruvudilla) - I won't come back",
+      "ನಾನು ತಡವಾಗಿ ಬರುತ್ತೇನೆ (naanu tadavaagi baruttene) - I'll come late",
+      "ನೀವು ಇಲ್ಲಿಯೇ ಇರಿ (neevu illiye iri) - You stay here"
+    ];
+  }
+  // Basic Greetings and Common Phrases
+  else if (question === "How do you say 'How are you?' in Kannada?") {
+    correctOption = "ಹೇಗಿದ್ದೀರಿ? (hegiddiri?)";
+    incorrectOptions = [
+      "ನಿಮ್ಮ ಹೆಸರೇನು? (nimma hesarenu?) - What is your name?",
+      "ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ (naanu chennaagiddene) - I am fine",
+      "ಧನ್ಯವಾದಗಳು (dhanyavaadagalu) - Thank you"
+    ];
+  }
+  else if (question === "How do you say 'I am fine.' in Kannada?") {
+    correctOption = "ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ (naanu chennaagiddene)";
+    incorrectOptions = [
+      "ನನಗೆ ಸ್ವಲ್ಪ ಬರುತ್ತದೆ (nanage svalpa baruttade) - I know a little",
+      "ನಿಮಗೆ ಹೇಗಿದೆ? (nimage hegide?) - How are you?",
+      "ನನಗೆ ಗೊತ್ತಿಲ್ಲ (nanage gottilla) - I don't know"
+    ];
+  }
+  else if (question === "How do you say 'What is your name?' in Kannada?") {
+    correctOption = "ನಿಮ್ಮ ಹೆಸರೇನು? (nimma hesarenu?)";
+    incorrectOptions = [
+      "ನಿಮಗೆ ಹೇಗಿದೆ? (nimage hegide?) - How are you?",
+      "ನಿಮ್ಮ ಮನೆ ಎಲ್ಲಿದೆ? (nimma mane ellide?) - Where is your house?",
+      "ನನ್ನ ಹೆಸರು (nanna hesaru) - My name is"
+    ];
+  }
+  else if (question === "How do you say 'My name is [name].' in Kannada?") {
+    correctOption = "ನನ್ನ ಹೆಸರು [name] (nanna hesaru [name])";
+    incorrectOptions = [
+      "ನಾನು [name] (naanu [name]) - I am [name]",
+      "ನನಗೆ [name] ಎಂದು ಕರೆಯುತ್ತಾರೆ (nanage [name] endu kareyuttaare) - They call me [name]",
+      "ನಿಮ್ಮ ಹೆಸರೇನು? (nimma hesarenu?) - What is your name?"
+    ];
+  }
+  else if (question === "How do you say 'Send a message.' in Kannada?") {
+    correctOption = "ಸಂದೇಶ ಕಳುಹಿಸಿ (sandesha kaluhisi)";
+    incorrectOptions = [
+      "ಕರೆ ಮಾಡಿ (kare maadi) - Make a call",
+      "ಮೆಸೇಜ್ ಓದಿ (message odi) - Read the message",
+      "ಉತ್ತರ ಕೊಡಿ (uttara kodi) - Give a reply"
+    ];
+  }
+  else if (question === "How do you say 'Come here.' in Kannada?") {
+    correctOption = "ಇಲ್ಲಿಗೆ ಬನ್ನಿ (illige banni)";
+    incorrectOptions = [
+      "ಅಲ್ಲಿಗೆ ಹೋಗಿ (allige hogi) - Go there",
+      "ಇಲ್ಲಿ ನಿಲ್ಲಿ (illi nilli) - Stand here",
+      "ಬೇಗ ಬನ್ನಿ (bega banni) - Come quickly"
+    ];
+  }
+  else if (question === "How do you say 'Come immediately.' in Kannada?") {
+    correctOption = "ತಕ್ಷಣ ಬನ್ನಿ (takshana banni)";
+    incorrectOptions = [
+      "ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ ಬನ್ನಿ (svalpa nidhaanavaagi banni) - Come a bit slowly",
+      "ನಂತರ ಬನ್ನಿ (nantara banni) - Come later",
+      "ಬೇಗ ಹೋಗಿ (bega hogi) - Go quickly"
+    ];
+  }
+  else if (question === "How do you say 'Who is at your house?' in Kannada?") {
+    correctOption = "ನಿಮ್ಮ ಮನೆಯಲ್ಲಿ ಯಾರಿದ್ದಾರೆ? (nimma maneyalli yaariddaare?)";
+    incorrectOptions = [
+      "ನಿಮ್ಮ ಮನೆ ಎಲ್ಲಿದೆ? (nimma mane ellide?) - Where is your house?",
+      "ನಿಮ್ಮ ಮನೆ ಹೇಗಿದೆ? (nimma mane hegide?) - How is your house?",
+      "ನಿಮ್ಮ ಮನೆಯಲ್ಲಿ ಏನಿದೆ? (nimma maneyalli enide?) - What is in your house?"
+    ];
+  }
+  else if (question === "How do you say 'Can you speak Kannada?' in Kannada?") {
+    correctOption = "ನಿಮಗೆ ಕನ್ನಡ ಬರುತ್ತಾ? (nimage kannada baruttaa?)";
+    incorrectOptions = [
+      "ಕನ್ನಡ ಕಲಿಯುತ್ತಿದ್ದೀರಾ? (kannada kaliyuttiddiraa?) - Are you learning Kannada?",
+      "ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡೋಣ (kannadadalli maatanaadona) - Let's speak in Kannada",
+      "ನಿಮಗೆ ಕನ್ನಡ ಅರ್ಥವಾಗುತ್ತಾ? (nimage kannada arthavaaguttaa?) - Do you understand Kannada?"
+    ];
+  }
+  else if (question === "How do you say 'I can speak a little.' in Kannada?") {
+    correctOption = "ನನಗೆ ಸ್ವಲ್ಪ ಬರುತ್ತದೆ (nanage svalpa baruttade)";
+    incorrectOptions = [
+      "ನನಗೆ ಕನ್ನಡ ಬರುವುದಿಲ್ಲ (nanage kannada baruvudilla) - I cannot speak Kannada",
+      "ನನಗೆ ಚೆನ್ನಾಗಿ ಬರುತ್ತದೆ (nanage chennaagi baruttade) - I can speak well",
+      "ನಾನು ಕಲಿಯುತ್ತಿದ್ದೇನೆ (naanu kaliyuttiddene) - I am learning"
+    ];
+  }
+  else if (question === "How do you say 'Are you at home?' in Kannada?") {
+    correctOption = "ನೀವು ಮನೆಯಲ್ಲಿದ್ದೀರಾ? (neevu maneyalliddiraa?)";
+    incorrectOptions = [
+      "ನೀವು ಹೊರಗಿದ್ದೀರಾ? (neevu horagiddiraa?) - Are you outside?",
+      "ನಿಮ್ಮ ಮನೆ ಎಲ್ಲಿದೆ? (nimma mane ellide?) - Where is your house?",
+      "ನೀವು ಮನೆಗೆ ಹೋಗುತ್ತಿದ್ದೀರಾ? (neevu manege hoguttiddiraa?) - Are you going home?"
+    ];
+  }
+  else if (question === "How do you say 'Please do this work.' in Kannada?") {
+    correctOption = "ದಯವಿಟ್ಟು ಈ ಕೆಲಸ ಮಾಡಿ (dayavittu ee kelasa maadi)";
+    incorrectOptions = [
+      "ಈ ಕೆಲಸ ಮುಗಿದಿದೆಯಾ? (ee kelasa mugidideyaa?) - Is this work finished?",
+      "ಈ ಕೆಲಸ ಯಾರು ಮಾಡಿದರು? (ee kelasa yaaru maadidaru?) - Who did this work?",
+      "ಕೆಲಸ ಹೇಗಿದೆ? (kelasa hegide?) - How is the work?"
+    ];
+  }
+  else if (question === "How do you say 'Get ready.' in Kannada?") {
+    correctOption = "ಸಿದ್ಧವಾಗಿ (siddhavaagi)";
+    incorrectOptions = [
+      "ಬೇಗ ಬನ್ನಿ (bega banni) - Come quickly",
+      "ಕಾಯಿರಿ (kaayiri) - Wait",
+      "ಮುಗಿಸಿ (mugisi) - Finish"
+    ];
+  }
+  else if (question === "How do you say 'Where is he?' in Kannada?") {
+    correctOption = "ಅವನು ಎಲ್ಲಿದ್ದಾನೆ? (avanu elliddaane?)";
+    incorrectOptions = [
+      "ಅವಳು ಎಲ್ಲಿದ್ದಾಳೆ? (avalu elliddaale?) - Where is she?",
+      "ಅವನು ಯಾರು? (avanu yaaru?) - Who is he?",
+      "ಅವನು ಹೋದನೇ? (avanu hodane?) - Did he go?"
+    ];
+  }
+  else if (question === "How do you say 'I need to say something.' in Kannada?") {
+    correctOption = "ನಾನು ಏನೋ ಹೇಳಬೇಕಾಗಿದೆ (naanu eno helabeekaagide)";
+    incorrectOptions = [
+      "ನಾನು ಏನೂ ಹೇಳುವುದಿಲ್ಲ (naanu enu heluvudilla) - I won't say anything",
+      "ನೀವು ಏನು ಹೇಳುತ್ತೀರಿ? (neevu enu heluttiri?) - What will you say?",
+      "ಅವನು ಏನು ಹೇಳಿದನು? (avanu enu helidanu?) - What did he say?"
+    ];
+  }
+  else if (question === "How do you say 'I like it.' in Kannada?") {
+    correctOption = "ನನಗೆ ಇದು ಇಷ್ಟವಾಗಿದೆ (nanage idu ishtavaagide)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಬೇಕು (nanage idu beku) - I want this",
+      "ನನಗೆ ಇದು ಅರ್ಥವಾಗಿದೆ (nanage idu arthavaagide) - I understand this",
+      "ನನಗೆ ಇದು ಇಷ್ಟವಿಲ್ಲ (nanage idu ishtavilla) - I don't like this"
+    ];
+  }
+  else if (question === "How do you say 'I am angry.' in Kannada?") {
+    correctOption = "ನನಗೆ ಕೋಪ ಬಂದಿದೆ (nanage kopa bandide)";
+    incorrectOptions = [
+      "ನನಗೆ ಸಂತೋಷವಾಗಿದೆ (nanage santoshavaagide) - I am happy",
+      "ನನಗೆ ದುಃಖವಾಗಿದೆ (nanage dukhavaagide) - I am sad",
+      "ನನಗೆ ಭಯವಾಗಿದೆ (nanage bhayavaagide) - I am afraid"
+    ];
+  }
+  else if (question === "How do you say 'That is very nice.' in Kannada?") {
+    correctOption = "ಅದು ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ (adu tumbaa chennaagide)";
+    incorrectOptions = [
+      "ಅದು ತುಂಬಾ ಕೆಟ್ಟದಾಗಿದೆ (adu tumbaa kettadaagide) - That is very bad",
+      "ಅದು ಸ್ವಲ್ಪ ಚೆನ್ನಾಗಿದೆ (adu svalpa chennaagide) - That is a little nice",
+      "ಅದು ಚೆನ್ನಾಗಿಲ್ಲ (adu chennaagilla) - That is not nice"
+    ];
+  }
+  else if (question === "How do you say 'I feel sad.' in Kannada?") {
+    correctOption = "ನನಗೆ ದುಃಖವಾಗಿದೆ (nanage dukhavaagide)";
+    incorrectOptions = [
+      "ನನಗೆ ಸಂತೋಷವಾಗಿದೆ (nanage santoshavaagide) - I am happy",
+      "ನನಗೆ ಕೋಪ ಬಂದಿದೆ (nanage kopa bandide) - I am angry",
+      "ನನಗೆ ಹಸಿವಾಗಿದೆ (nanage hasivaagide) - I am hungry"
+    ];
+  }
+  else if (question === "How do you say 'You are very good.' in Kannada?") {
+    correctOption = "ನೀವು ತುಂಬಾ ಒಳ್ಳೆಯವರು (neevu tumbaa olleyavaru)";
+    incorrectOptions = [
+      "ನೀವು ತುಂಬಾ ಕೆಟ್ಟವರು (neevu tumbaa kettavaru) - You are very bad",
+      "ನೀವು ಒಳ್ಳೆಯವರಲ್ಲ (neevu olleyavaralla) - You are not good",
+      "ನೀವು ಸ್ವಲ್ಪ ಒಳ್ಳೆಯವರು (neevu svalpa olleyavaru) - You are a little good"
+    ];
+  }
+  else if (question === "How do you say 'I like you.' in Kannada?") {
+    correctOption = "ನನಗೆ ನೀವು ಇಷ್ಟ (nanage neevu ishta)";
+    incorrectOptions = [
+      "ನನಗೆ ನೀವು ಇಷ್ಟವಿಲ್ಲ (nanage neevu ishtavilla) - I don't like you",
+      "ನನಗೆ ನಿಮ್ಮನ್ನು ನೋಡಲು ಇಷ್ಟ (nanage nimmannu nodalu ishta) - I like to see you",
+      "ನಾನು ನಿಮ್ಮನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ (naanu nimmannu preetisuttene) - I love you"
+    ];
+  }
+  else if (question === "How do you say 'Be happy.' in Kannada?") {
+    correctOption = "ಸಂತೋಷವಾಗಿರಿ (santoshavaagiri)";
+    incorrectOptions = [
+      "ದುಃಖಿಸಬೇಡಿ (dukhisabedi) - Don't be sad",
+      "ನಗುತ್ತಿರಿ (naguttiri) - Keep smiling",
+      "ಚಿಂತಿಸಬೇಡಿ (chintisabedi) - Don't worry"
+    ];
+  }
+  else if (question === "How do you say 'I couldn't sleep.' in Kannada?") {
+    correctOption = "ನನಗೆ ನಿದ್ದೆ ಬರಲಿಲ್ಲ (nanage nidde baralilla)";
+    incorrectOptions = [
+      "ನಾನು ಚೆನ್ನಾಗಿ ನಿದ್ರಿಸಿದೆ (naanu chennaagi nidriside) - I slept well",
+      "ನನಗೆ ನಿದ್ದೆ ಬರುತ್ತಿದೆ (nanage nidde baruttide) - I'm feeling sleepy",
+      "ನಾನು ನಿದ್ರಿಸಬೇಕು (naanu nidrisabeku) - I need to sleep"
+    ];
+  }
+  // Shopping and Transactions
+  else if (question === "How do you say 'Tell me after weighing this.' in Kannada?") {
+    correctOption = "ಇದನ್ನು ತೂಕ ಮಾಡಿ ಹೇಳಿ (idannu tooka maadi heli)";
+    incorrectOptions = [
+      "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?) - How much does this cost?",
+      "ಇದನ್ನು ಪ್ಯಾಕ್ ಮಾಡಿ (idannu pack maadi) - Pack this",
+      "ಇದು ಎಷ್ಟು ತೂಕ? (idu eshtu tooka?) - How much does this weigh?"
+    ];
+  }
+  else if (question === "How do you say 'Reduce this a little.' in Kannada?") {
+    correctOption = "ಇದನ್ನು ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ (idannu svalpa kadime maadi)";
+    incorrectOptions = [
+      "ಇದನ್ನು ಸ್ವಲ್ಪ ಹೆಚ್ಚು ಮಾಡಿ (idannu svalpa hechchu maadi) - Increase this a little",
+      "ಇದರ ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಿ (idara bele kadime maadi) - Reduce the price",
+      "ಇದು ಸಾಕಷ್ಟು ಇದೆ (idu saakashtu ide) - This is enough"
+    ];
+  }
+  else if (question === "How do you say 'I want to buy this.' in Kannada?") {
+    correctOption = "ನಾನು ಇದನ್ನು ಕೊಳ್ಳಲು ಬಯಸುತ್ತೇನೆ (naanu idannu kollalu bayasuttene)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಬೇಡ (nanage idu beda) - I don't want this",
+      "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?) - How much does this cost?",
+      "ಇದನ್ನು ತೋರಿಸಿ (idannu torisi) - Show me this"
+    ];
+  }
+  else if (question === "How do you say 'Where can I find it?' in Kannada?") {
+    correctOption = "ಇದು ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ? (idu elli siguttade?)";
+    incorrectOptions = [
+      "ಇದು ಯಾರ ಬಳಿ ಇದೆ? (idu yaara bali ide?) - Who has this?",
+      "ಇದು ಯಾವಾಗ ಸಿಗುತ್ತದೆ? (idu yaavaaga siguttade?) - When can I get it?",
+      "ಇದು ಇಲ್ಲಿ ಇದೆಯೇ? (idu illi ideye?) - Is it here?"
+    ];
+  }
+  else if (question === "How do you say 'I don't need this.' in Kannada?") {
+    correctOption = "ನನಗೆ ಇದು ಬೇಡ (nanage idu beda)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಬೇಕು (nanage idu beku) - I want this",
+      "ನನಗೆ ಇದು ಇಷ್ಟವಿಲ್ಲ (nanage idu ishtavilla) - I don't like this",
+      "ನನಗೆ ಇದು ಸಾಲದು (nanage idu saaladu) - This is not enough for me"
+    ];
+  }
+  else if (question === "How do you say 'How much does this cost?' in Kannada?") {
+    correctOption = "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?)";
+    incorrectOptions = [
+      "ಇದು ದುಬಾರಿ (idu dubaari) - This is expensive",
+      "ಇದು ಅಗ್ಗವಾಗಿದೆ (idu aggavaagide) - This is cheap",
+      "ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಿ (bele kadime maadi) - Reduce the price"
+    ];
+  }
+  else if (question === "How do you say 'Do you have change?' in Kannada?") {
+    correctOption = "ನಿಮ್ಮ ಬಳಿ ಚಿಲ್ಲರೆ ಇದೆಯಾ? (nimma bali chillare ideyaa?)";
+    incorrectOptions = [
+      "ನಿಮ್ಮ ಬಳಿ ನೋಟು ಇದೆಯಾ? (nimma bali notu ideyaa?) - Do you have notes?",
+      "ನಾನು ಚಿಲ್ಲರೆ ಕೊಡಬೇಕಾ? (naanu chillare kodabekaa?) - Should I give change?",
+      "ಎಷ್ಟು ಚಿಲ್ಲರೆ ಬೇಕು? (eshtu chillare beku?) - How much change do you need?"
+    ];
+  }
+  else if (question === "How do you say 'Can I pay by card?' in Kannada?") {
+    correctOption = "ನಾನು ಕಾರ್ಡಿನಿಂದ ಪಾವತಿಸಬಹುದೇ? (naanu kaardininda paavatisabahude?)";
+    incorrectOptions = [
+      "ನಿಮ್ಮ ಬಳಿ ಕಾರ್ಡ್ ಇದೆಯಾ? (nimma bali kaard ideyaa?) - Do you have a card?",
+      "ನಾನು ನಗದಿನಿಂದ ಪಾವತಿಸುತ್ತೇನೆ (naanu nagadininda paavatisuttene) - I'll pay with cash",
+      "ಕಾರ್ಡ್ ಮೆಷಿನ್ ಇದೆಯಾ? (kaard meshin ideyaa?) - Is there a card machine?"
+    ];
+  }
+  else if (question === "How do you say 'It's too expensive.' in Kannada?") {
+    correctOption = "ಇದು ತುಂಬಾ ದುಬಾರಿ (idu tumbaa dubaari)";
+    incorrectOptions = [
+      "ಇದು ಅಗ್ಗವಿದೆ (idu aggavide) - This is cheap",
+      "ಇದರ ಬೆಲೆ ಎಷ್ಟು? (idara bele eshtu?) - How much does this cost?",
+      "ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಬಹುದೇ? (bele kadime maadabahude?) - Can you reduce the price?"
+    ];
+  }
+  else if (question === "How do you say 'Do you have any discounts?' in Kannada?") {
+    correctOption = "ಯಾವುದಾದರೂ ರಿಯಾಯಿತಿ ಇದೆಯಾ? (yaavudaadaru riyaayiti ideyaa?)";
+    incorrectOptions = [
+      "ಬೆಲೆ ಕಡಿಮೆ ಮಾಡಬಹುದಾ? (bele kadime maadabahudaa?) - Can you reduce the price?",
+      "ಇದು ಅಗ್ಗವಿದೆಯಾ? (idu aggavideyaa?) - Is this cheap?",
+      "ರಿಯಾಯಿತಿ ಎಷ್ಟು? (riyaayiti eshtu?) - How much is the discount?"
+    ];
+  }
+  // Directions and Locations
+  else if (question === "How do you say 'Where is the bus station?' in Kannada?") {
+    correctOption = "ಬಸ್ ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (bas nildaana ellide?)";
+    incorrectOptions = [
+      "ರೈಲು ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (railu nildaana ellide?) - Where is the train station?",
+      "ಬಸ್ ಯಾವಾಗ ಬರುತ್ತದೆ? (bas yaavaaga baruttade?) - When will the bus come?",
+      "ಬಸ್ ನಿಲ್ಲುತ್ತದೆಯಾ? (bas nilluttadeyaa?) - Will the bus stop?"
+    ];
+  }
+  else if (question === "How do you say 'Go straight ahead.' in Kannada?") {
+    correctOption = "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi)";
+    incorrectOptions = [
+      "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi) - Turn right",
+      "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi) - Turn left",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question === "How do you say 'Turn right.' in Kannada?") {
+    correctOption = "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi)";
+    incorrectOptions = [
+      "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi) - Turn left",
+      "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi) - Go straight",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question === "How do you say 'Turn left.' in Kannada?") {
+    correctOption = "ಎಡಕ್ಕೆ ತಿರುಗಿ (edakke tirugi)";
+    incorrectOptions = [
+      "ಬಲಕ್ಕೆ ತಿರುಗಿ (balakke tirugi) - Turn right",
+      "ನೇರವಾಗಿ ಹೋಗಿ (neravagi hogi) - Go straight",
+      "ಹಿಂದಕ್ಕೆ ಹೋಗಿ (hindakke hogi) - Go back"
+    ];
+  }
+  else if (question === "How do you say 'It's far from here.' in Kannada?") {
+    correctOption = "ಇಲ್ಲಿಂದ ದೂರವಿದೆ (illinda dooravide)";
+    incorrectOptions = [
+      "ಇಲ್ಲಿಗೆ ಹತ್ತಿರವಿದೆ (illige hattiravide) - It's near here",
+      "ಇಲ್ಲಿಯೇ ಇದೆ (illiye ide) - It's right here",
+      "ಎಷ್ಟು ದೂರವಿದೆ? (eshtu dooravide?) - How far is it?"
+    ];
+  }
+  else if (question === "How do you say 'It's near.' in Kannada?") {
+    correctOption = "ಹತ್ತಿರವಿದೆ (hattiravide)";
+    incorrectOptions = [
+      "ದೂರವಿದೆ (dooravide) - It's far",
+      "ಬಹಳ ದೂರವಿದೆ (bahala dooravide) - It's very far",
+      "ಎಷ್ಟು ಹತ್ತಿರವಿದೆ? (eshtu hattiravide?) - How near is it?"
+    ];
+  }
+  else if (question === "How do you say 'How much time will it take?' in Kannada?") {
+    correctOption = "ಅದಕ್ಕೆ ಎಷ್ಟು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ? (adakke eshtu samaya tegedukoluttade?)";
+    incorrectOptions = [
+      "ಎಷ್ಟು ದೂರವಿದೆ? (eshtu dooravide?) - How far is it?",
+      "ಅದು ಯಾವಾಗ ಮುಗಿಯುತ್ತದೆ? (adu yaavaaga mugiyuttade?) - When will it end?",
+      "ಸಮಯ ಎಷ್ಟಾಗಿದೆ? (samaya eshtaagide?) - What time is it now?"
+    ];
+  }
+  else if (question === "How do you say 'What time is it now?' in Kannada?") {
+    correctOption = "ಈಗ ಎಷ್ಟು ಗಂಟೆ? (iga eshtu gante?)";
+    incorrectOptions = [
+      "ಎಷ್ಟು ಸಮಯವಾಯಿತು? (eshtu samayavaayitu?) - How much time has passed?",
+      "ಗಡಿಯಾರವನ್ನು ನೋಡಿ (gadiyaaravannu nodi) - Look at the clock",
+      "ಎಷ್ಟು ಹೊತ್ತಾಯಿತು? (eshtu hottaayitu?) - How late is it?"
+    ];
+  }
+  else if (question === "How do you say 'It's 2 o'clock.' in Kannada?") {
+    correctOption = "ಎರಡು ಗಂಟೆ (eradu gante)";
+    incorrectOptions = [
+      "ಒಂದು ಗಂಟೆ (ondu gante) - It's 1 o'clock",
+      "ಮೂರು ಗಂಟೆ (mooru gante) - It's 3 o'clock",
+      "ನಾಲ್ಕು ಗಂಟೆ (naalku gante) - It's 4 o'clock"
+    ];
+  }
+  else if (question === "How do you say 'What is the date today?' in Kannada?") {
+    correctOption = "ಇಂದು ಏನು ದಿನಾಂಕ? (indu enu dinaanka?)";
+    incorrectOptions = [
+      "ಇಂದು ಏನು ದಿನ? (indu enu dina?) - What day is today?",
+      "ಇಂದು ಏನು ತಿಂಗಳು? (indu enu tingalu?) - What month is it today?",
+      "ಈ ವರ್ಷ ಎಷ್ಟು? (ee varsha eshtu?) - What year is this?"
+    ];
+  }
+  else if (question === "How do you say 'I'll meet you tomorrow.' in Kannada?") {
+    correctOption = "ನಾನು ನಿಮ್ಮನ್ನು ನಾಳೆ ಭೇಟಿಯಾಗುತ್ತೇನೆ (naanu nimmannu naale bhetiyaaguttene)";
+    incorrectOptions = [
+      "ನಾನು ನಿಮ್ಮನ್ನು ಇಂದು ಭೇಟಿಯಾಗುತ್ತೇನೆ (naanu nimmannu indu bhetiyaaguttene) - I'll meet you today",
+      "ನಾನು ನಿಮ್ಮನ್ನು ನಾಳೆ ಭೇಟಿಯಾಗುವುದಿಲ್ಲ (naanu nimmannu naale bhetiyaaguvudilla) - I won't meet you tomorrow",
+      "ನಾನು ನಾಳೆ ಬರುವುದಿಲ್ಲ (naanu naale baruvudilla) - I won't come tomorrow"
+    ];
+  }
+  else if (question === "How do you say 'Let's meet next week.' in Kannada?") {
+    correctOption = "ನಾವು ಮುಂದಿನ ವಾರ ಭೇಟಿಯಾಗೋಣ (naavu mundina vaara bhetiyaagona)";
+    incorrectOptions = [
+      "ನಾವು ಈ ವಾರ ಭೇಟಿಯಾಗೋಣ (naavu ee vaara bhetiyaagona) - Let's meet this week",
+      "ನಾವು ಮುಂದಿನ ತಿಂಗಳು ಭೇಟಿಯಾಗೋಣ (naavu mundina tingalu bhetiyaagona) - Let's meet next month",
+      "ನಾವು ಮುಂದಿನ ವಾರ ಭೇಟಿಯಾಗುವುದಿಲ್ಲ (naavu mundina vaara bhetiyaaguvudilla) - We won't meet next week"
+    ];
+  }
+  else if (question === "How do you say 'Are you free now?' in Kannada?") {
+    correctOption = "ನಿಮಗೆ ಈಗ ಖಾಲಿ ಇದೆಯಾ? (nimage iga khaali ideyaa?)";
+    incorrectOptions = [
+      "ನಿಮಗೆ ಸಮಯವಿದೆಯಾ? (nimage samayavideyaa?) - Do you have time?",
+      "ನೀವು ಬಿಡುವಾಗಿದ್ದೀರಾ? (neevu biduvaagiddiraa?) - Are you free?",
+      "ನೀವು ಕೆಲಸದಲ್ಲಿ ಇದ್ದೀರಾ? (neevu kelasadalli iddiraa?) - Are you at work?"
+    ];
+  }
+  else if (question === "How do you say 'I'm running late.' in Kannada?") {
+    correctOption = "ನನಗೆ ತಡವಾಗುತ್ತಿದೆ (nanage tadavaaguttide)";
+    incorrectOptions = [
+      "ನಾನು ಬೇಗ ಬರುತ್ತೇನೆ (naanu bega baruttene) - I'll come quickly",
+      "ನನಗೆ ಸಮಯವಿಲ್ಲ (nanage samayavilla) - I don't have time",
+      "ನಾನು ಸರಿಯಾದ ಸಮಯಕ್ಕೆ ಬರುತ್ತೇನೆ (naanu sariyaada samayakke baruttene) - I'll come on time"
+    ];
+  }
+  else if (question === "How do you say 'Wait for five minutes.' in Kannada?") {
+    correctOption = "ಐದು ನಿಮಿಷ ಕಾಯಿರಿ (aidu nimisha kaayiri)";
+    incorrectOptions = [
+      "ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ (ondu nimisha kaayiri) - Wait for one minute",
+      "ಕಾಯಬೇಡಿ (kaayabedi) - Don't wait",
+      "ನಾನು ಬೇಗ ಬರುತ್ತೇನೆ (naanu bega baruttene) - I'm coming quickly"
+    ];
+  }
+  else if (question === "How do you say 'I'll be back soon.' in Kannada?") {
+    correctOption = "ನಾನು ಬೇಗನೆ ಹಿಂತಿರುಗಿ ಬರುತ್ತೇನೆ (naanu begane hintirugi baruttene)";
+    incorrectOptions = [
+      "ನಾನು ವಾಪಸ್ ಬರುವುದಿಲ್ಲ (naanu vaapas baruvudilla) - I won't come back",
+      "ನಾನು ತಡವಾಗಿ ಬರುತ್ತೇನೆ (naanu tadavaagi baruttene) - I'll come late",
+      "ನೀವು ಇಲ್ಲಿಯೇ ಇರಿ (neevu illiye iri) - You stay here"
+    ];
+  }
+  else if (question === "How do you say 'Let's meet tomorrow.' in Kannada?") {
+    correctOption = "ನಾವು ನಾಳೆ ಭೇಟಿಯಾಗೋಣ (naavu naale bhetiyaagona)";
+    incorrectOptions = [
+      "ನಾವು ಇಂದು ಭೇಟಿಯಾಗೋಣ (naavu indu bhetiyaagona) - Let's meet today",
+      "ನಾವು ನಾಳೆ ಭೇಟಿಯಾಗುವುದಿಲ್ಲ (naavu naale bhetiyaaguvudilla) - We won't meet tomorrow",
+      "ನಾನು ನಾಳೆ ಬರುವುದಿಲ್ಲ (naanu naale baruvudilla) - I won't come tomorrow"
+    ];
+  }
+  else if (question === "How do you say 'Where is the train station?' in Kannada?") {
+    correctOption = "ರೈಲು ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (railu nildaana ellide?)";
+    incorrectOptions = [
+      "ಬಸ್ ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (bas nildaana ellide?) - Where is the bus station?",
+      "ರೈಲು ಯಾವಾಗ ಬರುತ್ತದೆ? (railu yaavaaga baruttade?) - When will the train come?",
+      "ರೈಲು ನಿಲ್ಲುತ್ತದೆಯಾ? (railu nilluttadeyaa?) - Will the train stop?"
+    ];
+  }
+  else if (question === "How do you say 'When does the bus leave?' in Kannada?") {
+    correctOption = "ಬಸ್ ಯಾವಾಗ ಹೊರಡುತ್ತದೆ? (bas yaavaaga horaduttade?)";
+    incorrectOptions = [
+      "ಬಸ್ ಯಾವಾಗ ಬರುತ್ತದೆ? (bas yaavaaga baruttade?) - When does the bus come?",
+      "ಬಸ್ ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತದೆ? (bas ellige hoguttade?) - Where does the bus go?",
+      "ಬಸ್ ನಿಲ್ಲುತ್ತದೆಯಾ? (bas nilluttadeyaa?) - Will the bus stop?"
+    ];
+  }
+  else if (question === "How do you say 'How much is the ticket?' in Kannada?") {
+    correctOption = "ಟಿಕೇಟ್ ಎಷ್ಟು? (tiket eshtu?)";
+    incorrectOptions = [
+      "ಟಿಕೇಟ್ ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ? (tiket elli siguttade?) - Where can I get the ticket?",
+      "ಟಿಕೇಟ್ ಇದೆಯಾ? (tiket ideyaa?) - Is there a ticket?",
+      "ಟಿಕೇಟ್ ಬೇಕಾ? (tiket bekaa?) - Do you need a ticket?"
+    ];
+  }
+  else if (question === "How do you say 'Is this the right bus?' in Kannada?") {
+    correctOption = "ಇದು ಸರಿಯಾದ ಬಸ್ಸೇ? (idu sariyaada basse?)";
+    incorrectOptions = [
+      "ಈ ಬಸ್ ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತದೆ? (ee bas ellige hoguttade?) - Where does this bus go?",
+      "ಬಸ್ ಬರುತ್ತಿದೆಯಾ? (bas baruttideyaa?) - Is the bus coming?",
+      "ಮುಂದಿನ ಬಸ್ ಯಾವಾಗ? (mundina bas yaavaaga?) - When is the next bus?"
+    ];
+  }
+  else if (question === "How do you say 'Please stop here.' in Kannada?") {
+    correctOption = "ದಯವಿಟ್ಟು ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ (dayavittu illi nillisi)";
+    incorrectOptions = [
+      "ಮುಂದೆ ಹೋಗಿ (munde hogi) - Go ahead",
+      "ಇಲ್ಲಿ ಇಳಿಯಬೇಕು (illi iliyabeku) - I need to get off here",
+      "ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ? (nildaana ellide?) - Where is the station?"
+    ];
+  }
+  else if (question === "How do you say 'I want to go to the market.' in Kannada?") {
+    correctOption = "ನಾನು ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗಬೇಕು (naanu maarukattege hogabeku)";
+    incorrectOptions = [
+      "ಮಾರುಕಟ್ಟೆ ಎಲ್ಲಿದೆ? (maarukatte ellide?) - Where is the market?",
+      "ಮಾರುಕಟ್ಟೆ ಯಾವಾಗ ತೆರೆಯುತ್ತದೆ? (maarukatte yaavaaga tereyuttade?) - When does the market open?",
+      "ಮಾರುಕಟ್ಟೆ ಬಂದಿದೆಯಾ? (maarukatte bandideyaa?) - Has the market arrived?"
+    ];
+  }
+  else if (question === "How do you say 'How far is it?' in Kannada?") {
+    correctOption = "ಅದು ಎಷ್ಟು ದೂರವಿದೆ? (adu eshtu dooravide?)";
+    incorrectOptions = [
+      "ಅದು ಹತ್ತಿರವಿದೆಯಾ? (adu hattiravideya?) - Is it nearby?",
+      "ಎಷ್ಟು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ? (eshtu samaya tegedukoluttade?) - How much time will it take?",
+      "ಅದು ಎಲ್ಲಿದೆ? (adu ellide?) - Where is it?"
+    ];
+  }
+  else if (question === "How do you say 'Call a taxi, please.' in Kannada?") {
+    correctOption = "ದಯವಿಟ್ಟು ಟ್ಯಾಕ್ಸಿ ಕರೆಯಿರಿ (dayavittu taxi kareyiri)";
+    incorrectOptions = [
+      "ಟ್ಯಾಕ್ಸಿ ಎಲ್ಲಿದೆ? (taxi ellide?) - Where is the taxi?",
+      "ಟ್ಯಾಕ್ಸಿ ಬೇಕಾ? (taxi bekaa?) - Do you need a taxi?",
+      "ಟ್ಯಾಕ್ಸಿ ಎಷ್ಟು? (taxi eshtu?) - How much is the taxi?"
+    ];
+  }
+  else if (question === "How do you say 'Is there a direct bus?' in Kannada?") {
+    correctOption = "ನೇರ ಬಸ್ ಇದೆಯಾ? (nera bas ideyaa?)";
+    incorrectOptions = [
+      "ಬಸ್ ಬದಲಾಯಿಸಬೇಕೇ? (bas badalaayisabeke?) - Do I need to change the bus?",
+      "ಬಸ್ ಎಲ್ಲಿದೆ? (bas ellide?) - Where is the bus?",
+      "ಬಸ್ ಯಾವಾಗ ಬರುತ್ತದೆ? (bas yaavaaga baruttade?) - When will the bus come?"
+    ];
+  }
+  else if (question === "How do you say 'I need to change buses.' in Kannada?") {
+    correctOption = "ನಾನು ಬಸ್ ಬದಲಾಯಿಸಬೇಕು (naanu bas badalaayisabeku)";
+    incorrectOptions = [
+      "ಇದು ನೇರ ಬಸ್ಸೇ? (idu nera basse?) - Is this a direct bus?",
+      "ಬಸ್ ಎಲ್ಲಿ ನಿಲ್ಲುತ್ತದೆ? (bas elli nilluttade?) - Where does the bus stop?",
+      "ಮುಂದಿನ ಬಸ್ ಯಾವಾಗ? (mundina bas yaavaaga?) - When is the next bus?"
+    ];
+  }
+  else if (question === "How do you say 'I don't feel well.' in Kannada?") {
+    correctOption = "ನನಗೆ ಆರೋಗ್ಯ ಸರಿಯಿಲ್ಲ (nanage aarogya sariyilla)";
+    incorrectOptions = [
+      "ನನಗೆ ಜ್ವರ ಇದೆ (nanage jvara ide) - I have a fever",
+      "ನನಗೆ ನೋವಾಗುತ್ತಿದೆ (nanage novaaguttide) - I'm in pain",
+      "ನನಗೆ ಆರೋಗ್ಯ ಚೆನ್ನಾಗಿದೆ (nanage aarogya chennaagide) - I am feeling well"
+    ];
+  }
+  else if (question === "How do you say 'I need a doctor.' in Kannada?") {
+    correctOption = "ನನಗೆ ವೈದ್ಯರ ಅಗತ್ಯವಿದೆ (nanage vaidyara agatyavide)";
+    incorrectOptions = [
+      "ವೈದ್ಯರು ಎಲ್ಲಿದ್ದಾರೆ? (vaidyaru elliddaare?) - Where is the doctor?",
+      "ವೈದ್ಯರು ಬರುತ್ತಾರೆಯೇ? (vaidyaru baruttaareye?) - Will the doctor come?",
+      "ವೈದ್ಯರು ಇಲ್ಲವೇ? (vaidyaru illave?) - Is there no doctor?"
+    ];
+  }
+  else if (question === "How do you say 'I need to change buses.' in Kannada?") {
+    correctOption = "ನಾನು ಬಸ್ ಬದಲಾಯಿಸಬೇಕು (naanu bas badalaayisabeku)";
+    incorrectOptions = [
+      "ಇದು ನೇರ ಬಸ್ಸೇ? (idu nera basse?) - Is this a direct bus?",
+      "ಬಸ್ ಎಲ್ಲಿ ನಿಲ್ಲುತ್ತದೆ? (bas elli nilluttade?) - Where does the bus stop?",
+      "ಮುಂದಿನ ಬಸ್ ಯಾವಾಗ? (mundina bas yaavaaga?) - When is the next bus?"
+    ];
+  }
+  else if (question === "How do you say 'I need to change buses.' in Kannada?") {
+    correctOption = "ನಾನು ಬಸ್ ಬದಲಾಯಿಸಬೇಕು (naanu bas badalaayisabeku)";
+    incorrectOptions = [
+      "ಇದು ನೇರ ಬಸ್ಸೇ? (idu nera basse?) - Is this a direct bus?",
+      "ಬಸ್ ಎಲ್ಲಿ ನಿಲ್ಲುತ್ತದೆ? (bas elli nilluttade?) - Where does the bus stop?",
+      "ಮುಂದಿನ ಬಸ್ ಯಾವಾಗ? (mundina bas yaavaaga?) - When is the next bus?"
+    ];
+  }
+  else if (question === "How do you say 'Where is the hospital?' in Kannada?") {
+    correctOption = "ಆಸ್ಪತ್ರೆ ಎಲ್ಲಿದೆ? (aspatre ellide?)";
+    incorrectOptions = [
+      "ಡಾಕ್ಟರ್ ಎಲ್ಲಿದ್ದಾರೆ? (doctor elliddaare?) - Where is the doctor?",
+      "ಔಷಧಿ ಅಂಗಡಿ ಎಲ್ಲಿದೆ? (aushadhi angadi ellide?) - Where is the pharmacy?",
+      "ಆಸ್ಪತ್ರೆಗೆ ಹೇಗೆ ಹೋಗಬೇಕು? (aspatrege hege hogabeku?) - How to go to the hospital?"
+    ];
+  }
+  else if (question === "How do you say 'I have a headache.' in Kannada?") {
+    correctOption = "ನನಗೆ ತಲೆನೋವು ಇದೆ (nanage nenenoovu ide)";
+    incorrectOptions = [
+      "ನನಗೆ ಜ್ವರ ಇದೆ (nanage jvara ide) - I have a fever",
+      "ನನಗೆ ಉಸಿರಾಟದ ತೊಂದರೆ ಇದೆ (nanage usiraatada tondare ide) - I have breathing difficulty",
+      "ನನಗೆ ಕೆಮ್ಮು ಇದೆ (nanage kemmu ide) - I have a cough"
+    ];
+  }
+  else if (question === "How do you say 'Call an ambulance.' in Kannada?") {
+    correctOption = "ಆಂಬುಲೆನ್ಸ್ ಕರೆಯಿರಿ (ambulens kareyiri)";
+    incorrectOptions = [
+      "ಡಾಕ್ಟರ್ ಅನ್ನು ಕರೆಯಿರಿ (doctor annu kareyiri) - Call a doctor",
+      "ಪೊಲೀಸ್ ಕರೆಯಿರಿ (police kareyiri) - Call the police",
+      "ತುರ್ತು ಸಹಾಯ ಬೇಕು (turtu sahaaya beku) - Need emergency help"
+    ];
+  }
+  else if (question === "How do you say 'I need medicine.' in Kannada?") {
+    correctOption = "ನನಗೆ ಔಷಧಿ ಬೇಕು (nanage aushadhi beku)";
+    incorrectOptions = [
+      "ನನಗೆ ಡಾಕ್ಟರ್ ಬೇಕು (nanage doctor beku) - I need a doctor",
+      "ನನಗೆ ನೀರು ಬೇಕು (nanage neeru beku) - I need water",
+      "ನನಗೆ ವಿಶ್ರಾಂತಿ ಬೇಕು (nanage vishraanti beku) - I need rest"
+    ];
+  }
+  else if (question === "How do you say 'Where is the pharmacy?' in Kannada?") {
+    correctOption = "ಔಷಧಿ ಅಂಗಡಿ ಎಲ್ಲಿದೆ? (aushadhi angadi ellide?)";
+    incorrectOptions = [
+      "ಆಸ್ಪತ್ರೆ ಎಲ್ಲಿದೆ? (aspatre ellide?) - Where is the hospital?",
+      "ಡಾಕ್ಟರ್ ಎಲ್ಲಿದ್ದಾರೆ? (doctor elliddaare?) - Where is the doctor?",
+      "ಔಷಧಿ ಇದೆಯೇ? (aushadhi ideye?) - Do you have medicine?"
+    ];
+  }
+  else if (question === "How do you say 'I'm allergic to this.' in Kannada?") {
+    correctOption = "ನನಗೆ ಇದರ ಅಲರ್ಜಿ ಇದೆ (nanage idara allerji ide)";
+    incorrectOptions = [
+      "ನನಗೆ ಇದು ಇಷ್ಟವಿಲ್ಲ (nanage idu ishtavilla) - I don't like this",
+      "ಇದು ನನಗೆ ಒಗ್ಗುವುದಿಲ್ಲ (idu nanage ogguvudilla) - This doesn't suit me",
+      "ನಾನು ಇದನ್ನು ತೆಗೆದುಕೊಳ್ಳಲಾರೆ (naanu idannu tegedukollaare) - I cannot take this"
+    ];
+  }
+  else if (question === "How do you say 'Help me, please.' in Kannada?") {
+    correctOption = "ದಯವಿಟ್ಟು ನನಗೆ ಸಹಾಯ ಮಾಡಿ (dayavittu nanage sahaaya maadi)";
+    incorrectOptions = [
+      "ನನಗೆ ಸಹಾಯ ಬೇಕು (nanage sahaaya beku) - I need help",
+      "ನನಗೆ ಸಹಾಯ ಮಾಡುವಿರಾ? (nanage sahaaya maaduvira?) - Will you help me?",
+      "ದಯವಿಟ್ಟು ಇಲ್ಲಿಗೆ ಬನ್ನಿ (dayavittu illige banni) - Please come here"
+    ];
+  }
+  else if (question === "How do you say 'I'm feeling better now.' in Kannada?") {
+    correctOption = "ನನಗೆ ಈಗ ಚೆನ್ನಾಗಿದೆ (nanage iga chennaagide)";
+    incorrectOptions = [
+      "ನನಗೆ ಇನ್ನೂ ಹುಷಾರಿಲ್ಲ (nanage innu husharilla) - I'm still not well",
+      "ನಾನು ಚೇತರಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇನೆ (naanu chetarisikolluttiddene) - I'm recovering",
+      "ನನಗೆ ವಿಶ್ರಾಂತಿ ಬೇಕು (nanage vishraanti beku) - I need rest"
+    ];
+  }
+  else if (question === "How do you say 'Are you free this weekend?' in Kannada?") {
+    correctOption = "ಈ ವಾರಾಂತ್ಯದಲ್ಲಿ ನಿಮಗೆ ಬಿಡುವಿದೆಯೇ? (ee vaaraantyadalli nimage biduvideye?)";
+    incorrectOptions = [
+      "ನೀವು ಈ ವಾರಾಂತ್ಯದಲ್ಲಿ ಏನು ಮಾಡುತ್ತೀರಿ? (neevu ee vaaraantyadalli enu maadutteeri?) - What are you doing this weekend?",
+      "ಈ ವಾರಾಂತ್ಯ ನಮಗೆ ಸಿಗುವಿರಾ? (ee vaaraantya namage siguvira?) - Will you meet us this weekend?",
+      "ವಾರಾಂತ್ಯದಲ್ಲಿ ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀರಿ? (vaaraantyadalli ellige hogutteeri?) - Where are you going on the weekend?"
+    ];
+  }
+  else if (question === "How do you say 'Would you like to join us?' in Kannada?") {
+    correctOption = "ನಮ್ಮೊಂದಿಗೆ ಸೇರಲು ಇಷ್ಟವಿದೆಯೇ? (nammondige seralu ishtavideye?)";
+    incorrectOptions = [
+      "ನೀವು ಬರುವಿರಾ? (neevu baruvira?) - Will you come?",
+      "ನೀವು ನಮ್ಮೊಂದಿಗೆ ಬರುತ್ತೀರಾ? (neevu nammondige barutteeraa?) - Are you coming with us?",
+      "ನಿಮಗೆ ಜೊತೆಯಾಗಲು ಸಾಧ್ಯವೇ? (nimage joteyaagalu saadhyave?) - Is it possible for you to accompany us?"
+    ];
+  }
+  else if (question === "How do you say 'What time should we meet?' in Kannada?") {
+    correctOption = "ನಾವು ಯಾವ ಸಮಯದಲ್ಲಿ ಭೇಟಿಯಾಗಬೇಕು? (naavu yaava samayadalli bhetiyaagabeku?)";
+    incorrectOptions = [
+      "ನಾವು ಎಲ್ಲಿ ಭೇಟಿಯಾಗಬೇಕು? (naavu elli bhetiyaagabeku?) - Where should we meet?",
+      "ನಾವು ಯಾವಾಗ ಭೇಟಿಯಾಗಬೇಕು? (naavu yaavaaga bhetiyaagabeku?) - When should we meet?",
+      "ನಿಮಗೆ ಯಾವ ಸಮಯ ಅನುಕೂಲ? (nimage yaava samaya anukoola?) - What time is convenient for you?"
+    ];
+  }
+  else if (question === "How do you say 'I'll call you later.' in Kannada?") {
+    correctOption = "ನಾನು ನಿಮಗೆ ನಂತರ ಕರೆ ಮಾಡುತ್ತೇನೆ (naanu nimage nantara kare maaduttene)";
+    incorrectOptions = [
+      "ನನಗೆ ಕರೆ ಮಾಡಿ (nanage kare maadi) - Call me",
+      "ನಾನು ನಿಮಗೆ ಮತ್ತೆ ಕರೆ ಮಾಡುವುದಿಲ್ಲ (naanu nimage matte kare maaduvudilla) - I won't call you again",
+      "ನೀವು ನನಗೆ ಕರೆ ಮಾಡಿ (neevu nanage kare maadi) - You call me"
+    ];
+  }
+  else if (question === "How do you say 'Let's go to a restaurant.' in Kannada?") {
+    correctOption = "ನಾವು ಉಪಾಹಾರ ಗೃಹಕ್ಕೆ ಹೋಗೋಣ (naavu upahaara gruhakke hogona)";
+    incorrectOptions = [
+      "ನೀವು ಹೊರಗೆ ಊಟ ಮಾಡುತ್ತೀರಾ? (neevu horage oota maadutteeraa?) - Do you eat outside?",
+      "ನಾನು ಊಟಕ್ಕೆ ಹೋಗುತ್ತೇನೆ (naanu ootakke hoguttene) - I'm going for food",
+      "ನಿಮಗೆ ಹಸಿವಾಗಿದೆಯೇ? (nimage hasivaagideye?) - Are you hungry?"
+    ];
+  }
+  else if (question === "How do you say 'Do you have any plans?' in Kannada?") {
+    correctOption = "ನಿಮಗೆ ಯಾವುದಾದರೂ ಯೋಜನೆಗಳಿವೆಯೇ? (nimage yaavudaadaru yojanelaiveye?)";
+    incorrectOptions = [
+      "ನೀವು ಏನು ಮಾಡುತ್ತಿದ್ದೀರಿ? (neevu enu maaduttiddeeri?) - What are you doing?",
+      "ನಿಮಗೆ ಸಮಯವಿದೆಯೇ? (nimage samayavideye?) - Do you have time?",
+      "ನಾವು ಭೇಟಿಯಾಗಬಹುದೇ? (naavu bhetiyaagabahudu?) - Can we meet?"
+    ];
+  }
+  else if (question === "How do you say 'I'm busy today.' in Kannada?") {
+    correctOption = "ನಾನು ಇಂದು ಕಾರ್ಯಮಗ್ನನಾಗಿದ್ದೇನೆ (naanu indu kaaryamagnanagiddene)";
+    incorrectOptions = [
+      "ನನಗೆ ಇಂದು ಸಮಯವಿಲ್ಲ (nanage indu samayavilla) - I don't have time today",
+      "ನಾನು ಇಂದು ಖಾಲಿ ಇದ್ದೇನೆ (naanu indu khaali iddene) - I am free today",
+      "ನಾನು ನಾಳೆ ಬರುತ್ತೇನೆ (naanu naale baruttene) - I'll come tomorrow"
+    ];
+  }
+  else if (question === "How do you say 'I'll be there on time.' in Kannada?") {
+    correctOption = "ನಾನು ಸರಿಯಾದ ಸಮಯಕ್ಕೆ ಅಲ್ಲಿರುತ್ತೇನೆ (naanu sariyaada samayakke alliruttene)";
+    incorrectOptions = [
+      "ನನಗೆ ತಡವಾಗುತ್ತದೆ (nanage tadavaaguttade) - I'll be late",
+      "ನಾನು ಬರುವುದಿಲ್ಲ (naanu baruvudilla) - I won't come",
+      "ನೀವು ನನಗಾಗಿ ಕಾಯಬೇಕು (neevu nanagaagi kaayabeku) - You need to wait for me"
+    ];
+  }
+  else if (question === "How do you say 'See you soon.' in Kannada?") {
+    correctOption = "ಶೀಘ್ರದಲ್ಲೇ ಸಿಗೋಣ (sheeghradallee sigona)";
+    incorrectOptions = [
+      "ಮತ್ತೆ ಸಿಗೋಣ (matte sigona) - See you again",
+      "ನಾಳೆ ಸಿಗೋಣ (naale sigona) - See you tomorrow",
+      "ಹೋಗಿ ಬರುತ್ತೇನೆ (hogi baruttene) - I'll go and come back"
+    ];
+  }
+  else if (question === "How do you say 'Can you show me the way?' in Kannada?") {
+    correctOption = "ನೀವು ನನಗೆ ದಾರಿ ತೋರಿಸಬಹುದೇ? (neevu nanage daari torisabahudeye?)";
+    incorrectOptions = [
+      "ದಾರಿ ಎಲ್ಲಿದೆ? (daari ellide?) - Where is the way?",
+      "ನಾನು ಹೇಗೆ ಹೋಗಬೇಕು? (naanu hege hogabeku?) - How should I go?",
+      "ಇದು ಸರಿಯಾದ ದಾರಿಯೇ? (idu sariyaada daariye?) - Is this the right way?"
+    ];
+  }
+  else if (question === "How do you say 'I am lost.' in Kannada?") {
+    correctOption = "ನಾನು ದಾರಿ ತಪ್ಪಿದ್ದೇನೆ (naanu daari tappiddene)";
+    incorrectOptions = [
+      "ನನಗೆ ದಾರಿ ಗೊತ್ತಿಲ್ಲ (nanage daari gottilla) - I don't know the way",
+      "ನಾನು ಎಲ್ಲಿದ್ದೇನೆ? (naanu elliddene?) - Where am I?",
+      "ದಯವಿಟ್ಟು ಸಹಾಯ ಮಾಡಿ (dayavittu sahaaya maadi) - Please help me"
+    ];
+  }
+  else if (question === "How do you say 'Is it far?' in Kannada?") {
+    correctOption = "ಅದು ದೂರವಿದೆಯೇ? (adu dooravideye?)";
+    incorrectOptions = [
+      "ಎಷ್ಟು ದೂರವಿದೆ? (eshtu dooravide?) - How far is it?",
+      "ಹತ್ತಿರವಿದೆಯೇ? (hattiravideye?) - Is it near?",
+      "ನಡೆದು ಹೋಗಬಹುದೇ? (nadedu hogabahudeye?) - Can I walk there?"
+    ];
+  }
+  // Default case - if no specific handler is found, provide random options
   else {
     // Default to random options if no specific case matches
     console.log(`No specific handler for question: "${question}"`);
